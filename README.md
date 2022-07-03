@@ -214,6 +214,6 @@ nginx
 
 ## 交流群
 
-QQ交流群：648742271 [点击加入](https://jq.qq.com/?_wv=1027&k=45H977HM)
+QQ交流群：648742271 [点击加入](https://qm.qq.com/cgi-bin/qm/qr?k=aa68ZL18bYXhHY5QxO8HXXJ4nOwsAye1&authKey=hlRmVne5sjtAvJa2Nt6x1/hhke1/CSF+YY9iY4UMRwf67Ubv2k4v53RhoNCGC2pS&noverify=0)
 
 备注：slcp，邀您加入群聊
