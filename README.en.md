@@ -1,7 +1,6 @@
 # SlcpBlog
 🌍
 *[English](README-en.md) ∙ [简体中文](README.md)*
-
 A blog system based on`SpringBoot` and `vue`
 
 ## Main Features
