@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>注册成功</title>
+    <link href="../static/images/favicon.ico" th:href="@{/images/me.jpg}" rel="icon" type="image/x-ico">
+    <meta name="keywords" content="注册成功">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+    <link rel="stylesheet" href="../static/common/common.css" th:href="@{/common/common.css}">
+</head>
+<body  style="background-color:#ECECEC; padding: 35px;">
+<div>
+    <table cellpadding="0" align="center"
+           style="width: 600px; margin: 0px auto; text-align: left; position: relative; border-top-left-radius: 5px; border-top-right-radius: 5px; border-bottom-right-radius: 5px; border-bottom-left-radius: 5px; font-size: 14px; font-family:微软雅黑, 黑体; line-height: 1.5; box-shadow: rgb(153, 153, 153) 0px 0px 5px; border-collapse: collapse; background-position: initial initial; background-repeat: initial initial;background:#fff;">
+        <tbody>
+        <tr>
+            <th valign="middle"
+                style="height: 25px; line-height: 25px; padding: 15px 35px; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #42a3d3; background-color: #49bcff; border-top-left-radius: 5px; border-top-right-radius: 5px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;">
+                <font face="微软雅黑" size="5" style="color: rgb(255, 255, 255); ">注册成功! （Slcp小栈）</font>
+            </th>
+        </tr>
+        <tr>
+            <td>
+                <div style="padding:25px 35px 40px; background-color:#fff;">
+                    <h2 style="margin: 5px 0px; ">
+                        <font color="#333333" style="line-height: 20px; ">
+                            <font style="line-height: 22px; " size="4">
+                                亲爱的 <span th:text="${registerUser.username}">小Slcp</span></font>
+                        </font>
+                    </h2>
+                    <p>首先感谢您加入Slcpの时光屋！下面是您的账号信息<br>
+<!--                        您的账号：<b><span th:text="${registerUser.username}">Slcp </span></b><br>-->
+                        您的账号：<b th:text="${registerUser.username}">Slcp</b><br>
+                        您的密码：<b><span th:text="${registerUser.password}">123456</span></b><br>
+                        您注册时的日期：<b>[[${#dates.format(new java.util.Date().getTime(), 'yyyy-MM-dd hh:mm:ss')}]]</b><br>
+                        您的邮箱：<a><b><span th:text="${registerUser.email}"></span>123@**.com</b></a><br>
+                        当您在使用本网站时，遵守当地法律法规。<br>
+                        如果您有什么疑问可以联系管理员，Email: 1305366530@qq.com</p>
+                    <p align="right"><b><a href="#" th:href="@{/userLoginAndRegister/userLogin}">立即登录</a></b></p>
+                    <p align="right" th:text="${#dates.format(new java.util.Date().getTime(), 'yyyy-MM-dd hh:mm:ss')}">2020年08月17号 23时33分20秒</p>
+                    <div style="width:700px;margin:0 auto;">
+                        <div style="padding:10px 10px 0;border-top:1px solid #ccc;color:#747474;margin-bottom:20px;line-height:1.3em;font-size:12px;">
+                           <!-- <p>此为系统邮件，请勿回复<br>
+                                请保管好您的邮箱，避免账号被他人盗用
+                            </p>
+                            <p>©Slcp</p>-->
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+
+</html>
+

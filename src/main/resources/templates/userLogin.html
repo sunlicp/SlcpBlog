@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>用户登录</title>
+    <meta name="keywords" content="用户登录">
+    <meta name="content" content="用户登录">
+    <link href="../static/images/favicon.ico" th:href="@{/images/me.jpg}" rel="icon" type="image/x-ico">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+    <link type="text/css" rel="stylesheet" href="../static/css/login.css" th:href="@{/css/login.css}">
+    <script type="text/javascript" src="../static/js/jquery.min.js" th:src="@{/js/jquery.min.js}"></script>
+    <link rel="stylesheet" href="../static/common/common.css" th:href="@{/common/common.css}">
+</head>
+<body class="login_bj">
+
+<div class="zhuce_body">
+    <div class="zhuce_kong login_kuang">
+        <div class="zc">
+            <div class="bj_bai">
+                <h3>登录</h3>
+                <form class="from" th:action="@{/userLoginAndRegister/userLogin}" method="post">
+                    <input name="username" type="text" class="kuang_txt" placeholder="用户名/邮箱">
+                    <input name="password" type="password" class="kuang_txt" placeholder="密码">
+                    <div>
+                        <a href="#" th:href="@{/userLoginAndRegister/forgetPassword}">忘记密码？</a>
+                    </div>
+                    <input name="登录" type="submit" class="btn_zhuce" value="登录">
+                </form>
+                <span id="failLogin" th:unless="${#strings.isEmpty(loginMsg)}" th:text="${loginMsg}"
+                      style="color: red"></span>
+            </div>
+            <div class="bj_right">
+                <p>使用以下账号直接登录</p>
+                <!--                <a class="zhuce_qq" href="/auth" th:href="@{/auth}" onclick="toLogin()">QQ登录</a>-->
+<!--                <a id="qqLoginBtn" class="zhuce_qq" href="#">QQ登录</a>-->
+                <a  class="zhuce_qq" href="/qqLogin" th:href="@{/qqLogin}">QQ登录</a>
+              <!--  <a href="#" class="zhuce_wb">微博登录</a>
+                <a href="#" class="zhuce_wx">微信登录</a>-->
+                <p>
+                    <a href="#" th:href="@{/userLoginAndRegister/register}">立即注册</a>
+                    <a href="#" th:href="@{/admin/}" style="margin: 10px">管理员登录</a>
+                </p>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+</body>
+<!--<script>
+    $('.form').form({
+        fields: {
+            username: {
+                identifier: 'username',
+                rules: [{
+                    type: 'empty',
+                    prompt: '请输入用户名'
+                }]
+            },
+            password: {
+                identifier: 'password',
+                rules: [{
+                    type: 'empty',
+                    prompt: '请输入密码'
+                }]
+            }
+        }
+    });
+
+
+
+
+/*
+function toLogin()
+{
+//以下为按钮点击事件的逻辑。注意这里要重新打开窗口
+//否则后面跳转到QQ登录，授权页面时会直接缩小当前浏览器的窗口，而不是打开新窗口
+var A=window.open("oauth/index.php","TencentLogin",
+"width=450,height=320,menubar=0,scrollbars=1,resizable=1,status=1,titlebar=0,toolbar=0,location=1");
+}
+
+
+function toLogin() {
+$.ajax({
+url: "/auth",
+type: "GET",
+success:function (url) {
+window.open(url);
+}
+}
+)
+}*/
+</script>-->
+
+<!--<script
+        type = "text/javascript"
+        charset = "utf-8"
+        src = "http://connect.qq.com/qc_jssdk.js"
+        data-appid = "101920528"
+        data-redirecturi = "http://www.qingfenginn.top/index.html"
+></script>
+
+<script type="text/javascript">
+    QC.Login({
+        btnId:"qqLoginBtn"	//插入按钮的节点id
+    });
+</script>
+
+<script type="text/javascript"
+        src="//connect.qq.com/qc_jssdk.js" charset="utf-8" data-callback="true">
+    // QC.api(api, paras, fmt, method)
+    QC.api("https://graph.qq.com/user/get_user_info","access_token=YOUR_ACCESS_TOKEN&oauth_consumer_key=YOUR_APP_ID&openid=YOUR_OPENID");
+</script>-->
+
+<!--
+<script type="text/javascript">
+    //调用QC.Login方法，指定btnId参数将按钮绑定在容器节点中
+    QC.Login({
+            //btnId：插入按钮的节点id，必选
+            btnId:"MyqqLoginBtn",
+            //用户需要确认的scope授权项，可选，默认all
+            scope:"all",
+            //按钮尺寸，可用值[A_XL| A_L| A_M| A_S|  B_M| B_S| C_S]，可选，默认B_S
+            // size: "B_S"
+        }, function(reqData, opts){//登录成功
+
+            console.log(reqData);
+            //根据返回数据，更换按钮显示状态方法
+            var dom = document.getElementById(opts['btnId']),
+                _logoutTemplate=[
+                    //头像
+                    '<span><img src="{figureurl}" class="{size_key}"/></span>',
+                    //昵称
+                    '<span>{nickname}</span>',
+                    //退出
+                    '<span><a href="javascript:QC.Login.signOut();">退出</a></span>'
+                ].join("");
+            dom && (dom.innerHTML = QC.String.format(_logoutTemplate, {
+                nickname : QC.String.escHTML(reqData.nickname), //做xss过滤
+                figureurl : reqData.figureurl
+            }));
+        }, function(opts){//注销成功
+            alert('QQ登录 注销成功');
+        }
+    );
+</script>
+-->
+</html>

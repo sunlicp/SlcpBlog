@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.slcp.devops.mapper.ArchiveMapper">
+
+    <!--前端博客首页查询-->
+    <resultMap id="archiveBlog" type="com.slcp.devops.dto.ArchiveDTO">
+        <collection property="data" javaType="java.util.ArrayList" ofType="com.slcp.devops.dto.FirstPageDTO" select="com.slcp.devops.mapper.BlogMapper.getBlogsByTime" column="time">
+        </collection>
+    </resultMap>
+   <select id="getAll" resultMap="archiveBlog">
+       select DATE_FORMAT(b.create_time,'%Y-%m') AS `time`,b.create_time createTime
+       from t_blog b
+       GROUP BY time
+       ORDER BY time DESC
+   </select>
+    <select id="getYear" resultType="java.lang.String">
+        select YEAR(b.create_time) `year`
+        from t_blog b
+        GROUP BY year
+        ORDER BY year DESC
+    </select>
+
+    <select id="getMon" resultType="java.util.Map">
+        SELECT
+        t.`mon`,
+        IFNULL( b.count, 0 ) `count`
+        FROM
+        (
+        SELECT
+        @s := @s + 1 AS `index`,
+        DATE_FORMAT( DATE_SUB( CURDATE(), INTERVAL @s MONTH ), '%Y-%m' ) AS `mon`
+        FROM
+        mysql.help_topic,
+        ( SELECT @s := - 1 ) temp
+        WHERE
+        @s &lt; 11
+        ) t
+        LEFT JOIN (
+        SELECT
+        DATE_FORMAT( b.create_time, '%Y-%m' ) time,
+        COUNT(
+        DATE_FORMAT( b.create_time, '%Y-%m' )) `count`
+        FROM
+        t_blog b
+        GROUP BY
+        time
+        ) b ON t.mon = b.time
+        ORDER BY
+        t.mon ASC
+    </select>
+</mapper>
+
+

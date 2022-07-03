@@ -1,0 +1,44 @@
+version: "1"
+
+services:
+  microService:
+    image: myblog:1.0
+    container_name: myblog
+    ports:
+      - "8080:8080"
+    volumes:
+      - /app/microService:/data
+    networks:
+      - blog_net
+    depends_on:
+      - redis
+      - mysql
+
+  redis:
+    image: redis:6.0.8
+    ports:
+      - "6379:6379"
+    volumes:
+      - /app/redis/redis.conf:/etc/redis/redis.conf
+      - /app/redis/data:/data
+    networks:
+      - blog_net
+    command: redis-server /etc/redis/redis.conf
+
+  mysql:
+    image: mysql:5.7
+    environment:
+      MYSQL_ROOT_PASSWORD: '251314@sxw'
+      MYSQL_ALLOW_EMPTY_PASSWORD: 'no'
+    ports:
+      - "3306:3306"
+    volumes:
+      - /app/mysql/db:/var/lib/mysql
+      - /app/mysql/conf/my.cnf:/etc/my.cnf
+      - /app/mysql/init:/docker-entrypoint-initdb.d
+    networks:
+      - blog_net
+    command: --default-authentication-plugin=mysql_native_password #解决外部无法访问
+
+networks:
+  blog_net:

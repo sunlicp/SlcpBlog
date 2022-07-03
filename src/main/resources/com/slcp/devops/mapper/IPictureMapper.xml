@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.slcp.devops.mapper.IPictureMapper">
+    <!--上传新增-->
+    <insert id="savePictureUpload" parameterType="com.slcp.devops.dto.PictureUploadDTO">
+        insert into blog_upload values (#{id},#{pictureDescription},#{pictureName},#{pictureTime},#{picturePath});
+    </insert>
+
+    <resultMap id="upload" type="com.slcp.devops.dto.PictureUploadDTO">
+        <id property="id" column="id"/>
+        <result property="pictureName" column="picture_name"/>
+        <result property="pictureTime" column="picture_time"/>
+        <result property="picturePath" column="picture_path"/>
+    </resultMap>
+    <select id="listUpload" resultMap="upload">
+        select blog_upload.id,blog_upload.picture_description,blog_upload.picture_name,blog_upload.picture_time,blog_upload.picture_path from blog_upload
+    </select>
+
+    <select id="getUploadById" parameterType="java.lang.Long" resultType="com.slcp.devops.dto.PictureUploadDTO">
+        select blog_upload.id,blog_upload.picture_description,blog_upload.picture_name,blog_upload.picture_time,blog_upload.picture_path from blog_upload where id=#{id}
+    </select>
+
+    <update id="updatePictureUpload" parameterType="com.slcp.devops.dto.PictureUploadDTO">
+        update blog_upload set picturedescription=#{picture_description},picturename=#{picture_name},picturetime=#{picture_time} where id=#{id};
+    </update>
+
+    <delete id="uploadDelete">
+        delete from blog_upload where id=#{id};
+    </delete>
+</mapper>
+

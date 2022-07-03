@@ -1,0 +1,232 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>用户注册</title>
+    <meta name="keywords" content="用户注册">
+    <meta name="content" content="用户注册">
+    <link href="../static/images/favicon.ico" th:href="@{/images/me.jpg}" rel="icon" type="image/x-ico">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+    <link type="text/css" rel="stylesheet" href="/static/css/login.css" th:href="@{/css/login.css}">
+    <script type="text/javascript" src="../static/js/jquery.min.js" th:src="@{/js/jquery.min.js}"></script>
+    <link rel="stylesheet" href="../static/common/common.css" th:href="@{/common/common.css}">
+</head>
+<body class="login_bj">
+
+<div class="zhuce_body">
+    <div class="zhuce_kong">
+        <div class="zc">
+            <div class="bj_bai">
+                <h3>欢迎注册</h3>
+                <form th:action="@{/userLoginAndRegister/}" method="post">
+                    <input id="username" type="text" class="kuang_txt phone" placeholder="用户名">
+                    <span class="help-block " id="usernameMsg" ></span>
+                    <input id="password" name="password" type="text" class="kuang_txt possword" placeholder="密码">
+                    <span class="help-block " id="passwordMsg"></span>
+                    <input id="repassword" name="repassword" type="text" class="kuang_txt possword" placeholder="确认密码">
+                    <span class="help-block " id="repasswordMsg"></span>
+                    <input id="email" name="email" type="text" class="kuang_txt email" placeholder="邮箱">
+                    <span class="help-block " id="emailMsg"></span>
+                    <input id="code" type="text" class="Mycode yanzm" placeholder="验证码">
+                    <span class="help-block " id="codeMsg"></span>
+
+                    <div>
+
+                        <div class="hui_kuang"><img id="pagecode"
+                                                    src="/static/images/register/zc_22.jpg"
+                                                    th:src="@{/images/register/zc_22.jpg}"
+                                                    width="97" height="31"
+                                                    onclick="updateCode()"></div>
+
+                        <div class="shuaxin"><a href="#" onclick="updateCode()"><img
+                                src="/static/images/register/zc_25.jpg"
+                                th:src="@{/images/register/zc_25.jpg}" width="13"
+                                height="14"></a></div>
+                    </div>
+
+
+                    <div>
+                        <input id="myCheckbox" name="myCheckbox" type="radio" value="" checked><span>已阅读并同意<a
+                            href="#"><span
+                            class="lan">《Slcp小栈使用协议》</span></a></span>
+                    </div>
+                    <input id="register" type="button" class="btn_zhuce" value="注册">
+
+                </form>
+            </div>
+            <div class="bj_right">
+                <p>使用以下账号直接登录</p>
+                <a class="zhuce_qq" href="/qqLogin" th:href="@{/qqLogin}">QQ注册</a>
+               <!-- <a href="#" class="zhuce_wb">微博注册</a>
+                <a href="#" class="zhuce_wx">微信注册</a>-->
+                <p>已有账号？<a href="/userLoginAndRegister/userLogin">立即登录</a></p>
+
+                <div>
+                    <span id="failMsg"></span>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</div>
+</body>
+<script>
+    //2.点击验证码 更新验证码
+    //页面加载立刻执行
+    $(function () {
+        $("#pagecode").attr("src", "/userLoginAndRegister/code");
+
+    })
+
+    /*当换了浏览器 就可能发现 只能换一次 图片 再点击 图片换不了了
+    原因是： 因为 有些浏览器 有缓存 为了提高访问速度 当第一次 访问图片地址 生成图片 浏览器保存到了本地 第二次访问这个地址的时候
+    浏览器发现地址之前访问过 直接拿出来了本地图片 这就是导致了 为什么不刷新图片的原因
+    方案1：
+    在后面添加一个随机数参数 但是这样 仍然可能会 导致网络地址 相同
+    /* $("#pagecode").click(function () {
+         $("#code").attr("src", "/userLoginAndRegister/code?n=" + Math.random());
+     });
+    方案2：
+    在后面添加一个时间参数 new date（） 时间总不会相同吧
+    */
+    function updateCode() {
+        $("#pagecode").attr("src", "/userLoginAndRegister/code?date=" + new Date());
+    };
+
+    //1.验证用户名是否存在
+    $("#username").blur(function () {
+        let username = $("#username").val();
+        // if (username==""||username.length==0){
+        if (username == "" || username.length == 0) {
+            $("#usernameMsg").html("用户名不能为空").css("color", "red");
+            return;
+        }
+        ;
+        $.post("/userLoginAndRegister/checkUserName", "username=" + username, function (data) {
+            if (data == 0) {
+                $("#usernameMsg").html("用户名已存在").css("color", "red");
+            } else {
+                $("#usernameMsg").html("用户名可用").css("color", "green");
+            }
+        })
+    });
+
+    $("#password").blur(function () {
+        let password = $("#password").val();
+        if (password == "" || password.length == 0) {
+            $("#passwordMsg").html("密码不能为空").css("color", "red").show();
+            return;
+        }else {
+           $("#passwordMsg").hide();
+           return;
+        }
+    });
+    $("#repassword").blur(function () {
+        let repassword = $("#repassword").val();
+        let password = $("#password").val();
+        if (repassword != password) {
+            $("#repasswordMsg").html("密码不相同").css("color","red").show();
+            return;
+        }else {
+            $("#repasswordMsg").hide();
+            return;
+        }
+    });
+
+    $("#email").blur(function () {
+        let email = $("#email").val();
+        if (email == "" || email == null) {
+            $("#emailMsg").html("邮箱不能为空").css("color", "red").show();
+            return;
+        } else if (!email.match(/^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+((\.[a-zA-Z0-9_-]{2,3}){1,2})$/)) {
+            $("#emailMsg").html("邮箱格式不正确").css("color", "red").show();
+            return;
+        }else {
+            $("#emailMsg").hide();
+            return;
+        }
+    });
+
+    $("#code").blur(function () {
+        let code = $("#code").val();
+        if (code == "" || code == null) {
+            $("#codeMsg").html("验证码不能为空").css("color", "red");
+            return;
+        }else {
+            $("#codeMsg").hide();
+            return;
+        }
+    });
+
+    // function myRegister() {
+    //     // let checked=$('input:radio[name="myCheckbox"]:checked').val();
+    //     // let checked = $("#myCheckbox:checked").val();
+    //     // let myCheckbox = $("input[type='radio']").attr("#myCheckbox");
+    //     let myCheckbox = $("input[type='radio']").is(":checked");
+    //     if (!myCheckbox){
+    //         // console.log(myCheckbox);
+    //         // $("input[type='radio']").css("background-color","red");
+    //     }
+    // };
+
+
+    //3.验证输入的验证码 是否正确
+    /*$("#code").blur(function () {
+        $.post("/userLoginAndRegister/checkCode", "code=" + this.value, function (data) {
+            if (data == "1") {
+                $("#codeMsg").html("<font color='green'>OK</font>");
+            } else {
+                $("#codeMsg").html("<font color='red'>ERROR</font>");
+                $("#pagecode").attr("src", "/userLoginAndRegister/code?date=" + new Date());
+
+            }
+        })
+    });*/
+
+
+    //提交注册
+    $("#register").click(function () {
+        let username = $("#username").val();
+        let password = $("#password").val();
+        let email = $("#email").val();
+        let code = $("#code").val();
+        //校验验证码
+        $.post("/userLoginAndRegister/checkCode", "code=" + code, function (data) {
+            if (data == "1") {
+                // $("#codeMsg").html("<font color='green'>正确</font>");
+                //验证码正确则提交表单
+                $.ajax({
+                    url: "/userLoginAndRegister/register",
+                    data: {
+                        "username": username,
+                        "password": password,
+                        "email": email
+                    },
+                    type: "POST",
+                    dataType: "JSON",
+                    success: function (data) {
+                        if (data == "0") {
+                            $("#failMsg").html("注册测试失败，请重新注册").css("color", "red").show();
+                        } else if (data == "2") {
+                            $("#usernameMsg").html("用户名已存在").css("color", "red").show();
+                        } else if (data == "3") {
+                            $("#usernameMsg").html("用户名不能为空").css("color", "red").show();
+                        } else {
+                            //请求跳转到注册成功页面
+                            location.href = "registerSuccess";
+                        }
+                    }
+                });
+
+            } else {
+                $("#codeMsg").html("<font color='red'>验证码错误，请重新输入</font>").show();
+                $("#pagecode").attr("src", "/userLoginAndRegister/code?date=" + new Date());
+                // $("#codeMsg").Attr("disabled", true);
+            }
+        })
+
+
+    });
+</script>
+</html>

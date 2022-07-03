@@ -1,0 +1,70 @@
+#配置端口（nginx 80,443反向代理到81）
+server:
+  port: 81
+
+#连接数据库
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password: 123456
+    url: jdbc:mysql://localhost:3306/myblog?useUnicode=true&characterEncoding=utf-8&serverTimezone=UTC&useSSL=true&sslmode=require
+#redis配置
+  redis:
+    host: localhost
+    port: 6379
+    password: 123456
+    timeout: 30000
+    database: 0
+#thymeleaf缓存
+  thymeleaf:
+    cache: true
+#qq邮箱开启smtp服务密码
+  mail:
+    host: smtp.qq.com
+    username: 1206128610@qq.com
+    password: skvwyctegbuwfiaa
+    default-encoding: utf-8
+    properties:
+      mail.smtp.starttls.enable: true
+    port: 587
+#文件上传大小限制
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 100MB
+
+# 发给谁的邮箱 (自定义属性)
+she:
+  mail: 1206128610@qq.com
+#  mail: 1206128610@qq.com
+
+
+#配置日志
+#logging:
+#  level:
+#    #不同目录下的日志可配置不同级别
+#    root: info
+#    com.star: debug
+#    #采用相对路径方式将日志文件输出到【log/blog-dev.log】
+#  file:
+#    name: log/blog-dev.log
+
+#起别名，mapper路径，驼峰命名规则
+mybatis:
+  type-aliases-package: com.slcp.devops.pojo
+  mapper-locations: classpath:com.slcp.devops.mapper/*.xml
+  configuration:
+    map-underscore-to-camel-case: true
+
+#从QQ获取信息
+qq:
+  oauth:
+    appid: 101915751
+    appkey: 54d4d2d47e91ce92793612bbc16cd991
+#qq授权回调地址
+    url: http://www.Slcp.top/qqlogin
+
+
+
+

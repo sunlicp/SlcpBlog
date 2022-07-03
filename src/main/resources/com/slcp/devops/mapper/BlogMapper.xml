@@ -1,0 +1,406 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.slcp.devops.mapper.BlogMapper">
+
+    <resultMap id="User" type="com.slcp.devops.entity.User">
+        <id property="userId" column="id"/>
+        <result property="nickname" column="nickname"/>
+        <result property="username" column="username"/>
+        <result property="email" column="email"/>
+        <result property="avatar" column="avatar"/>
+    </resultMap>
+
+    <resultMap id="blog" type="com.slcp.devops.dto.BlogQueryDTO">
+        <id property="id" column="id"/>
+        <result property="title" column="title"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="recommend" column="recommend"/>
+        <result property="published" column="published"/>
+        <result property="typeId" column="type_id"/>
+        <association property="type" javaType="com.slcp.devops.entity.Type">
+            <id property="typeId" column="id"/>
+            <result property="typeName" column="name"/>
+        </association>
+    </resultMap>
+
+    <select id="listBlogs" resultMap="blog">
+        select b.id,
+               b.title,
+               b.update_time,
+               b.recommend,
+               b.published,
+               b.type_id,
+               t.id,
+               t.name
+        from myblog.t_blog b
+                 left outer join
+             myblog.t_type t on b.type_id = t.id
+        order by b.create_time desc
+    </select>
+
+    <select id="getBlogById" resultType="com.slcp.devops.dto.ShowDTO">
+        select b.id,
+               b.flag,
+               b.title,
+               b.content,
+               b.type_id,
+               b.first_picture,
+               b.description,
+               b.recommend,
+               b.published,
+               b.share_statement,
+               b.appreciation,
+               b.commentabled
+        from myblog.t_blog b
+        where b.id = #{id};
+    </select>
+
+    <select id="searchBlogs" parameterType="com.slcp.devops.dto.SearchDTO" resultMap="blog">
+        <bind name="pattern" value="'%' + title + '%'"/>
+        select b.id,b.title,b.update_time,b.recommend,b.type_id,t.id,t.name from myblog.t_blog b ,myblog.t_type t
+        <where>
+            <if test="1 == 1">
+                b.type_id = t.id
+            </if>
+            <if test="typeId != null">
+                and b.type_id = #{typeId}
+            </if>
+            <if test="title != null">
+                and b.title like #{pattern}
+            </if>
+        </where>
+    </select>
+
+    <!--新增保存文章-->
+    <insert id="saveBlog" parameterType="com.slcp.devops.dto.BlogDTO">
+        insert into myblog.t_blog (id, title, content, first_picture, flag,
+                                   views, comment_count, appreciation, share_statement, commentabled, published,
+                                   recommend, create_time, update_time, type_id, user_id, description)
+        values (#{id}, #{title}, #{content}, #{firstPicture}, #{flag}, #{views}, #{commentCount}, #{appreciation},
+                #{shareStatement}, #{commentabled}, #{published}, #{recommend}, #{createTime},
+                #{updateTime}, #{typeId}, #{userId}, #{description});
+    </insert>
+
+    <update id="updateBlog" parameterType="com.slcp.devops.dto.ShowDTO">
+        update myblog.t_blog
+        set published       = #{published},
+            flag            = #{flag},
+            title           = #{title},
+            content         = #{content},
+            type_id         = #{typeId},
+            first_picture   = #{firstPicture},
+            description     = #{description},
+            recommend       = #{recommend},
+            share_statement = #{shareStatement},
+            appreciation    = #{appreciation},
+            commentabled    = #{commentabled},
+            update_time     = #{updateTime}
+        where id = #{id};
+
+    </update>
+
+    <delete id="deleteBlogById">
+        delete
+        from t_blog
+        where id = #{id}
+    </delete>
+
+    <!--前端博客首页查询-->
+    <resultMap id="firstPageBlog" type="com.slcp.devops.dto.FirstPageDTO">
+        <id property="id" column="id"/>
+        <result property="title" column="title"/>
+        <result property="firstPicture" column="first_picture"/>
+        <result property="views" column="views"/>
+        <result property="commentCount" column="comment_count"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="createTime" column="create_time"/>
+        <result property="description" column="description"/>
+        <result property="content" column="content"/>
+        <result property="typeName" column="name"/>
+        <result property="typeId" column="type_id"/>
+        <result property="userId" column="user_id"/>
+        <result property="nickname" column="nickname"/>
+        <result property="avatar" column="avatar"/>
+        <collection property="tags" javaType="java.util.ArrayList" ofType="com.slcp.devops.entity.Tag"
+                    select="com.slcp.devops.mapper.TagMapper.getTagsByBid" column="id">
+            <result column="tag_id" property="tagId"/>
+            <result column="tag_name" property="tagName"/>
+        </collection>
+    </resultMap>
+
+    <select id="getFirstPageBlogs" parameterType="java.lang.String" resultMap="firstPageBlog">
+        SELECT
+        b.id,
+        b.title,
+        b.first_picture,
+        b.views,
+        b.comment_count,
+        b.update_time,
+        b.create_time,
+        b.description,
+        t.NAME,
+        t.id type_id,
+        u.id user_id,
+        u.nickname,
+        u.avatar
+        FROM
+        myblog.t_blog b
+        LEFT JOIN myblog.t_type t ON b.type_id = t.id
+        LEFT JOIN myblog.blog_user u ON u.id = b.user_id
+        <where>
+            <if test="name != null">
+                t.name=#{name}
+            </if>
+        </where>
+        ORDER BY
+        b.create_time DESC
+    </select>
+    <select id="getSearchBlogs" parameterType="java.lang.String" resultMap="firstPageBlog">
+        SELECT
+        b.id,
+        b.title,
+        b.first_picture,
+        b.views,
+        b.comment_count,
+        b.update_time,
+        b.create_time,
+        b.description,
+        t.`NAME`,
+        t.id type_id
+        FROM
+        t_blog b
+        LEFT JOIN t_type t ON b.type_id = t.id
+        LEFT JOIN tag_blog_rel t1 ON t1.bid = b.id
+        LEFT JOIN t_tag t2 ON t1.tid = t2.id
+        <where>
+            <if test="name != null">
+            <bind name="like_name" value="'%'+name+'%'"/>
+                t.`name` LIKE #{like_name}
+                OR b.description LIKE #{like_name}
+                OR t2.`name` LIKE #{like_name}
+            </if>
+        </where>
+        GROUP BY
+        b.id
+        ORDER BY
+        b.create_time DESC
+    </select>
+    <select id="getBolgOneById" parameterType="java.lang.Integer" resultMap="firstPageBlog">
+        SELECT
+        b.id,
+        b.title,
+        b.first_picture,
+        b.views,
+        b.content,
+        b.comment_count,
+        b.update_time,
+        b.create_time,
+        b.description,
+        t.NAME,
+        t.id type_id,
+        u.id user_id,
+        u.nickname,
+        u.avatar
+        FROM
+        myblog.t_blog b
+        LEFT JOIN myblog.t_type t ON b.type_id = t.id
+        LEFT JOIN myblog.blog_user u ON u.id = b.user_id
+        <where>
+            <if test="id != null">
+                b.id=#{id}
+            </if>
+        </where>
+        ORDER BY
+        b.create_time DESC
+    </select>
+    <select id="getBlogsByTime" parameterType="java.lang.String" resultMap="firstPageBlog">
+        SELECT
+        b.id,
+        b.title,
+        b.first_picture,
+        t.`name`,
+        b.create_time
+        FROM
+        myblog.t_blog b
+        LEFT JOIN myblog.t_type t ON b.type_id = t.id
+        <where>
+            <if test="time != null">
+                DATE_FORMAT(b.create_time,'%Y-%m')=#{time}
+            </if>
+        </where>
+        ORDER BY
+        b.create_time DESC
+    </select>
+    <!--前端最新博客查询-->
+    <resultMap id="recommendedBlogs" type="com.slcp.devops.dto.RecommendDTO">
+        <id property="id" column="id"/>
+        <result property="title" column="title"/>
+        <result property="recommend" column="recommend"/>
+        <result property="description" column="description"/>
+        <result property="firstPicture" column="first_picture"/>
+        <result property="views" column="views"/>
+        <result property="content" column="content"/>
+        <result property="typeId" column="type_id"/>
+        <result property="typeName" column="type_name"/>
+        <result property="createTime" column="create_time"/>
+        <collection property="tags" javaType="java.util.ArrayList" ofType="com.slcp.devops.entity.Tag"
+                    select="com.slcp.devops.mapper.TagMapper.getTagsByBid" column="id">
+            <result column="tag_id" property="tagId"/>
+            <result column="tag_name" property="tagName"/>
+        </collection>
+    </resultMap>
+    <select id="getHotBlogs" resultMap="recommendedBlogs">
+        SELECT b.id,
+               b.title,
+               b.first_picture,
+               b.description,
+               b.views,
+               t2.id     type_id,
+               t2.`name` type_name,
+               b.create_time
+        FROM t_blog b
+                 LEFT JOIN t_type t2 ON t2.id = b.type_id
+        WHERE b.recommend = TRUE
+        ORDER BY b.views DESC LIMIT 3
+    </select>
+    <select id="getRecommendBlogs" resultMap="recommendedBlogs">
+        SELECT b.id,
+               b.title
+        FROM t_blog b
+        WHERE b.recommend = TRUE
+        ORDER BY b.views DESC LIMIT 6
+    </select>
+    <select id="getTopBlogs" resultMap="recommendedBlogs">
+        SELECT b.id,
+               b.title
+        FROM t_blog b
+        WHERE b.recommend = TRUE
+          and b.top = 1
+        ORDER BY b.create_time DESC LIMIT 6
+    </select>
+    <!--&lt;!&ndash;前端搜索博客&ndash;&gt;
+    <select id="getSearchBlogs" resultMap="firstPageBlog">
+        <bind name="pattern" value="'%'+query+'%'"/>
+        select b.id,b.title,b.first_picture, b.views,b.comment_count,b.update_time,b.description,
+        t.name ,
+        u.nickname, u.avatar
+        from myblog.t_blog b, myblog.t_type t,myblog.blog_user u
+        where b.type_id = t.id and u.id = b.user_id and (b.title like #{pattern} or b.content like #{pattern})
+        order by b.create_time desc
+    </select>-->
+
+    <!--前端搜索博客-->
+    <select id="getSearchBlogsByTagName" parameterType="int" resultMap="firstPageBlog">
+        select b.id, b.title, b.first_picture, b.create_time, t.name
+        from t_blog b
+                 inner join tag_blog_rel rel on rel.bid = b.id
+                 inner join t_type t on b.type_id = t.id
+        where rel.tid = #{id}
+        order by b.create_time desc
+    </select>
+
+    <!--查询博客详情-->
+    <resultMap id="detailedBlog" type="com.slcp.devops.dto.DetailedDTO">
+        <id property="id" column="bid"/>
+        <result property="firstPicture" column="first_picture"/>
+        <result property="flag" column="flag"/>
+        <result property="title" column="title"/>
+        <result property="content" column="content"/>
+        <result property="typeName" column="name"/>
+        <result property="views" column="views"/>
+        <result property="commentCount" column="comment_count"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="commentabled" column="commentabled"/>
+        <result property="shareStatement" column="share_statement"/>
+        <result property="appreciation" column="appreciation"/>
+        <result property="nickname" column="nickname"/>
+        <result property="avatar" column="avatar"/>
+    </resultMap>
+    <select id="getDetailedBlogById" resultMap="detailedBlog">
+        select b.id bid,
+               b.first_picture,
+               b.flag,
+               b.title,
+               b.content,
+               b.views,
+               b.comment_count,
+               b.update_time,
+               b.commentabled,
+               b.share_statement,
+               b.appreciation,
+               u.nickname,
+               u.avatar,
+               t.name
+        from myblog.t_blog b,
+             myblog.blog_user u,
+             myblog.t_type t
+        where b.user_id = u.id
+          and b.type_id = t.id
+          and b.id = #{id}    </select>
+
+    <!--文章访问自增-->
+    <update id="updateViews" parameterType="com.slcp.devops.dto.BlogDTO">
+        update myblog.t_blog b
+        set b.views = b.views + 1
+        where b.id = #{id}
+    </update>
+
+    <!--查询出文章评论数量并更新-->
+    <update id="getCommentCountById" parameterType="com.slcp.devops.dto.BlogDTO">
+        update myblog.t_blog b
+        set b.comment_count = (
+            select count(*) from myblog.t_comment c where c.blog_id = #{id} and b.id = #{id}
+        )
+        WHERE b.id = #{id}
+    </update>
+
+    <!--查询博客总数量-->
+    <select id="getBlogTotal" resultType="int">
+        select count(t.id)
+        from myblog.t_blog t
+    </select>
+
+    <!--查询访问总数-->
+    <select id="getBlogViewTotal" resultType="int">
+        select sum(views)
+        from myblog.t_blog
+    </select>
+
+    <!--查询评论总数-->
+    <select id="getBlogCommentTotal" resultType="int">
+        select count(*)
+        from myblog.t_comment
+    </select>
+
+    <!--查询留言总数-->
+    <select id="getBlogMessageTotal" resultType="int">
+        select count(*)
+        from myblog.t_message
+    </select>
+
+    <!--根据分类id获取博客-->
+    <select id="getBlogsByTypeId" resultMap="firstPageBlog">
+        select b.id,
+               b.title,
+               b.first_picture,
+               b.views,
+               b.comment_count,
+               b.update_time,
+               b.description,
+               t.name,
+               u.nickname,
+               u.avatar
+        from myblog.t_blog b,
+             myblog.t_type t,
+             myblog.blog_user u
+        where b.type_id = t.id
+          and u.id = b.user_id
+          and b.type_id = #{typeId}
+        order by b.create_time desc
+    </select>
+
+    <select id="getCount" resultType="java.lang.Integer">
+        SELECT COUNT(1)
+        FROM t_blog
+    </select>
+</mapper>
