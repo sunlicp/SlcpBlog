@@ -5,7 +5,7 @@ services:
     image: myblog:1.0
     container_name: myblog
     ports:
-      - "8080:8080"
+      - "80:80"
     volumes:
       - /app/microService:/data
     networks:
