@@ -17,31 +17,18 @@ import java.time.LocalDateTime;
 /**
  * 实体类的基类
  *
- * @author devops
+ * @author slcp
  */
 @Data
 public class BaseEntity<T> implements Serializable {
     /**
      * 主键id
+     * 博客不走集群部署，因此采用自增即可，若想高可用，集群部署，那么采用雪花算法
      */
     @JsonSerialize(using = ToStringSerializer.class)
     @ApiModelProperty(value = "主键id")
-    @TableId(value = "id", type = IdType.ASSIGN_ID)
+    @TableId(value = "id")
     private Long id;
-
-    /**
-     * 创建人
-     */
-    @ApiModelProperty(value = "创建人")
-    @TableField(value = "create_by", fill = FieldFill.INSERT, select = false)
-    private String createBy;
-
-    /**
-     * 更新人
-     */
-    @ApiModelProperty(value = "更新人")
-    @TableField(value = "update_by", fill = FieldFill.INSERT_UPDATE, select = false)
-    private String updateBy;
 
     /**
      * 创建时间
@@ -65,6 +52,6 @@ public class BaseEntity<T> implements Serializable {
     @ApiModelProperty(value = "删除标识")
     @TableField(value = "is_deleted", select = false)
     @Getter()
-    private Long deleted;
+    private boolean deleted;
 
 }

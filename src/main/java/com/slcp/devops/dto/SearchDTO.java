@@ -1,5 +1,7 @@
 package com.slcp.devops.dto;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -14,5 +16,6 @@ import java.io.Serializable;
 public class SearchDTO implements Serializable {
     private static final long serialVersionUID = -1129782578272943999L;
     private String title;
+    @JsonSerialize(using = ToStringSerializer.class)
     private Long typeId;
 }

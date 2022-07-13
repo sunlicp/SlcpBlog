@@ -5,6 +5,7 @@ import java.security.NoSuchAlgorithmException;
 
 /**
  * MD5Utils
+ * @author Slcp
  */
 public class MD5Utils {
     public static String code(String str){

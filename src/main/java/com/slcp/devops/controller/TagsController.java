@@ -1,11 +1,10 @@
 package com.slcp.devops.controller;
 
-import com.github.pagehelper.PageInfo;
 import com.slcp.devops.dto.FirstPageDTO;
-import com.slcp.devops.service.BlogService;
+import com.slcp.devops.service.IBlogService;
 import com.slcp.devops.utils.ColorUtil;
-import com.slcp.devops.entity.Tag;
-import com.slcp.devops.service.TagService;
+import com.slcp.devops.dto.TagDTO;
+import com.slcp.devops.service.ITagService;
 import io.swagger.annotations.Api;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -13,7 +12,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -29,23 +27,23 @@ import java.util.List;
 @Slf4j
 public class TagsController {
 
-    private BlogService blogService;
-    private final TagService tagService;
+    private IBlogService blogService;
+    private final ITagService tagService;
 
     @GetMapping("/tags/{tid}")
-    public String listType(@RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum,
-                           @PathVariable Integer tid, Model model) {
-        List<Tag> tags = tagService.getAllTag();
+    public String listType(@PathVariable Integer tid, Model model) {
+        List<TagDTO> tags = tagService.getAllTag();
 
         if (tid > 0) {
             List<FirstPageDTO> blogs = blogService.getSearchBlogsByTagName(tid);
-            PageInfo<FirstPageDTO> pageInfo = new PageInfo<>(blogs);
-            model.addAttribute("pageInfo", pageInfo);
+            model.addAttribute("pageInfo", blogs);
+            model.addAttribute("pageInfoSize", blogs.size());
         }else {
-            model.addAttribute("pageInfo", new PageInfo<>());
+            model.addAttribute("pageInfo", null);
+            model.addAttribute("pageInfoSize", 0);
         }
 
-        for (Tag tag : tags) {
+        for (TagDTO tag : tags) {
             tag.setColor("background-color: " + ColorUtil.getRandColor());
         }
         model.addAttribute("tags", tags);

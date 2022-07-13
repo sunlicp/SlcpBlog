@@ -270,6 +270,14 @@ public class JedisCacheUtil {
     }
 
     /**
+     * 移除缓存
+     *
+     */
+    public void removeAll() {
+        redisson.getKeys().flushall();
+    }
+
+    /**
      * 判断缓存是否存在
      *
      * @param key

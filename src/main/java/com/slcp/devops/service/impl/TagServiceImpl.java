@@ -1,12 +1,15 @@
 package com.slcp.devops.service.impl;
 
 import com.alibaba.fastjson.JSONObject;
-import com.slcp.devops.mapper.TagMapper;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.slcp.devops.config.DoQueryCache;
 import com.slcp.devops.entity.Tag;
-import com.slcp.devops.service.TagService;
+import com.slcp.devops.mapper.ITagMapper;
+import com.slcp.devops.dto.TagDTO;
+import com.slcp.devops.service.ITagService;
+import com.slcp.devops.utils.ColorUtil;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.Resource;
 import java.util.List;
 
 /**
@@ -15,62 +18,70 @@ import java.util.List;
  * @code: 一生的挚爱
  * @description:
  */
-@Service
-public class TagServiceImpl implements TagService {
-
-    @Resource
-    private TagMapper tagMapper;
+@Service("tagService")
+public class TagServiceImpl extends ServiceImpl<ITagMapper, Tag> implements ITagService {
 
     @Override
-    public List<Tag> listTags() {
-        return tagMapper.listTags();
+    @DoQueryCache
+    public List<TagDTO> listTags() {
+        return this.baseMapper.listTags();
     }
 
     @Override
-    public Tag getType(String typeId) {
-        return tagMapper.getTag(typeId);
+    public List<TagDTO> tagList() {
+        List<TagDTO> tagList = this.baseMapper.tagList();
+        for (TagDTO tag : tagList) {
+            String randColor = ColorUtil.getRandColor();
+            tag.setColor("color: " + randColor);
+        }
+        return tagList;
     }
 
     @Override
-    public List<Tag> getAllTag() {
-        return tagMapper.listTags();
+    public TagDTO getType(String typeId) {
+        return this.baseMapper.getTag(typeId);
     }
 
     @Override
-    public int saveTag(Tag type) {
-        return tagMapper.saveTag(type);
+    public List<TagDTO> getAllTag() {
+        return this.baseMapper.listTags();
     }
 
     @Override
-    public Tag getTagByName(String name) {
-        return tagMapper.getTagByName(name);
+    public int saveTag(TagDTO type) {
+        return this.baseMapper.saveTag(type);
     }
 
     @Override
-    public int updateTag(Tag type) {
-        return tagMapper.updateTag(type);
+    public TagDTO getTagByName(String name) {
+        return this.baseMapper.getTagByName(name);
+    }
+
+    @Override
+    public int updateTag(TagDTO type) {
+        return this.baseMapper.updateTag(type);
     }
 
     @Override
     public int deleteById(String id) {
-        return tagMapper.deleteById(id);
+        return this.baseMapper.deleteById(id);
     }
 
     @Override
-    public List<Tag> listTagsAndBlogs() {
-        return tagMapper.listTagsAndBlogs();
+    public List<TagDTO> listTagsAndBlogs() {
+        return this.baseMapper.listTagsAndBlogs();
     }
 
     @Override
     public Integer getCount(){
-        return tagMapper.getCount();
+        return this.baseMapper.getCount();
     }
 
     @Override
     public JSONObject getAllTags() {
         JSONObject obj = new JSONObject();
 
-        List<Tag> data = tagMapper.getAllTags();
+        List<TagDTO> data = this.baseMapper.getAllTags();
         int size = data.size();
         Integer[] count = new Integer[size];
         String[] str = new String[size];

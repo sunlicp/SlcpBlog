@@ -12,8 +12,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
 import java.util.List;
 
 /**
@@ -31,7 +29,6 @@ public class AboutShowController {
     private final IMusicService musicService;
 
     @GetMapping("/about")
-    @ApiOperation(httpMethod = "GET", value = "about", notes = "文章、标签、分类 总计")
     public String about(Model model){
         JSONObject obj = aboutService.getQuantityStatisticsBySum();
         model.addAttribute("qStBySum", obj);

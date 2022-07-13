@@ -28,21 +28,21 @@ public class OrderController {
 
     /**
      * 阿里支付
-     * @param outTradeNo 商户订单号
-     * @param subject 订单名称
-     * @param totalAmount 付款金额
-     * @param body 商品描述
-     * @return String
-     * @throws AlipayApiException a
+     * @param out_trade_no
+     * @param subject
+     * @param total_amount
+     * @param body
+     * @return
+     * @throws AlipayApiException
      */
     @PostMapping(value = "/alipay")
     @ResponseBody
-    public String alipay(String outTradeNo, String subject, String totalAmount, String body) throws AlipayApiException {
+    public String alipay(String out_trade_no, String subject, String total_amount, String body) throws AlipayApiException {
 
         return payService.aliPay(new AlipayBean()
                 .setBody(body)
-                .setOutTradeNo(outTradeNo)
-                .setTotalAmount(new StringBuffer().append(totalAmount))
+                .setOut_trade_no(out_trade_no)
+                .setTotal_amount(new StringBuffer().append(total_amount))
                 .setSubject(subject));
     }
 }

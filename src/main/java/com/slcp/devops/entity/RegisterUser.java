@@ -1,5 +1,7 @@
 package com.slcp.devops.entity;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -13,8 +15,9 @@ import java.io.Serializable;
 @Data
 public class RegisterUser implements Serializable {
     private static final long serialVersionUID = -2209782578272943999L;
+    @JsonSerialize(using = ToStringSerializer.class)
+    private Long id;
 
-    private Integer id;
     private String username;
     private String password;
     private String phone;

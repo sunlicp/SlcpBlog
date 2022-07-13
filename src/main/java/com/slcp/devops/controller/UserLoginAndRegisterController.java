@@ -1,9 +1,8 @@
 package com.slcp.devops.controller;
 
+import cn.hutool.core.map.MapUtil;
 import cn.hutool.core.util.ObjectUtil;
-import com.slcp.devops.utils.Base64Utils;
-import com.slcp.devops.utils.EmailUtils;
-import com.slcp.devops.utils.VCodeUtils;
+import com.slcp.devops.utils.*;
 import com.slcp.devops.entity.RegisterUser;
 import com.slcp.devops.service.RegisterService;
 import io.swagger.annotations.Api;
@@ -21,6 +20,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.UUID;
 
 /**
  * @author: Slcp
@@ -38,6 +39,7 @@ public class UserLoginAndRegisterController {
 
     private final RegisterService registerService;
     private final EmailUtils emailUtils;
+    private final JedisCacheUtil jedisCacheUtil;
 
     @GetMapping("/userLogin")
     public String userLogin() {
@@ -161,27 +163,27 @@ public class UserLoginAndRegisterController {
         }
     }
 
-   /* @ResponseBody
+    @ResponseBody
     @PostMapping("/sendCode")
     public String sendCode(String phone){
-        String code = redisTemplate.opsForValue().get(phone);
-        if (!StringUtils.isEmpty(code)){
+        String code = jedisCacheUtil.getString(phone);
+        if (!StringUtil.isEmpty(code)){
             return "验证码已存在";
         }else {
             code = UUID.randomUUID().toString().substring(0, 4);
             System.out.println("获取到电话号码"+phone+"验证码为"+code);
-            HashMap<String, Object> map = new HashMap<>();
+            HashMap<String, Object> map = MapUtil.newHashMap();
             map.put("code",code);
             boolean sendCode = registerService.sendCode(phone, "SMS_205128031", map);
             if (sendCode){
-                redisTemplate.opsForValue().set(phone,code,5, TimeUnit.SECONDS);
+                jedisCacheUtil.putString(phone, code, 5);
                 return "success";
             }else {
                 return "fail";
             }
         }
 
-    }*/
+    }
 
 
     /**

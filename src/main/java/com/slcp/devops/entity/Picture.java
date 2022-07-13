@@ -18,9 +18,9 @@ import java.io.Serializable;
  * @description: 照片墙实体类
  */
 @Data
-@EqualsAndHashCode
+@EqualsAndHashCode(callSuper = true)
 @TableName(value = "blog_picture")
-public class Picture implements Serializable {
+public class Picture extends BaseEntity<Picture> implements Serializable {
     private static final long serialVersionUID = -1509782578272943999L;
     /**
      * 业务主表主键ID
@@ -28,29 +28,33 @@ public class Picture implements Serializable {
     @ApiModelProperty(value = "业务主表主键ID")
     @JsonSerialize(using = ToStringSerializer.class)
     @TableId(value = "id")
-    private Long pictureId;
+    private Long id;
+
     /**
      * 图片名称
      */
     @ApiModelProperty(value = "图片名称")
     @TableField(value = "picture_name")
     private String pictureName;
+
     /**
-     * 图片创建时间
-     */
-    @ApiModelProperty(value = "图片创建时间")
-    @TableField(value = "picture_time")
-    private String pictureTime;
-    /**
-     * 图片路径
+     * 路径
      */
     @ApiModelProperty(value = "图片路径")
     @TableField(value = "picture_address")
     private String pictureAddress;
+
     /**
-     * 图片内容
+     * 内容
      */
     @ApiModelProperty(value = "图片内容")
     @TableField(value = "picture_description")
     private String pictureDescription;
+
+    /**
+     * 层次
+     */
+    @ApiModelProperty(value = "层次")
+    @TableField(value = "picture_level")
+    private String pictureLevel;
 }

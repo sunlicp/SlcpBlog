@@ -1,8 +1,8 @@
 package com.slcp.devops.dto;
 
-import com.slcp.devops.entity.Tag;
-import com.slcp.devops.entity.Type;
-import com.slcp.devops.entity.User;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
+import com.slcp.devops.entity.SysAdmin;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.multipart.MultipartFile;
@@ -22,7 +22,9 @@ public class BlogDTO implements Serializable {
 
     private static final long serialVersionUID = -5809782578272943999L;
 
-    private Integer id;
+    @JsonSerialize(using = ToStringSerializer.class)
+    private Long id;
+
     private String title;
     private String content;
     private String firstPicture;
@@ -34,21 +36,21 @@ public class BlogDTO implements Serializable {
 
     private Boolean appreciation;
     private Boolean shareStatement;
-    private Boolean commentabled;
+    private Boolean comment;
     private Boolean published;
     private Boolean recommend;
-
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date createTime;
-
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date updateTime;
 
+    @JsonSerialize(using = ToStringSerializer.class)
     private Long typeId;
+
+    @JsonSerialize(using = ToStringSerializer.class)
     private Long userId;
+
     private String description;
-    private User user;
-    private Type type;
+    private SysAdmin user;
+    private TypeDTO type;
     private List<Comment> comments;
-    private List<Tag> tags;
+    private List<TagDTO> Tags;
 }

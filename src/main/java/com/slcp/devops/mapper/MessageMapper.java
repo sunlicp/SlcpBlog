@@ -54,4 +54,10 @@ public interface MessageMapper {
      * @return 数据
      */
     MessageDTO getMessageByParentId(String id);
+
+    /**
+     * 获取消息
+     * @return String
+     */
+    String getMessage();
 }

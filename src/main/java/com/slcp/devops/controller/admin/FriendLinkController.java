@@ -1,19 +1,18 @@
 package com.slcp.devops.controller.admin;
 
-import cn.hutool.core.util.ObjectUtil;
-import com.github.pagehelper.PageHelper;
-import com.github.pagehelper.PageInfo;
-import com.slcp.devops.entity.FriendLink;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.slcp.devops.api.Result;
+import com.slcp.devops.constant.DevOpsConstant;
+import com.slcp.devops.entity.*;
 import com.slcp.devops.service.IFriendLinkService;
+import com.slcp.devops.utils.StringUtil;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import javax.validation.Valid;
-import java.util.List;
+import java.util.Map;
 
 /**
  * @author: Slcp
@@ -21,80 +20,44 @@ import java.util.List;
  * @code: 一生的挚爱
  * @description: 后台友链控制器
  */
-@Controller
-@RequestMapping("/admin")
+@RestController
+@RequestMapping("/sys")
 @AllArgsConstructor
-@Api(value = "友链后台", tags = "友链后台")
+@Api(value = "友链接口", tags = "友链接口")
 public class FriendLinkController {
 
     private final IFriendLinkService friendLinkService;
 
-    /**
-     * 查询友链信息
-     * @param pageNum 当前页
-     * @param model 对象
-     */
-    @GetMapping("/friendLinks")
-    public String listFriendLink(@RequestParam(value = "pageNum",defaultValue = "1") Integer pageNum, Model model){
-        PageHelper.startPage(pageNum,10);
-        List<FriendLink> list = friendLinkService.list();
-        PageInfo<FriendLink> pageInfo = PageInfo.of(list);
-        model.addAttribute("pageInfo",pageInfo);
-        return "admin/friendLinks";
+    @GetMapping("/friend/{id}")
+    @ApiOperation(httpMethod = DevOpsConstant.METHOD_GET, value = "getFriendById", notes = "根据主键获取信息")
+    public Result<FriendLink> getFriendById(@PathVariable("id") Long id) {
+        return Result.data(friendLinkService.getById(id));
     }
 
-    /**
-     * 跳转到友链编辑页面
-     */
-    @GetMapping("/friendLinks/input")
-    public String input(Model model){
-        model.addAttribute("friendLink",new FriendLink());
-        return "admin/friendLinks-input";
+    @DeleteMapping("/friend/{id}")
+    @ApiOperation(httpMethod = DevOpsConstant.METHOD_DELETE, value = "deleteFriend", notes = "删除友链")
+    public Result<FriendLink> deleteFriend(@PathVariable("id") Long id) {
+        return Result.condition(friendLinkService.removeById(id));
     }
 
-    /**
-     * 保存友链信息
-     *
-     */
-    @PostMapping("/friendLinks")
-    public String post(@Valid FriendLink friendLink, RedirectAttributes attributes){
-        FriendLink f1 = friendLinkService.lambdaQuery().eq(FriendLink::getBlogAddress, friendLink.getBlogAddress()).one();
-        if (ObjectUtil.isNotEmpty(f1)){
-            attributes.addFlashAttribute("message","友链重复,已存在该朋友呦!");
-            return "redirect:/admin/friendLinks/input";
-        }
-        friendLinkService.saveFriendLink(friendLink);
-        return "redirect:/admin/friendLinks";
+    @PostMapping("/friend")
+    @ApiOperation(httpMethod = DevOpsConstant.METHOD_POST, value = "addFriend", notes = "添加&修改友链")
+    public Result<?> addFriend(@RequestBody FriendLink friendLink) {
+        return friendLinkService.saveOrUpdateByFriend(friendLink);
     }
 
-    /**
-     * 跳转到编辑友链页面
-     */
-    @GetMapping("/friendLinks/{id}/input")
-    public String editInput(@PathVariable Long id, Model model){
-        model.addAttribute("friendLink", friendLinkService.getById(id));
-        return "admin/friendLinks-input";
+    @GetMapping("/friend")
+    @ApiOperation(httpMethod = DevOpsConstant.METHOD_GET, value = "friendList", notes = "获取友链")
+    public Result<IPage<FriendLink>> friendList(@RequestParam Map<String, Object> queryParam, Search search) {
+        IPage<FriendLink> listInfoByPage = SqlWhereWrapper.getPage(search);
+        String blogName = (String) queryParam.get("query");
+        return Result.data(StringUtil.isBlank(blogName) ? friendLinkService.page(listInfoByPage) : friendLinkService.page(listInfoByPage, new QueryWrapper<FriendLink>().lambda().like(FriendLink::getBlogName, blogName)));
     }
 
-    /**
-     * 编辑保存
-     * @param friendLink 友链
-     * @return r
-     */
-    @PostMapping("/friendLinks/{id}")
-    public String editPost(@Valid FriendLink friendLink, @PathVariable String id){
-        friendLinkService.saveFriendLink(friendLink);
-        return "redirect:/admin/friendLinks";
+    @GetMapping("/friend/{id}/{status}")
+    @ApiOperation(httpMethod = DevOpsConstant.METHOD_POST, value = "updFriendStatusById", notes = "修改友链状态")
+    public Result<FriendLink> updFriendStatusById(@PathVariable("id") Long id, @PathVariable("status") Boolean status) {
+        return Result.condition(friendLinkService.lambdaUpdate().eq(FriendLink::getId, id).set(FriendLink::getStatus, status).update());
     }
-
-    /**
-     * 删除友链
-     */
-    @GetMapping("/friendLinks/{id}/delete")
-    public String deleteFriendLink(@PathVariable Long id,RedirectAttributes attributes){
-        friendLinkService.removeById(id);
-        attributes.addFlashAttribute("message","删除成功");
-        return "redirect:/admin/friendLinks";
-    }
-
 }
+

@@ -12,8 +12,8 @@ public interface QqUserService {
 
     /**
      * 添加用户
-     * @param qqUser 用户
+     * @param QqUser 用户
      * @return 数值
      */
-    int addQqUser(QqUser qqUser);
+    int AddQqUser(QqUser QqUser);
 }

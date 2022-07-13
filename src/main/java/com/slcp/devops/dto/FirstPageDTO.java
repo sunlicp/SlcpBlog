@@ -1,6 +1,7 @@
 package com.slcp.devops.dto;
 
-import com.slcp.devops.entity.Tag;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -19,7 +20,8 @@ public class FirstPageDTO implements Serializable {
     /**
      * Blog
      */
-    private Integer id;
+    private Long id;
+
     private String title;
     private String firstPicture;
     private Integer views;
@@ -32,15 +34,15 @@ public class FirstPageDTO implements Serializable {
      * Type
      */
     private String typeName;
-    private String typeId;
+    private Long typeId;
     /**
      * User
      */
     private String nickname;
     private String avatar;
-    private String userId;
+    private Long userId;
     /**
      * tags
      */
-    private List<Tag> tags;
+    private List<TagDTO> tags;
 }

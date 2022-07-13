@@ -5,12 +5,13 @@ import cn.hutool.http.HttpRequest;
 import cn.hutool.http.HttpResponse;
 import cn.hutool.http.HttpUtil;
 import com.alibaba.fastjson.JSONObject;
-import com.github.pagehelper.PageInfo;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.slcp.devops.constant.DevOpsConstant;
 import com.slcp.devops.dto.RecommendDTO;
-import com.slcp.devops.service.BlogService;
-import com.slcp.devops.entity.Type;
+import com.slcp.devops.service.IBlogService;
+import com.slcp.devops.dto.TypeDTO;
 import com.slcp.devops.dto.FirstPageDTO;
-import com.slcp.devops.service.TypeService;
+import com.slcp.devops.service.ITypeService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
@@ -33,8 +34,8 @@ import java.util.List;
 @Slf4j
 public class ArticleController {
 
-    private final BlogService blogService;
-    private final TypeService typeService;
+    private final IBlogService blogService;
+    private final ITypeService typeService;
 
     /**
      * 博客首页展示
@@ -43,19 +44,18 @@ public class ArticleController {
      * @param model   对象
      * @return html
      */
-    @GetMapping({"/", "/article"})
+    @GetMapping("/article")
     public String article(@RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum, Model model) {
-        List<FirstPageDTO> firstPageBlogs = blogService.getFirstPageBlogs(pageNum);
+        IPage<FirstPageDTO> firstPageBlogs = blogService.getFirstPageBlogs(pageNum);
         List<RecommendDTO> recommendBlogs = ListUtil.empty();
         if (1 == pageNum) {
             recommendBlogs = blogService.getHotBlogs();
         }
-        List<Type> types = typeService.getAllType();
+        List<TypeDTO> types = typeService.getAllType();
         List<RecommendDTO> hotBlogs = blogService.getRecommendBlogs();
         List<RecommendDTO> topBlogs = blogService.getTopBlogs();
 
-        PageInfo<FirstPageDTO> pageInfo = new PageInfo<>(firstPageBlogs);
-        model.addAttribute("pageInfo", pageInfo);
+        model.addAttribute("pageInfo", firstPageBlogs);
         model.addAttribute("types", types);
         model.addAttribute("hotBlogs", hotBlogs);
         model.addAttribute("topBlogs", topBlogs);
@@ -64,7 +64,7 @@ public class ArticleController {
     }
 
     @GetMapping("/article/read/{id}")
-    public String read(@PathVariable Integer id, Model model) {
+    public String read(@PathVariable Long id, Model model) {
         blogService.getBolgOneById(id);
         FirstPageDTO firstPageBlog = blogService.getFirstPageDTO(id);
         firstPageBlog.setFirstPicture("background-image: url(" + firstPageBlog.getFirstPicture() + ")");
@@ -77,12 +77,11 @@ public class ArticleController {
                          @RequestParam(value = "pageNum", defaultValue = "1", required = false) Integer pageNum,
                          Model model) {
         List<FirstPageDTO> firstPageBlogs = blogService.getSearchBlogs(keywords);
-        PageInfo<FirstPageDTO> pageInfo = new PageInfo<>(firstPageBlogs);
         List<RecommendDTO> hotBlogs = blogService.getRecommendBlogs();
         List<RecommendDTO> topBlogs = blogService.getTopBlogs();
-        List<Type> types = typeService.getAllType();
+        List<TypeDTO> types = typeService.getAllType();
 
-        model.addAttribute("pageInfo", pageInfo);
+        model.addAttribute("firstPageBlogs", firstPageBlogs);
         model.addAttribute("types", types);
         model.addAttribute("hotBlogs", hotBlogs);
         model.addAttribute("topBlogs", topBlogs);
@@ -91,27 +90,43 @@ public class ArticleController {
     }
 
     @GetMapping("/article/category/{name}")
-    public String category(@RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum,
-                           @PathVariable String name, Model model) {
+    public String category(@PathVariable String name, Model model) {
         try {
-            if (pageNum != 1) {
-                name = URLDecoder.decode(name, "utf-8");
-            }
+            URLDecoder.decode(name, "utf-8");
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
-        List<FirstPageDTO> firstPageBlogs = blogService.getCategoryBlogs(name);
-        PageInfo<FirstPageDTO> pageInfo = new PageInfo<>(firstPageBlogs);
+
         //分类
-        List<Type> types = typeService.getAllType();
+        List<TypeDTO> types = typeService.getAllType();
         //热门文章
         List<RecommendDTO> hotBlogs = blogService.getRecommendBlogs();
         List<RecommendDTO> topBlogs = blogService.getTopBlogs();
-        model.addAttribute("pageInfo", pageInfo);
+
+
+        List<FirstPageDTO> firstPageBlogs = blogService.getCategoryBlogs(name);
+
+        model.addAttribute("firstPageBlogs", firstPageBlogs);
         model.addAttribute("types", types);
         model.addAttribute("hotBlogs", hotBlogs);
         model.addAttribute("topBlogs", topBlogs);
         model.addAttribute("keywords", name);
         return "search";
+    }
+
+    @RequestMapping("/article/poem")
+    @ResponseBody
+    @ApiOperation(httpMethod = "GET", value = "getPoem", notes = "诗")
+    public String getPoem() {
+        HttpRequest httpRequest = HttpUtil.createGet(DevOpsConstant.POEM_PATH).header(DevOpsConstant.POEM_KEY, DevOpsConstant.POEM_VALUE);
+        HttpResponse resp = httpRequest.execute();
+        int status = 200;
+        if (status == resp.getStatus()) {
+            String data = resp.body();
+            JSONObject obj = JSONObject.parseObject(data);
+            JSONObject json = (JSONObject) obj.get("data");
+            return json.getString("content");
+        }
+        return DevOpsConstant.POEM_CONTENT;
     }
 }

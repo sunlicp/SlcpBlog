@@ -1,25 +1,42 @@
 package com.slcp.devops.entity;
 
-import com.slcp.devops.dto.BlogDTO;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
+import java.util.Date;
 import java.io.Serializable;
-import java.util.List;
 
 /**
- * @author: Slcp
- * @date: 2020/9/22 12:59
- * @code: 一生的挚爱
- * @description: 分类实体类
+ * 分类(TType)实体类
+ *
+ * @author makejava
+ * @since 2022-07-07 09:06:48
  */
 @Data
-public class Type implements Serializable {
-    private static final long serialVersionUID = -2509782578272943999L;
+@EqualsAndHashCode(callSuper = true)
+@TableName(value = "t_type")
+public class Type extends BaseEntity<Type> implements Serializable {
+    private static final long serialVersionUID = -43086773059747942L;
+    /**
+     * 业务主表主键ID
+     */
+    @ApiModelProperty(value = "业务主表主键ID")
+    @JsonSerialize(using = ToStringSerializer.class)
+    @TableId(value = "id")
+    private Long id;
 
-    private Long typeId;
-    private String typeName;
-    private Integer sum;
-
-    private List<BlogDTO> blogs;
+    /**
+     * 分类名
+     */
+    @ApiModelProperty(value = "分类名")
+    @TableField(value = "name")
+    private String name;
 
 }
+

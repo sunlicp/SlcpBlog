@@ -1,12 +1,13 @@
 package com.slcp.devops.service.impl;
 
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.slcp.devops.config.DoQueryCache;
-import com.slcp.devops.mapper.TypeMapper;
 import com.slcp.devops.entity.Type;
-import com.slcp.devops.service.TypeService;
+import com.slcp.devops.mapper.ITypeMapper;
+import com.slcp.devops.dto.TypeDTO;
+import com.slcp.devops.service.ITypeService;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.Resource;
 import java.util.List;
 import java.util.Map;
 
@@ -17,60 +18,63 @@ import java.util.Map;
  * @description:
  */
 @Service("typeService")
-public class TypeServiceImpl implements TypeService {
-
-    @Resource
-    private TypeMapper typeMapper;
+public class TypeServiceImpl extends ServiceImpl<ITypeMapper, Type> implements ITypeService {
 
     @Override
     @DoQueryCache
-    public List<Type> listTypes() {
-        return typeMapper.listTypes();
+    public List<TypeDTO> listTypes() {
+        return this.baseMapper.listTypes();
     }
 
     @Override
     @DoQueryCache
-    public Type getType(String typeId) {
-        return typeMapper.getType(typeId);
+    public List<TypeDTO> typeList() {
+        return this.baseMapper.typeList();
     }
 
     @Override
     @DoQueryCache
-    public List<Type> getAllType() {
-        return typeMapper.listTypes();
-    }
-
-    @Override
-    public int saveType(Type type) {
-        return typeMapper.saveType(type);
+    public TypeDTO getType(String typeId) {
+        return this.baseMapper.getType(typeId);
     }
 
     @Override
     @DoQueryCache
-    public Type getTypeByName(String name) {
-        return typeMapper.getTypeByName(name);
+    public List<TypeDTO> getAllType() {
+        return this.baseMapper.listTypes();
     }
 
     @Override
-    public int updateType(Type type) {
-        return typeMapper.updateType(type);
+    public int saveType(TypeDTO type) {
+        return this.baseMapper.saveType(type);
+    }
+
+    @Override
+    @DoQueryCache
+    public TypeDTO getTypeByName(String name) {
+        return this.baseMapper.getTypeByName(name);
+    }
+
+    @Override
+    public int updateType(TypeDTO type) {
+        return this.baseMapper.updateType(type);
     }
 
     @Override
     public int deleteById(Long id) {
-        return typeMapper.deleteById(id);
+        return this.baseMapper.deleteById(id);
     }
 
     @Override
     @DoQueryCache
     public Integer getCount() {
-        return typeMapper.getCount();
+        return this.baseMapper.getCount();
     }
 
     @Override
     @DoQueryCache
     public List<Map<String, String>> getAllOfMap() {
-        return typeMapper.getAllOfMap();
+        return this.baseMapper.getAllOfMap();
     }
 
 }

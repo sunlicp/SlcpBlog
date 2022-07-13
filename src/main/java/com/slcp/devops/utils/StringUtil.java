@@ -13,7 +13,7 @@ import java.util.Collection;
 public class StringUtil extends StringUtils {
 
     public static boolean isBlank(String string) {
-        return StringUtils.isEmpty(string) || "null".equals(string);
+        return StringUtils.isEmpty(string) || "null".equals(string) || "undefined".equals(string);
     }
 
     public static boolean isNotBlank(String string) {
@@ -163,5 +163,17 @@ public class StringUtil extends StringUtils {
             return new String(arr);
         }
         return str;
+    }
+
+    /**
+     * 截取并删除
+     * @param path
+     */
+    public static void delPicture(String path) {
+        int index = path.lastIndexOf("/") + 1;
+        //以/之后的索引处截取
+        String fileName = path.substring(index);
+        //调用七牛云工具类中的删除方法删除文件
+        QiniuUtils.deleteFileFromQiniu(fileName);
     }
 }

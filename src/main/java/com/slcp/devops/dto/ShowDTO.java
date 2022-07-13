@@ -1,6 +1,7 @@
 package com.slcp.devops.dto;
 
-import com.slcp.devops.entity.Tag;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import lombok.Data;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -17,10 +18,14 @@ import java.util.List;
 @Data
 public class ShowDTO implements Serializable {
     private static final long serialVersionUID = -1139782578272943999L;
+    @JsonSerialize(using = ToStringSerializer.class)
     private Long id;
+
     private String flag;
     private String title;
     private String content;
+
+    @JsonSerialize(using = ToStringSerializer.class)
     private Long typeId;
     /**
      * url地址提交
@@ -39,5 +44,5 @@ public class ShowDTO implements Serializable {
     private Boolean commentabled;
     private Date updateTime;
 
-    private List<Tag> tags;
+    private List<TagDTO> tags;
 }

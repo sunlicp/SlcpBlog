@@ -1,8 +1,7 @@
 package com.slcp.devops.controller;
 
-import com.github.pagehelper.PageInfo;
 import com.slcp.devops.dto.DetailedDTO;
-import com.slcp.devops.service.BlogService;
+import com.slcp.devops.service.IBlogService;
 import com.slcp.devops.dto.Comment;
 import com.slcp.devops.dto.FirstPageDTO;
 import com.slcp.devops.service.CommentService;
@@ -27,8 +26,13 @@ import java.util.List;
 @Api(value = "友链接口查询", tags = "友链接口查询")
 public class IndexShowController {
 
-    private final BlogService blogService;
+    private final IBlogService blogService;
     private final CommentService commentService;
+
+    @GetMapping({"/", "/index"})
+    public String index() {
+        return "index";
+    }
 
     /**
      * 搜索博客
@@ -41,8 +45,7 @@ public class IndexShowController {
     public String search(@RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum,
                          @RequestParam(name = "query") String query, Model model) {
         List<FirstPageDTO> blogs = blogService.getSearchBlogs(query);
-        PageInfo<FirstPageDTO> pageInfo = new PageInfo<>(blogs);
-        model.addAttribute("pageInfo", pageInfo);
+        model.addAttribute("firstPageBlogs", blogs);
         return "search";
     }
 

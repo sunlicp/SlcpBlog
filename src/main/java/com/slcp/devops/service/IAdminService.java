@@ -2,6 +2,7 @@ package com.slcp.devops.service;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.slcp.devops.dto.UserDTO;
 import com.slcp.devops.entity.SysAdmin;
 
 
@@ -18,4 +19,13 @@ public interface IAdminService extends IService<SysAdmin> {
      * @return 用户列表
      */
     IPage<SysAdmin> listSysAdminPageOfXml(IPage<SysAdmin> listInfoByPage, String query);
+
+    /**
+     * 获取用户列表
+     * @param listInfoByPage IPage
+     * @param nickname 昵称
+     * @return IPage
+     */
+    IPage<UserDTO> listUserPage(IPage<UserDTO> listInfoByPage, String nickname);
+
 }

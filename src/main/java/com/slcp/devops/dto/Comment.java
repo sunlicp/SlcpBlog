@@ -1,5 +1,7 @@
 package com.slcp.devops.dto;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -25,6 +27,7 @@ public class Comment implements Serializable {
     private String avatar;
     private Date createTime;
 
+    @JsonSerialize(using = ToStringSerializer.class)
     private Long blogId;
     /**
      * 父评论id 用来标识子评论属于哪个父评论的

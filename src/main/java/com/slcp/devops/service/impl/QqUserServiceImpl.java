@@ -19,7 +19,7 @@ public class QqUserServiceImpl implements QqUserService {
     private QqUserMapper qqUserMapper;
 
     @Override
-    public int addQqUser(QqUser qqUser) {
-        return qqUserMapper.addQqUser(qqUser);
+    public int AddQqUser(QqUser qqUser) {
+        return qqUserMapper.AddQqUser(qqUser);
     }
 }

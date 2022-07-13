@@ -1,11 +1,12 @@
 package com.slcp.devops.controller;
 
+import com.slcp.devops.entity.FriendLink;
 import com.slcp.devops.service.IFriendLinkService;
 import io.swagger.annotations.Api;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * @author: Slcp
@@ -22,7 +23,13 @@ public class FriendLinkShowController {
 
     @GetMapping("/friends")
     public String friendLinks(Model model){
-        model.addAttribute("friendLinks", friendLinkService.list());
+        model.addAttribute("friendLinks", friendLinkService.getFriends());
         return "friends";
+    }
+
+    @PostMapping("/friend/add")
+    public String friendLinks(FriendLink friendLink){
+        friendLinkService.saveOrUpdateByFriend(friendLink);
+        return "redirect:/friends";
     }
 }

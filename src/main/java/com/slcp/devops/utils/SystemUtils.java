@@ -51,7 +51,7 @@ public class SystemUtils {
         public static String getRequestBrowserInfo(HttpServletRequest request){
             String browserVersion = null;
             String header = request.getHeader("user-agent");
-            if(StringUtil.isBlank(header)){
+            if(header == null || header.equals("")){
                 return "";
             }
             if(header.indexOf("MSIE")>0){
@@ -78,7 +78,7 @@ public class SystemUtils {
         public static String getRequestSystemInfo(HttpServletRequest request){
             String systenInfo = null;
             String header = request.getHeader("user-agent");
-            if(StringUtil.isBlank(header)){
+            if(header == null || header.equals("")){
                 return "";
             }
             //得到用户的操作系统

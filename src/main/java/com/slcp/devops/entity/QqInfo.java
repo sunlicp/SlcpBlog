@@ -1,5 +1,7 @@
 package com.slcp.devops.entity;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -13,8 +15,9 @@ import java.io.Serializable;
 @Data
 public class QqInfo implements Serializable {
     private static final long serialVersionUID = -1609782578272943999L;
-
+    @JsonSerialize(using = ToStringSerializer.class)
     private Long id;
+
     private String name;
     private String avatar;
     /**

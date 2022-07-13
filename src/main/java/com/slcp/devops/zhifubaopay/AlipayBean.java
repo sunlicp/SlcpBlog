@@ -13,7 +13,7 @@ public class AlipayBean {
  /**
   * 商户订单号，必填
   */
- private String outTradeNo;
+ private String out_trade_no;
  /**
   * 订单名称，必填
   */
@@ -21,7 +21,7 @@ public class AlipayBean {
  /**
   * 付款金额，必填
   */
- private StringBuffer totalAmount;
+ private StringBuffer total_amount;
  /**
   * 商品描述，可空
   */
@@ -29,6 +29,6 @@ public class AlipayBean {
  /**
   * 超时时间参数
   */
- private String timeoutExpress ="10m";
- private String productCode ="FAST_INSTANT_TRADE_PAY";
+ private String timeout_express="10m";
+ private String product_code="FAST_INSTANT_TRADE_PAY";
 }

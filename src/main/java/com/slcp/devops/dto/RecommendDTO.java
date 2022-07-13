@@ -1,6 +1,7 @@
 package com.slcp.devops.dto;
 
-import com.slcp.devops.entity.Tag;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -16,7 +17,9 @@ import java.util.List;
 @Data
 public class RecommendDTO implements Serializable {
     private static final long serialVersionUID = -1119782578272943999L;
-    private String id;
+    @JsonSerialize(using = ToStringSerializer.class)
+    private Long id;
+
     private String title;
     private String firstPicture;
     private String recommend;
@@ -28,5 +31,5 @@ public class RecommendDTO implements Serializable {
     private String path;
     private String code;
     private Date createTime;
-    private List<Tag> tags;
+    private List<TagDTO> tags;
 }

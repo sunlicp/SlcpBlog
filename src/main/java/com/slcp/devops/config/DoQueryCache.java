@@ -15,9 +15,9 @@ import java.lang.annotation.Target;
 public @interface DoQueryCache {
     /**
      * 缓存过期时间
-     * 单位(秒) 默认5秒
+     * 单位(秒) 默认3小时
      */
-    int expireTime() default 86400;
+    int expireTime() default 10800;
 
     /**
      * 缓存过期-随机数

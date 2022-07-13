@@ -9,8 +9,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import static com.slcp.devops.utils.LoveEmail.getOneS;
-
 /**
  * @author: Slcp
  * @date: 2021/1/17 20:52
@@ -33,10 +31,12 @@ public class MyScheduled {
      * @Scheduled(cron = "0 20 5 * * *")
      */
     @RequestMapping("/love")
+//    @Scheduled(cron = "0 20 5 * * *")
+//    @Scheduled(cron = "0 50 22 * * *")
     public void dsrw() {
         try {
             //获取彩虹屁
-            String message = getOneS();
+            String message = LoveEmail.getOneS();
             //获取邮件模板
             String content = getContent(message);
             //发送邮件

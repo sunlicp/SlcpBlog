@@ -17,7 +17,6 @@ import java.io.Serializable;
  * @create: 2022-06-10 09:49:58
  **/
 @Data
-@EqualsAndHashCode
 @TableName(value = "blog_music")
 public class Music implements Serializable {
     private static final long serialVersionUID = -5509782578272943999L;

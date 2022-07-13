@@ -18,7 +18,6 @@ import java.io.Serializable;
  * @since 2022-06-28 14:32:14
  */
 @Data
-@EqualsAndHashCode
 @TableName(value = "sys_role")
 public class SysRole implements Serializable {
     private static final long serialVersionUID = -47394923505707690L;
@@ -34,8 +33,8 @@ public class SysRole implements Serializable {
      */
     @ApiModelProperty(value = "权限id")
     @JsonSerialize(using = ToStringSerializer.class)
-    @TableField(value = "rid")
-    private Long rid;
+    @TableField(value = "rights_id")
+    private Long rightsId;
     /**
      * 博客名称
      */

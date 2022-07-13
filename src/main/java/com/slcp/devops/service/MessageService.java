@@ -35,4 +35,10 @@ public interface MessageService {
      * @return 留言数据
      */
     MessageDTO getMessageByParentId(String id);
+
+    /**
+     * 获取信息
+     * @return 信息
+     */
+    String getMessage();
 }

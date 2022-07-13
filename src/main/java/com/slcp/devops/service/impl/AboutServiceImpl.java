@@ -19,11 +19,11 @@ public class AboutServiceImpl implements AboutService {
     @Resource
     private ArchiveService archiveService;
     @Resource
-    private TypeService typeService;
+    private ITypeService typeService;
     @Resource
-    private TagService tagService;
+    private ITagService tagService;
     @Resource
-    private BlogService blogService;
+    private IBlogService blogService;
 
     @Override
     @DoQueryCache

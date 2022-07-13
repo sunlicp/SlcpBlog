@@ -19,5 +19,5 @@ public interface QqUserMapper {
      * @param QqUser QQ用户
      * @return 数值
      */
-    int addQqUser(QqUser qqUser);
+    int AddQqUser(QqUser QqUser);
 }

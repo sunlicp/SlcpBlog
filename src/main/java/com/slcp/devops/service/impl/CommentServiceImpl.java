@@ -1,9 +1,9 @@
 package com.slcp.devops.service.impl;
 
 import com.slcp.devops.config.DoQueryCache;
-import com.slcp.devops.mapper.BlogMapper;
 import com.slcp.devops.mapper.CommentMapper;
 import com.slcp.devops.dto.Comment;
+import com.slcp.devops.mapper.IBlogMapper;
 import com.slcp.devops.service.CommentService;
 import org.springframework.stereotype.Service;
 
@@ -24,7 +24,7 @@ public class CommentServiceImpl implements CommentService {
     @Resource
     private CommentMapper commentMapper;
     @Resource
-    private BlogMapper blogMapper;
+    private IBlogMapper blogMapper;
 
 
     /**

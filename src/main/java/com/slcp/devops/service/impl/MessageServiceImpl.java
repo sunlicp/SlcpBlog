@@ -104,4 +104,9 @@ public class MessageServiceImpl implements MessageService {
         return messageMapper.getMessageByParentId(id);
     }
 
+    @Override
+    public String getMessage() {
+        return messageMapper.getMessage();
+    }
+
 }

@@ -1,9 +1,9 @@
 package com.slcp.devops.controller;
 
 import com.slcp.devops.dto.DetailedDTO;
-import com.slcp.devops.service.BlogService;
+import com.slcp.devops.entity.SysAdmin;
+import com.slcp.devops.service.IBlogService;
 import com.slcp.devops.dto.Comment;
-import com.slcp.devops.entity.User;
 import com.slcp.devops.service.CommentService;
 import io.swagger.annotations.Api;
 import lombok.extern.slf4j.Slf4j;
@@ -32,7 +32,7 @@ public class CommentShowController {
     @Autowired
     private CommentService commentService;
     @Autowired
-    private BlogService blogService;
+    private IBlogService blogService;
 
     @Value("${comment.avatar}")
     private String avatar;
@@ -57,7 +57,7 @@ public class CommentShowController {
     @PostMapping("/comments")
     public String post(Comment comment, HttpSession session, Model model) {
         Long blogId = comment.getBlogId();
-        User user = (User) session.getAttribute("user");
+        SysAdmin user = (SysAdmin) session.getAttribute("user");
         if (user != null) {
             comment.setAvatar(user.getAvatar());
             comment.setAdminComment(true);

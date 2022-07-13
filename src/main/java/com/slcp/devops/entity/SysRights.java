@@ -18,7 +18,6 @@ import java.io.Serializable;
  * @since 2022-06-28 14:32:14
  */
 @Data
-@EqualsAndHashCode
 @TableName(value = "sys_rights")
 public class SysRights implements Serializable {
     private static final long serialVersionUID = -36791769757807077L;
@@ -43,16 +42,16 @@ public class SysRights implements Serializable {
     @TableField(value = "auth_name")
     private String authName;
     /**
-     * 博客名称
+     * 级别
      */
-    @ApiModelProperty(value = "音乐名称")
+    @ApiModelProperty(value = "级别")
     @JsonSerialize(using = ToStringSerializer.class)
     @TableField(value = "level")
     private Long level;
     /**
-     * 博客名称
+     * 路径
      */
-    @ApiModelProperty(value = "音乐名称")
+    @ApiModelProperty(value = "路径")
     @TableField(value = "path")
     private String path;
 
