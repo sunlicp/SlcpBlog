@@ -2,28 +2,39 @@ import Vue from 'vue'
 import Router from 'vue-router'
 Vue.use(Router)
 
-const Login = () => import(/* webpackChunkName: "login_home_welcome" */ './components/Login.vue')
+const Login = () => import('./components/Login.vue')
 
-const Home = () => import(/* webpackChunkName: "login_home_welcome" */ './components/Home.vue')
+const Home = () => import('./components/Home.vue')
 
-const Welcome = () => import(/* webpackChunkName: "login_home_welcome" */ './components/Welcome.vue')
+const Welcome = () => import('./components/Welcome.vue')
 
-const NoRight = () => import(/* webpackChunkName: "login_home_welcome" */ './components/NoRight.vue')
+const NoRight = () => import('./components/NoRight.vue')
 
-const Users = () => import(/* webpackChunkName: "Users_Rights_Roles" */ './components/user/Users.vue')
+const Users = () => import('./components/user/Users.vue')
 
-const Rights = () => import(/* webpackChunkName: "Users_Rights_Roles" */ './components/power/Rights.vue')
+const Message = () => import('./components/message/Message.vue')
 
-const Roles = () => import(/* webpackChunkName: "Users_Rights_Roles" */ './components/power/Roles.vue')
+const Rights = () => import('./components/power/Rights.vue')
 
-const Abnormals = () => import(/* webpackChunkName: "Cate_Params" */ './components/attendance/Abnormals.vue')
+const Roles = () => import('./components/power/Roles.vue')
 
-const Add = () => import(/* webpackChunkName: "GoodsList_Add" */ './components/attendance/Add.vue')
+const Blog = () => import('./components/blog/Blog.vue')
 
-const Report = () => import(/* webpackChunkName: "Order_Report" */ './components/report/Report.vue')
+const Type = () => import('./components/blog/Type.vue')
+
+const Tag = () => import('./components/blog/Tag.vue')
+
+const Add = () => import('./components/blog/Add.vue')
+
+const Picture = () => import('./components/picture/Picture.vue')
+
+const FriendLink = () => import('./components/friendLink/FriendLink.vue')
+
+const Report = () => import('./components/report/Report.vue')
 
 const router = new Router({
   mode: 'history',
+  base:"/admin",
   routes: [
     { path: '/', redirect: '/login' },
     { path: '/login', component: Login },
@@ -37,9 +48,14 @@ const router = new Router({
         { path: '/users', component: Users },
         { path: '/rights', component: Rights },
         { path: '/roles', component: Roles },
-        { path: '/abnormals', component: Abnormals },
-        { path: '/abnormals/add', component: Add },
-        { path: '/reports', component: Report }
+        { path: '/blog', component: Blog },
+        { path: '/type', component: Type },
+        { path: '/tag', component: Tag },
+        { path: '/blog/add', component: Add },
+        { path: '/picture', component: Picture },
+        { path: '/friendLink', component: FriendLink },
+        { path: '/reports', component: Report },
+        { path: '/message', component: Message }
       ]
     }
   ]
@@ -48,7 +64,7 @@ const router = new Router({
 router.beforeEach((to, from, next) => {
   if (to.path === '/login') return next()
   const tokenStr = window.sessionStorage.getItem('token')
-  if (!tokenStr) return next('/login')
+  if(tokenStr == 'undefined' || !tokenStr)  return next('/login')
   next()
 })
 

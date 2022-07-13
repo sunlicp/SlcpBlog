@@ -10,12 +10,14 @@
   "dependencies": {
     "axios": "^0.18.0",
     "echarts": "^4.1.0",
-    "element-ui": "^2.4.5",
+    "element-ui": "^2.10.1",
     "lodash": "^4.17.11",
+    "mavon-editor": "^2.10.4",
     "nprogress": "^0.2.0",
     "vue": "^2.5.22",
     "vue-quill-editor": "^3.0.6",
     "vue-router": "^3.0.1",
+    "vue-schart": "^2.0.0",
     "vue-table-with-tree-grid": "^0.2.4"
   },
   "devDependencies": {

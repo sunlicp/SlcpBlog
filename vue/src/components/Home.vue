@@ -2,10 +2,40 @@
   <el-container class="home-container">
     <!-- 头部区域 -->
     <el-header>
-      <div style="margin-left: 50px;">
-        <img src="../assets/favicon.png" alt="">
+      <div style="margin-left: 20px;">
+        <img src="../assets/img/favicon.png" alt="">
+        <span class="logo">后台管理系统</span>
       </div>
-      <el-button type="info" @click="logout">退出</el-button>
+      <div class="header-right">
+        <div class="header-user-con">
+            <!-- 消息中心 -->
+            <div class="btn-bell">
+                <el-tooltip effect="dark" :content="message?`有${message}条未读消息`:`消息中心`" placement="bottom">
+                    <router-link to="/message">
+                        <i class="el-icon-bell"></i>
+                    </router-link>
+                </el-tooltip>
+                <span class="btn-bell-badge" v-if="message"></span>
+            </div>
+            <!-- 用户头像 -->
+            <div class="block">
+              <el-avatar icon="el-icon-user-solid" :size="50" :src="circleUrl"></el-avatar>
+            </div>
+            <!-- 用户名下拉菜单 -->
+            <el-dropdown class="user-name" trigger="click" @command="handleCommand">
+                <span class="el-dropdown-link">
+                    {{username}}
+                    <i class="el-icon-caret-bottom"></i>
+                </span>
+                <template #dropdown>
+                    <el-dropdown-menu>
+                        <el-dropdown-item command="user">个人中心</el-dropdown-item>
+                        <el-dropdown-item divided command ="loginout">退出登录</el-dropdown-item>
+                    </el-dropdown-menu>
+                </template>
+            </el-dropdown>
+        </div>
+      </div>
     </el-header>
     <!-- 页面主体区域 -->
     <el-container>
@@ -85,22 +115,60 @@ export default {
           ]
         },
         {
-          authName:"出勤异常管理",
+          authName:"文章管理",
           id: 102,
           order: 4,
-          path: "abnormals",
+          path: "blog",
           children:[{
-            authName: "出勤异常列表",
+            authName: "文章列表",
             children: [],
-            id: 107,
+            id: 127,
             order: null,
-            path: "abnormals"
+            path: "blog"
+          },{
+            authName: "标签列表",
+            children: [],
+            id: 137,
+            order: null,
+            path: "tag"
+          },{
+            authName: "分类列表",
+            children: [],
+            id: 147,
+            order: null,
+            path: "type"
+          }]
+        },
+        {
+          authName:"友链管理",
+          id: 202,
+          order: 5,
+          path: "friendLink",
+          children:[{
+            authName: "友链列表",
+            children: [],
+            id: 207,
+            order: null,
+            path: "friendLink"
+          }]
+        },
+        {
+          authName:"图库管理",
+          id: 302,
+          order: 6,
+          path: "picture",
+          children:[{
+            authName: "图片列表",
+            children: [],
+            id: 307,
+            order: null,
+            path: "picture"
           }]
         },
         {
           authName:"数据统计",
           id: 145,
-          order: 5,
+          order: 7,
           path: "reports",
           children:[{
             authName: "数据报表",
@@ -116,15 +184,22 @@ export default {
         '103': 'iconfont icon-tijikongjian',
         '101': 'iconfont icon-shangpin',
         '102': 'iconfont icon-danju',
+        '202': 'iconfont icon-danju',
+        '302': 'iconfont icon-danju',
         '145': 'iconfont icon-baobiao'
       },
       // 是否折叠
       isCollapse: false,
       // 被激活的链接地址
-      activePath: ''
+      activePath: '',
+      username: '',
+      message: 2,
+      circleUrl: '',
     }
   },
   created() {
+    this.circleUrl = window.sessionStorage.getItem('avatar'),
+    this.username = window.sessionStorage.getItem('nickname'),
     this.activePath = window.sessionStorage.getItem('activePath')
   },
   methods: {
@@ -140,6 +215,14 @@ export default {
     saveNavState(activePath) {
       window.sessionStorage.setItem('activePath', activePath)
       this.activePath = activePath
+    },
+    handleCommand(command){
+      if (command == "loginout") {
+          window.sessionStorage.clear()
+          this.$router.push('/login')
+      } else if (command == "user") {
+          this.$router.push("/users");
+      }
     }
   }
 }
@@ -150,7 +233,7 @@ export default {
   height: 100%;
 }
 .el-header {
-  background-color:#bfe8f5dc;
+  background-color:#242f42;
   display: flex;
   justify-content: space-between;
   padding-left: 0;
@@ -167,7 +250,7 @@ export default {
 }
 
 .el-aside {
-  background-color: #333744;
+  background-color: #324157;
   .el-menu {
     border-right: none;
   }
@@ -189,5 +272,62 @@ export default {
   text-align: center;
   letter-spacing: 0.2em;
   cursor: pointer;
+}
+.logo {
+    float: left;
+    width: 250px;
+    line-height: 70px;
+}
+.header-right {
+    float: right;
+    padding-right: 50px;
+}
+.header-user-con {
+    display: flex;
+    height: 70px;
+    align-items: center;
+}
+.btn-fullscreen {
+    transform: rotate(45deg);
+    margin-right: 5px;
+    font-size: 24px;
+}
+.btn-bell,
+.btn-fullscreen {
+    position: relative;
+    width: 30px;
+    height: 30px;
+    text-align: center;
+    border-radius: 15px;
+    cursor: pointer;
+}
+.btn-bell-badge {
+    position: absolute;
+    right: 0;
+    top: -2px;
+    width: 8px;
+    height: 8px;
+    border-radius: 4px;
+    background: #f56c6c;
+    color: #fff;
+}
+.btn-bell .el-icon-bell {
+    color: #fff;
+}
+.user-name {
+    margin-left: 10px;
+}
+.user-avator {
+    margin-left: 20px;
+}
+.user-avator img {
+    display: block;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+}
+.el-dropdown-link {
+    color: #fff;
+    cursor: pointer;
 }
 </style>

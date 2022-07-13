@@ -82,7 +82,7 @@
       <div>
         <p>当前的角色：{{roles.roleName}}</p>
         <p>分配新角色：
-          <el-select v-model="selectedRoleId" placeholder="请选择">
+          <el-select v-model="roles.rightsId" placeholder="请选择">
             <el-option label="一级" value="1">
             </el-option>
             <el-option label="二级" value="2">
@@ -276,16 +276,12 @@ export default {
     },
     // 点击按钮，分配角色
     async saveRoleInfo() {
-      if (!this.selectedRoleId) {
-        return this.$message.error('请选择要分配的角色！')
-      }
-
       const { data: res } = await this.$http.get(
-        `roles1/${this.roles.id}/${this.selectedRoleId}`
+        `roles1/${this.roles.id}/${this.roles.rightsId}`
         )
 
-      if (res.meta.status !== 200) {
-        return this.$message.error('权限无法被修改！')
+      if (res.code !== 200) {
+        return this.$message.error(res.mes)
       }
 
       this.$message.success('更新权限成功！')
@@ -301,7 +297,7 @@ export default {
       this.$refs.addRoleFormRef.validate(async valid => {
         if (!valid) return
         const { data: res } = await this.$http.post('roles', this.addRoleForm)
-        if (res.meta.status !== 200) {
+        if (res.code !== 200) {
           this.$message.error('添加角色失败！')
         }
         this.$message.success('添加角色成功！')
@@ -324,14 +320,14 @@ export default {
         return this.$message.info('已取消删除')
       }
       const { data: res } = await this.$http.delete('roles/' + id)
-      if (res.meta.status !== 200) return this.$message.error('角色被使用，删除失败！')
+      if (res.code !== 200) return this.$message.error('角色被使用，删除失败！')
       this.$message.success('删除角色成功！')
       this.getRolesList()
     },
     // 编辑角色
     async showEditDialog (id) {
       const { data: res } = await this.$http.get('roles/' + id)
-      if (res.meta.status !== 200) return this.$message.error('查询角色信息失败！')
+      if (res.code !== 200) return this.$message.error('查询角色信息失败！')
       this.editRoleForm = res.data
       this.editRoleDialogVisible = true
     },
@@ -349,7 +345,7 @@ export default {
             roleDesc: this.editRoleForm.roleDesc
           }
         )
-        if (res.meta.status !== 200) {
+        if (res.code !== 200) {
           this.$message.error('更新角色信息失败！')
         }
         // 隐藏编辑角色对话框
@@ -368,7 +364,7 @@ export default {
       // join() 方法用于把数组中的所有元素放入一个字符串
       const idStr = keys.join(',')
       const { data: res } = await this.$http.post(`roles/${this.roleId}/rights`, { rids: idStr })
-      if (res.meta.status !== 200) { return this.$message.error('分配权限失败！') }
+      if (res.code !== 200) { return this.$message.error('分配权限失败！') }
       console.log(this.rightsList);
       console.log(this.rolesList);
       this.$message.success('分配权限成功!')

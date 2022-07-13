@@ -27,7 +27,7 @@
         <el-table-column label="登记时间" prop="date">
           <template slot-scope="scope">{{scope.row.date | dataFormat }}</template>
         </el-table-column>
-        <el-table-column label="登记人" prop="admin.realName"></el-table-column>
+        <el-table-column label="登记人" prop="admin.urealname"></el-table-column>
         <el-table-column label="操作" width="130px">
           <template slot-scope="scope">
             <el-button type="primary" icon="el-icon-edit" size="mini" @click="update()"></el-button>
@@ -61,8 +61,8 @@ export default {
     return {
       queryInfo: {
         query: '',
-        pageNum: 1,
-        pageSize: 10
+        pagenum: 1,
+        pagesize: 10
       },
       // 出勤异常信息列表
       abnormalsList: [],
@@ -82,11 +82,11 @@ export default {
       const { data: res } = await this.$http.get('abnormal', {
         params: this.queryInfo
       })
-    
-      if (res.code !== 200) {
+      console.log(res);
+      if (res.meta.status !== 200) {
         return this.$message.error('获取出勤异常信息列表失败！')
       }
-      this.abnormalsList = res.data.records
+      this.abnormalsList = res.data.attendances
       //   console.log(this.abnormalsList)
       this.total = res.data.total
     },

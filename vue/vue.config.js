@@ -1,4 +1,5 @@
 module.exports = {
+  baseUrl: '/admin',
   lintOnSave: false,
   chainWebpack: config => {
     // 发布模式

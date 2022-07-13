@@ -11,13 +11,15 @@ import 'quill/dist/quill.snow.css'
 import 'quill/dist/quill.bubble.css'
 import NProgress from 'nprogress'
 import 'nprogress/nprogress.css'
+import mavonEditor from 'mavon-editor'
+import 'mavon-editor/dist/css/index.css'
 import axios from 'axios'
 
-axios.defaults.baseURL = 'http://localhost:81/sys/'
+axios.defaults.baseURL = 'https://slcp.top/sys/'
 
 axios.interceptors.request.use(config => {
   NProgress.start()
-  config.headers.Authorization = window.sessionStorage.getItem('token')
+  config.headers.Authorization = window.sessionStorage.getItem('id')+"_"+window.sessionStorage.getItem('token')
   return config
 })
 
@@ -25,6 +27,9 @@ axios.interceptors.response.use(config => {
   NProgress.done()
   return config
 })
+
+// use
+Vue.use(mavonEditor)
 Vue.use(VueQuillEditor)
 Vue.config.productionTip = false
 Vue.prototype.$http = axios

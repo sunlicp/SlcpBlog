@@ -10,7 +10,7 @@ import './assets/fonts/iconfont.css'
 
 import axios from 'axios'
 
-axios.defaults.baseURL = 'http://localhost:81/sys/'
+axios.defaults.baseURL = 'https://slcp.top/sys/'
 axios.interceptors.request.use(config => {
   
   NProgress.start()

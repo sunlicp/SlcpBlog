@@ -1,9 +1,12 @@
 <template>
   <div class="login_container">
+    <video preload="auto" class="me-video-player" autoplay="autoplay" loop="loop">
+        <source src="../assets/vedio/b.mp4" type="video/mp4">
+    </video>
     <div class="login_box">
       <!-- 头像区域 -->
       <div class="avatar_box">
-        <img src="../assets/logo.png" alt="">
+        <img src="../assets/img/vue.jpg" alt="">
       </div>
       <!-- 登录表单区域 -->
       <el-form ref="loginFormRef" :model="loginForm" :rules="loginFormRules" label-width="0px" class="login_form">
@@ -13,7 +16,7 @@
         </el-form-item>
         <!-- 密码 -->
         <el-form-item prop="password">
-          <el-input v-model="loginForm.password" prefix-icon="iconfont icon-3702mima" type="password"></el-input>
+          <el-input v-model="loginForm.password" prefix-icon="iconfont icon-3702mima" type="password" show-password></el-input>
         </el-form-item>
         <!-- 按钮区域 -->
         <el-form-item class="btns">
@@ -59,14 +62,19 @@ export default {
       this.$refs.loginFormRef.validate(async valid => {
         if (!valid) return
         const { data: res } = await this.$http.post('login', this.loginForm)
-        if (res.code !== 200) return this.$message.error('登录失败！')
+        if (res.code !== 200) return this.$message.error(res.msg)
         this.$message.success('登录成功')
         // 1. 将登录成功之后的 token，保存到客户端的 sessionStorage 中
         //   1.1 项目中出了登录之外的其他API接口，必须在登录之后才能访问
         //   1.2 token 只应在当前网站打开期间生效，所以将 token 保存在 sessionStorage 中
-        window.sessionStorage.setItem('token', res.token)
-        console.log(res.id);
-        window.sessionStorage.setItem('id', res.id)
+        window.sessionStorage.setItem('token', res.data.token)
+        window.sessionStorage.setItem('id', res.data.id)
+        window.sessionStorage.setItem('nickname', res.data.nickname)
+        window.sessionStorage.setItem('avatar', res.data.avatar)
+        window.sessionStorage.setItem('lastLoginAddress', res.data.lastLoginAddress)
+        window.sessionStorage.setItem('lastLoginTime', res.data.lastLoginTime)
+        
+        this.$http.get('/user/map/' + res.data.id)
         // 2. 通过编程式导航跳转到后台主页，路由地址是 /home
         this.$router.push('/home')
       })
@@ -77,7 +85,6 @@ export default {
 
 <style lang="less" scoped>
 .login_container {
-  background-image: url(../assets/login.jpg);
   height: 100%;
   background-size: 100% auto;
 }
@@ -91,6 +98,7 @@ export default {
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
+  opacity: 0.8;
 
   .avatar_box {
     height: 130px;

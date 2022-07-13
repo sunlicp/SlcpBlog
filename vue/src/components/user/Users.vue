@@ -24,11 +24,12 @@
       <!-- 用户列表区域 -->
       <el-table :data="userlist" border stripe>
         <el-table-column type="index"></el-table-column>
+        <el-table-column label="昵称" prop="nickname"></el-table-column>
         <el-table-column label="用户" prop="username"></el-table-column>
-        <el-table-column label="角色" prop="roles.roleName"></el-table-column>
-        <el-table-column label="登记人" prop="realName"></el-table-column>
+        <el-table-column label="角色" prop="roleName"></el-table-column>
         <el-table-column label="状态">
           <template slot-scope="scope">
+            <!-- v-model无敌巨坑，不带开关值设置，传值必须为boolean。带:为数值，不带为string -->
             <el-switch v-model="scope.row.status" @change="userStateChanged(scope.row)">
             </el-switch>
           </template>
@@ -48,7 +49,7 @@
       </el-table>
 
       <!-- 分页区域 -->
-      <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="queryInfo.pagenum" :page-sizes="[1, 2, 5, 10]" :page-size="queryInfo.pagesize" layout="total, sizes, prev, pager, next, jumper" :total="total">
+      <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="queryInfo.pageNum" :page-sizes="[1, 2, 5, 10]" :page-size="queryInfo.pageSize" layout="total, sizes, prev, pager, next, jumper" :total="total">
       </el-pagination>
     </el-card>
 
@@ -62,8 +63,11 @@
         <el-form-item label="密码" prop="password">
           <el-input v-model="addForm.password"></el-input>
         </el-form-item>
-        <el-form-item label="登记人" prop="realName">
-          <el-input v-model="addForm.urealname"></el-input>
+        <el-form-item label="昵称" prop="nickname">
+          <el-input v-model="addForm.nickname"></el-input>
+        </el-form-item>
+        <el-form-item label="邮箱" prop="email">
+          <el-input v-model="addForm.email"></el-input>
         </el-form-item>
       </el-form>
       <!-- 底部区域 -->
@@ -76,11 +80,17 @@
     <!-- 修改用户的对话框 -->
     <el-dialog title="修改用户" :visible.sync="editDialogVisible" width="50%" @close="editDialogClosed">
       <el-form :model="editForm" :rules="editFormRules" ref="editFormRef" label-width="70px">
-        <el-form-item label="用户名">
+        <el-form-item label="用户名" >
           <el-input v-model="editForm.username" disabled></el-input>
         </el-form-item>
-        <el-form-item label="登记人" prop="urealname">
-          <el-input v-model="editForm.urealname"></el-input>
+        <el-form-item label="密码" prop="password">
+          <el-input v-model="editForm.password"></el-input>
+        </el-form-item>
+        <el-form-item label="昵称" prop="nickname">
+          <el-input v-model="editForm.nickname"></el-input>
+        </el-form-item>
+        <el-form-item label="邮箱" prop="email">
+          <el-input v-model="editForm.email"></el-input>
         </el-form-item>
       </el-form>
       <span slot="footer" class="dialog-footer">
@@ -93,7 +103,7 @@
     <el-dialog title="分配角色" :visible.sync="setRoleDialogVisible" width="50%" @close="setRoleDialogClosed">
       <div>
         <p>当前的用户：{{userInfo.username}}</p>
-        <p>当前的角色：{{roles.roleName}}</p>
+        <p>当前的角色：{{userInfo.roleName}}</p>
         <p>分配新角色：
           <el-select v-model="selectedRoleId" placeholder="请选择">
             <el-option v-for="item in rolesList" :key="item.id" :label="item.roleName" :value="item.id">
@@ -137,13 +147,14 @@ export default {
 
     return {
       // 获取用户列表的参数对象
+      value:true,
       queryInfo: {
         id: 0,
         query: '',
         // 当前的页数
         pageNum: 1,
         // 当前每页显示多少条数据
-        pageSize: 2
+        pageSize: 5
       },
       userlist: [],
       total: 0,
@@ -153,7 +164,8 @@ export default {
       addForm: {
         username: '',
         password: '',
-        realName: ''
+        nickname: '',
+        email: ''
       },
       // 添加表单的验证规则对象
       addFormRules: {
@@ -175,8 +187,11 @@ export default {
             trigger: 'blur'
           }
         ],
-        urealname: [
-          { required: true, message: '请输入登记人', trigger: 'blur' }
+        nickname: [
+          { required: true, message: '请输入昵称', trigger: 'blur' }
+        ],
+        email: [
+          { validator: checkEmail, trigger: 'blur' }
         ]
       },
       // 控制修改用户对话框的显示与隐藏
@@ -185,8 +200,19 @@ export default {
       editForm: {},
       // 修改表单的验证规则对象
       editFormRules: {
-        urealname: [
-          { required: true, message: '请输入登记人', trigger: 'blur' }
+        nickname: [
+          { required: true, message: '请输入昵称', trigger: 'blur' }
+        ],
+        password: [
+          {
+            min: 6,
+            max: 15,
+            message: '用户名的长度在6~15个字符之间',
+            trigger: 'blur'
+          }
+        ],
+        email: [
+          { validator: checkEmail, trigger: 'blur' }
         ]
       },
       // 控制分配角色对话框的显示与隐藏
@@ -213,27 +239,29 @@ export default {
         this.$router.push('/no')
         return this.$message.error('权限不够，无法获取用户列表！')
       }
+      console.log(res.data.records)
       this.userlist = res.data.records
+      console.log( this.userlist)
       this.total = res.data.total
     },
     // 监听 pagesize 改变的事件
     handleSizeChange(newSize) {
-      this.queryInfo.pagesize = newSize
+      this.queryInfo.pageSize = newSize
       this.getUserList()
     },
     // 监听 页码值 改变的事件
     handleCurrentChange(newPage) {
-      this.queryInfo.pagenum = newPage
+      this.queryInfo.pageNum = newPage
       this.getUserList()
     },
     // 监听 switch 开关状态的改变
     async userStateChanged(userinfo) {
       const { data: res } = await this.$http.post('users', {
         id: userinfo.id,
-        state: userinfo.state
+        status: userinfo.status
       })
-      if (res.meta.status !== 200) {
-        userinfo.state = !userinfo.state
+      if (res.code !== 200) {
+        userinfo.status = !userinfo.status
         return this.$message.error('更新用户状态失败！')
       }
       this.$message.success('更新用户状态成功！')
@@ -247,9 +275,8 @@ export default {
       this.$refs.addFormRef.validate(async valid => {
         if (!valid) return
         // 可以发起添加用户的网络请求
-        const { data: res } = await this.$http.post('admins', this.addForm)
-        console.log(res);
-        if (res.meta.status !== 201) {
+        const { data: res } = await this.$http.post('users', this.addForm)
+        if (res.code !== 200) {
           this.$message.error('添加用户失败！')
         }
 
@@ -264,7 +291,7 @@ export default {
     async showEditDialog(id) {
       const { data: res } = await this.$http.get('users/' + id)
 
-      if (res.meta.status !== 200) {
+      if (res.code !== 200) {
         return this.$message.error('查询用户信息失败！')
       }
 
@@ -280,11 +307,8 @@ export default {
       this.$refs.editFormRef.validate(async valid => {
         if (!valid) return
         // 发起修改用户信息的数据请求
-        const { data: res } = await this.$http.get(
-          'users/' + this.editForm.id + '/' + this.editForm.urealname
-        )
-
-        if (res.meta.status !== 200) {
+        const { data: res } = await this.$http.post('users', this.editForm)
+        if (res.code !== 200) {
           return this.$message.error('更新用户信息失败！')
         }
 
@@ -317,7 +341,7 @@ export default {
 
       const { data: res } = await this.$http.delete('users/' + id)
 
-      if (res.meta.status !== 200) {
+      if (res.code !== 200) {
         return this.$message.error('删除用户失败！')
       }
 
@@ -330,7 +354,7 @@ export default {
       this.roles = userInfo.roles
       // 在展示对话框之前，获取所有角色的列表
       const { data: res } = await this.$http.get('roles')
-      if (res.meta.status !== 200) {
+      if (res.code !== 200) {
         return this.$message.error('获取角色列表失败！')
       }
 
@@ -348,7 +372,7 @@ export default {
         `roles/${this.userInfo.id}/${this.selectedRoleId}`
         )
 
-      if (res.meta.status !== 200) {
+      if (res.code !== 200) {
         return this.$message.error('更新角色失败！')
       }
 
