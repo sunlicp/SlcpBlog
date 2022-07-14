@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" >
 <head>
     <meta charset="utf-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
@@ -11,276 +11,15 @@
     <meta name="baidu-site-verification" content="code-4JVLqEsd0l"/>
     <meta name="google-site-verification" content="04JsMT7rHFvGr4NPHW_kPrAlVJZ87EFz9FIa1ebXBEM"/>
     <meta name="robots" content="all"/>
-    <title>Slcpの小花园</title>
-    <link rel="shortcut icon" href="../static/images/favicon.ico" th:href="@{/images/favicon.ico}" type="image/x-icon"/>
-    <link rel="Bookmark" href="../static/images/favicon.ico" th:href="@{/images/favicon.ico}" type="image/x-icon"/>
-    <link rel="stylesheet" href="../static/css/SLAnimation.min.css" th:href="@{/css/SLAnimation.min.css}">
+    <title>Slcpの童话镇</title>
     <link rel="stylesheet" href="../static/css/article.css" th:href="@{/css/article.css}">
     <link rel="stylesheet" href="../static/css/blog.min.css" th:href="@{/css/blog.min.css}">
-    <link rel="stylesheet" href="../static/css/materialize.min.css" th:href="@{/css/materialize.min.css}">
-    <link rel="stylesheet" href="../static/css/slcp.min.css" th:href="@{/css/slcp.min.css}">
-    <link rel="preload" as="style" href="https://cdn.bootcdn.net/ajax/libs/font-awesome/5.15.1/css/all.min.css"
-          onload="this.onload=null;this.rel='stylesheet'"/>
-    <link rel="stylesheet" type="text/css" href="https://cdn.bootcdn.net/ajax/libs/aos/3.0.0-beta.6/aos.css"/>
-    <link rel="preconnect" href="https://fonts.gstatic.com"/>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC&amp;family=Zhi+Mang+Xing&amp;family=Luckiest+Guy&amp;display=swap"
-          rel="stylesheet"/>
-
+    <link rel="stylesheet" href="../static/css/SLAnimation.min.css" th:href="@{/css/SLAnimation.min.css}">
+    <head th:replace="~{common :: .head}"></head>
 </head>
 <body>
-<div id="particles-js"></div>
-<div class="stars-con">
-    <div id='stars'></div>
-    <div id='stars2'></div>
-    <div id='stars3'></div>
-</div>
-<div class="cat-container">
-    <div class="cat">
-        <div class="cat__segment"></div>
-        <div class="cat__segment"></div>
-        <div class="cat__segment"></div>
-        <div class="cat__segment"></div>
-        <div class="cat__segment"></div>
-        <div class="cat__segment"></div>
-        <div class="cat__segment"></div>
-        <div class="cat__segment"></div>
-        <div class="cat__segment"></div>
-        <div class="cat__segment"></div>
-        <div class="cat__segment"></div>
-        <div class="cat__segment"></div>
-        <div class="cat__segment"></div>
-        <div class="cat__segment"></div>
-        <div class="cat__segment"></div>
-        <div class="cat__segment"></div>
-        <div class="cat__segment"></div>
-        <div class="cat__segment"></div>
-        <div class="cat__segment"></div>
-        <div class="cat__segment"></div>
-        <div class="cat__segment"></div>
-        <div class="cat__segment"></div>
-        <div class="cat__segment"></div>
-        <div class="cat__segment"></div>
-        <div class="cat__segment"></div>
-        <div class="cat__segment"></div>
-        <div class="cat__segment"></div>
-        <div class="cat__segment"></div>
-        <div class="cat__segment"></div>
-        <div class="cat__segment"></div>
-    </div>
-    <div class="center-align load-progress-V hide-on-med-and-down">
-        <div class="load-progress">Loading...</div>
-    </div>
-</div>
-<header id="headerV" class="navbar-fixed">
-    <nav id="headNav" class="h-color nav-transparent"
-         style="transition: background .6s ease-in-out,padding .6s ease-in-out;">
-        <div id="navContainer" class="nav-wrapper container">
-            <div class="brand-logo">
-                <a href="/" class="waves-effect waves-light">
-                    <span class="logo-span"
-                          style="color: #000000;font-family: 'Zhi Mang Xing', cursive;font-size: 30px">Slcp</span>
-                </a>
-                <div id="tp-weather-widget" class="hide-on-med-and-down"
-                     style="display:inline-block;font-family:'Noto Serif SC',serif !important;"></div>
-            </div>
-            <a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i style="color: #0C0C0C"
-                                                                                            class="fa fa-bars"></i></a>
-            <ul class="right nav-menu">
-                <li class="hide-on-med-and-down nav-item">
-                    <a href="#" th:href="@{/article/}" class="waves-effect waves-light Slcp-color">
-                        <i class="fas fa-home fa-2x" style="zoom: 0.6;"></i>
-                        <span>首页</span>
-                    </a>
-                </li>
-                <li class="hide-on-med-and-down nav-item">
-                    <a href="#" th:href="@{/tags/-1}" class="waves-effect waves-light Slcp-color">
-                        <i class="fas fa-layer-group fa-2x" style="zoom: 0.6;"></i>
-                        <span>分类</span>
-                    </a>
-                </li>
-                <li class="hide-on-med-and-down nav-item">
-                    <a href="#" th:href="@{/archives}" class="waves-effect waves-light Slcp-color">
-                        <i class="fas fa-history fa-2x" style="zoom: 0.6;"></i>
-                        <span>时间轴</span>
-                    </a>
-
-                </li>
-                <li class="hide-on-med-and-down nav-item">
-                    <a href="#" th:href="@{/music}" class="waves-effect waves-light Slcp-color">
-                        <i class="fas fa-music fa-2x" style="zoom: 0.6;"></i>
-                        <span>音乐盒</span>
-                    </a>
-
-                </li>
-                <li class="hide-on-med-and-down nav-item">
-                    <a href="#" th:href="@{/message}" class="waves-effect waves-light Slcp-color">
-                        <i class="fas fa-comments fa-2x" style="zoom: 0.6;"></i>
-                        <span>留言板</span>
-                    </a>
-                </li>
-                <li class="hide-on-med-and-down nav-item">
-                    <a href="#" th:href="@{/friends}" class="waves-effect waves-light Slcp-color">
-                        <i class="fas fa-link fa-2x" style="zoom: 0.6;"></i>
-                        <span>友人链</span>
-                    </a>
-                </li>
-                <li class="hide-on-med-and-down nav-item">
-                    <a href="#" th:href="@{/about}" class="waves-effect waves-light Slcp-color">
-                        <i class="fas fa-address-book fa-2x" style="zoom: 0.6;"></i>
-                        <span>关于</span>
-                    </a>
-                </li>
-                <li class="hide-on-med-and-down nav-item">
-                    <a href="javascript:;" class="dropdown-button waves-effect waves-light Slcp-color">
-                        <i class="fa fa-th-large fa-2x" style="zoom: 0.6;"></i>
-                        <span>清单</span>
-                    </a>
-                    <ul class="sub-nav menus_item_child">
-                        <li>
-                            <a href="#" th:href="@{/userLoginAndRegister/userLogin}" class="waves-effect waves-light Slcp-color">
-                                <i class="fas fa-user fa-2x" style="zoom: 0.6;"></i>
-                                <span>登录</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#" th:href="@{/userLoginAndRegister/register}" class="waves-effect waves-light Slcp-color">
-                                <i class="fas fa-address-card fa-2x" style="zoom: 0.6;"></i>
-                                <span>注册</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#" th:href="@{/picture}" class="waves-effect waves-light Slcp-color">
-                                <i class="fas fa-image fa-2x" style="zoom: 0.6;"></i>
-                                <span>照片墙</span>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-                <li>
-                    <a href="#searchModal" class="modal-trigger waves-effect waves-light Slcp-color">
-                        <i id="searchIcon" class="fa fa-search fa-2x" title="搜索" style="zoom: 0.85;"></i>
-                    </a>
-                </li>
-                <li class="hide-on-med-and-down">
-                    <a onclick="switchNightModeTop()" class="modal-trigger waves-effect waves-light Slcp-color">
-                        <i class="fa fa-moon" id="changeMode-top" title="切换主题" style="zoom: 0.85;"></i>
-                    </a>
-                </li>
-            </ul>
-            <div id="mobile-nav" class="side-nav sidenav">
-
-                <div class="mobile-head bg-color">
-
-                    <img src="../static/images/bg.jpg" th:src="@{/images/bg.jpg}"
-                         class="logo-img circle responsive-img">
-                    <div class="logo-name" style="font-family:'Luckiest Guy',cursive">Slcp</div>
-                    <div class="logo-desc">
-                    </div>
-                </div>
-                <ul class="menu-list mobile-menu-list">
-                    <li class="m-nav-item">
-                        <a href="/article/" class="waves-effect waves-light">
-                            <i class="fas fa-home fa-2x"></i>
-                            首页
-                        </a>
-                    </li>
-                    <li class="m-nav-item">
-                        <a href="/tags/-1" class="waves-effect waves-light">
-                            <i class="fas fa-layer-group fa-2x"></i>
-                            分类
-                        </a>
-                    </li>
-                    <li class="m-nav-item">
-                        <a href="/archives" class="waves-effect waves-light">
-                            <i class="fas fa-history fa-2x"></i>
-                            时间轴
-                        </a>
-                    </li>
-                    <li class="m-nav-item">
-                        <a href="/music" class="waves-effect waves-light">
-                            <i class="fas fa-music fa-2x"></i>
-                            音乐盒
-                        </a>
-                    </li>
-                    <li class="m-nav-item">
-                        <a href="/message" class="waves-effect waves-light">
-                            <i class="fas fa-comments fa-2x"></i>
-                            留言板
-                        </a>
-                    </li>
-                    <li class="m-nav-item">
-                        <a href="/friends" class="waves-effect waves-light">
-                            <i class="fas fa-link fa-2x"></i>
-                            友人链
-                        </a>
-                    </li>
-                    <li class="m-nav-item">
-                        <a href="/about" class="waves-effect waves-light">
-                            <i class="fas fa-address-book fa-2x"></i>
-                            关于
-                        </a>
-                    </li>
-                    <li class="m-nav-item">
-                        <a href="javascript:;">
-                            <i class="fa fa-th-large fa-2x"></i>
-                            清单
-                            <span class="m-icon"><i class="fa fa-chevron-right fa-2x"
-                                                    style="margin-top: -8px"></i></span>
-                        </a>
-                        <ul>
-                            <li class="m-nav-item">
-                                <a href="/userLoginAndRegister/userLogin" class="waves-effect waves-light">
-                                    <i class="fas fa-user fa-2x"></i>
-                                    登录
-                                </a>
-                            </li>
-                            <li class="m-nav-item">
-                                <a href="/userLoginAndRegister/register" class="waves-effect waves-light">
-                                    <i class="fas fa-address-card fa-2x"></i>
-                                    注册
-                                </a>
-                            </li>
-                            <li class="m-nav-item">
-                                <a href="/picture" class="waves-effect waves-light">
-                                    <i class="fas fa-image fa-2x"></i>
-                                    照片墙
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
-</header>
-<div class="deng-box">
-    <div class="deng">
-        <div class="xian"></div>
-        <div class="deng-a">
-            <div class="deng-b">
-                <div class="deng-t">欢度</div>
-            </div>
-        </div>
-        <div class="shui shui-a">
-            <div class="shui-c"></div>
-            <div class="shui-b"></div>
-        </div>
-    </div>
-</div>
-<div class="deng-box1">
-    <div class="deng">
-        <div class="xian"></div>
-        <div class="deng-a">
-            <div class="deng-b">
-                <div class="deng-t">春节</div>
-            </div>
-        </div>
-        <div class="shui shui-a">
-            <div class="shui-c"></div>
-            <div class="shui-b"></div>
-        </div>
-    </div>
-</div>
+<div th:replace="~{common :: .top-cat}"></div>
+<div th:replace="~{common :: .top}"></div>
 <div class="bg-cover pd-header article-cover" style="height: 100vh">
     <div class="candle-con">
         <div class="wrapper">
@@ -426,7 +165,7 @@
             <!--普通排序文章-->
             <article id="articles" class="container articles" style="padding-top: 2.5px">
                 <div class="row article-row">
-                    <div class="article col s12 m6 l4" data-aos="zoom-in" th:each="blog : ${pageInfo.list}">
+                    <div class="article col s12 m6 l4" data-aos="zoom-in" th:each="blog : ${pageInfo.records}">
                         <div class="card z-depth-5">
                             <style>
                                 .card-image:hover .title-V {
@@ -477,37 +216,23 @@
             <div class="row" style="padding-top: 20px" data-aos="flip-left">
                 <div class="col s6 m4 l4">
                     <a class="page left btn-floating btn-large waves-effect waves-light bg-color"
-                       th:href="@{/article/(pageNum=${pageInfo.hasPreviousPage}?${pageInfo.prePage}:1)}"
-                       th:unless="${pageInfo.isFirstPage}"> <i class="fa fa-angle-left"></i> </a>
+                       th:href="@{/article/(pageNum=${pageInfo.current > 1}?${pageInfo.current - 1}:1)}"
+                       th:unless="${pageInfo.current == 1}"> <i class="fa fa-angle-left"></i> </a>
                     <a class="page left btn-floating btn-large waves-effect waves-light bg-color" href="/article"
                        style="display:none"> <i class="fa fa-angle-left"></i> </a>
                 </div>
                 <div class="page-info col m4 l4 hide-on-small-only">
                     <div class="center-align b-text-gray">
-                        <h3><span th:text="${pageInfo.pageNum}"></span> / <span th:text="${pageInfo.pages}"></span></h3>
+                        <h3><span th:text="${pageInfo.current}"></span> / <span th:text="${pageInfo.pages}"></span></h3>
                     </div>
                 </div>
                 <div class="col s6 m4 l4">
-                    <a th:href="@{/article/(pageNum=${pageInfo.hasNextPage}?${pageInfo.nextPage}:${pageInfo.pages})}"
-                       th:unless="${pageInfo.isLastPage}"
+                    <a th:href="@{/article/(pageNum=${pageInfo.current < pageInfo.pages}?${pageInfo.current + 1}:${pageInfo.pages})}"
+                       th:unless="${pageInfo.current == pageInfo.pages}"
                        class="right btn-floating btn-large waves-effect waves-light bg-color"> <i
                             class="fa fa-angle-right"></i> </a>
                 </div>
             </div>
-            <!--分类列表分页-->
-            <!--<div class="row" style="display:none" data-aos="flip-left">
-                <div class="col s6 m4 l4">
-                    <a class="page left btn-floating btn-large disabled" href="/article/category/null/0/6"> <i class="fa fa-angle-left"></i> </a>
-                </div>
-                <div class="page-info col m4 l4 hide-on-small-only">
-                    <div class="center-align b-text-gray">
-                        <h3>1/4</h3>
-                    </div>
-                </div>
-                <div class="col s6 m4 l4">
-                    <a href="/article/category/null/2/6" class="right btn-floating btn-large waves-effect waves-light bg-color"> <i class="fa fa-angle-right"></i> </a>
-                </div>
-            </div>-->
         </div>
     </div>
     <!--右边功能组件-->
@@ -517,7 +242,7 @@
                 <div class="other-item card" id="categoryandsearch">
                     <h5 class="other-item-title">文章分类</h5>
                     <ul class="category mt20" id="category">
-                        <li><a href="/article/">全部文章</a></li>
+                        <li><a th:href="@{/article/category/}">全部文章</a></li>
                         <li th:each="type : ${types}"><a th:href="@{/article/category/{name}(name=${type.typeName})}">
                             <span th:text="${type.typeName}">后端</span> <span class="chip bg-color center-align"
                                                                              style="color: whitesmoke;float: right;margin-top: 3px"
@@ -552,339 +277,54 @@
         </div>
     </div>
 </div>
-<!-- 搜索遮罩框 -->
-<div id="searchModal" class="modal">
-    <div class="modal-content">
-        <div class="search-header">
-            <span class="title"><i class="fa fa-search"></i>&nbsp;&nbsp;搜索</span>
-            <form action="/search" method="get">
-                <input type="search" id="searchInput" name="keywords" placeholder="请输入搜索的关键字" class="search-input"/>
-                <button class="waves-effect waves-light btn" style="display: inline;" type="submit"><i
-                        class="fa fa-search"></i></button>
-            </form>
-        </div>
-        <div id="searchResult"></div>
-    </div>
-</div>
-<div class="menu-V">
-    <div class="container-M">
-        <div class="toggle"></div>
-    </div>
-    <svg aria-hidden="true" style="position: absolute;overflow: hidden;width: 0;height: 0">
-        <symbol id="icon-sun" viewBox="0 0 1024 1024">
-            <path d="M960 512l-128 128v192h-192l-128 128-128-128H192v-192l-128-128 128-128V192h192l128-128 128 128h192v192z"
-                  fill="#FFD878" p-id="8420"></path>
-            <path d="M736 512a224 224 0 1 0-448 0 224 224 0 1 0 448 0z" fill="#FFE4A9" p-id="8421"></path>
-            <path d="M512 109.248L626.752 224H800v173.248L914.752 512 800 626.752V800h-173.248L512 914.752 397.248 800H224v-173.248L109.248 512 224 397.248V224h173.248L512 109.248M512 64l-128 128H192v192l-128 128 128 128v192h192l128 128 128-128h192v-192l128-128-128-128V192h-192l-128-128z"
-                  fill="#4D5152" p-id="8422"></path>
-            <path d="M512 320c105.888 0 192 86.112 192 192s-86.112 192-192 192-192-86.112-192-192 86.112-192 192-192m0-32a224 224 0 1 0 0 448 224 224 0 0 0 0-448z"
-                  fill="#4D5152" p-id="8423"></path>
-        </symbol>
-        <symbol id="icon-moon" viewBox="0 0 1024 1024">
-            <path d="M611.370667 167.082667a445.013333 445.013333 0 0 1-38.4 161.834666 477.824 477.824 0 0 1-244.736 244.394667 445.141333 445.141333 0 0 1-161.109334 38.058667 85.077333 85.077333 0 0 0-65.066666 135.722666A462.08 462.08 0 1 0 747.093333 102.058667a85.077333 85.077333 0 0 0-135.722666 65.024z"
-                  fill="#FFB531" p-id="11345"></path>
-            <path d="M329.728 274.133333l35.157333-35.157333a21.333333 21.333333 0 1 0-30.165333-30.165333l-35.157333 35.157333-35.114667-35.157333a21.333333 21.333333 0 0 0-30.165333 30.165333l35.114666 35.157333-35.114666 35.157334a21.333333 21.333333 0 1 0 30.165333 30.165333l35.114667-35.157333 35.157333 35.157333a21.333333 21.333333 0 1 0 30.165333-30.165333z"
-                  fill="#030835" p-id="11346"></path>
-        </symbol>
-    </svg>
-    <a onclick="switchNightMode()" class="icon-V hidden" title="切换主题">
-        <svg width="35" height="35" viewBox="0 0 1024 1024">
-            <use id="modeicon" xlink:href=""></use>
-        </svg>
-    </a>
-    <a href="#" th:href="@{/message}" class="icon-V hidden" id="toComment" title="前往留言板">
-        <svg t="1612414443145" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"
-             p-id="1879" width="38" height="38">
-            <path d="M113.834667 291.84v449.194667a29.013333 29.013333 0 0 0 28.842666 29.013333h252.928v90.453333l160.597334-90.453333h252.928a29.013333 29.013333 0 0 0 29.013333-29.013333V291.84a29.013333 29.013333 0 0 0-29.013333-29.013333h-665.6a29.013333 29.013333 0 0 0-29.696 29.013333z"
-                  fill="#FFDEAD" p-id="1880"></path>
-            <path d="M809.130667 262.826667h-665.6a29.013333 29.013333 0 0 0-28.842667 29.013333v40.106667a29.013333 29.013333 0 0 1 28.842667-29.013334h665.6a29.013333 29.013333 0 0 1 29.013333 29.013334V291.84a29.013333 29.013333 0 0 0-29.013333-29.013333z"
-                  fill="#FFF3DB" p-id="1881"></path>
-            <path d="M556.202667 770.048h252.928a29.013333 29.013333 0 0 0 29.013333-29.013333V362.837333s-59.733333 392.533333-724.309333 314.709334v63.488a29.013333 29.013333 0 0 0 28.842666 29.013333h253.098667v90.453333z"
-                  fill="#F2C182" p-id="1882"></path>
-            <path d="M619.008 632.32l101.888-35.157333-131.754667-76.117334 29.866667 111.274667zM891.904 148.992a61.44 61.44 0 0 0-84.138667 22.528l-19.968 34.133333 106.666667 61.610667 19.968-34.133333a61.781333 61.781333 0 0 0-22.528-84.138667z"
-                  fill="#69BAF9" p-id="1883"></path>
-            <path d="M775.338667 198.775467l131.669333 76.032-186.026667 322.218666-131.6864-76.032z" fill="#F7FBFF"
-                  p-id="1884"></path>
-            <path d="M775.168 198.826667l-5.290667 9.216 59.221334 34.133333a34.133333 34.133333 0 0 1 12.458666 46.592l-139.946666 242.346667a34.133333 34.133333 0 0 1-46.762667 12.629333l-59.050667-34.133333-6.656 11.434666 88.746667 51.2L720.896 597.333333l186.026667-322.56z"
-                  fill="#D8E3F0" p-id="1885"></path>
-            <path d="M616.448 622.592l2.56 9.728 101.888-35.157333-44.885333-25.941334-59.562667 51.370667zM891.904 148.992c-1.024 0-2.218667-0.853333-3.242667-1.536A61.610667 61.610667 0 0 1 887.466667 204.8l-19.968 34.133333-73.728-42.496-5.12 8.704 106.666666 61.610667 19.968-34.133333a61.781333 61.781333 0 0 0-23.381333-83.626667z"
-                  fill="#599ED4" p-id="1886"></path>
-            <path d="M265.898667 417.621333H494.933333a17.066667 17.066667 0 1 0 0-34.133333H265.898667a17.066667 17.066667 0 1 0 0 34.133333zM265.898667 533.504H494.933333a17.066667 17.066667 0 0 0 0-34.133333H265.898667a17.066667 17.066667 0 0 0 0 34.133333z"
-                  fill="#3D3D63" p-id="1887"></path>
-            <path d="M959.488 354.645333a99.84 99.84 0 0 0-23.722667-127.488 78.677333 78.677333 0 0 0-142.848-64.170666l-11.605333 20.138666a17.066667 17.066667 0 0 0-20.821333 7.168l-32.085334 55.466667H142.677333a46.250667 46.250667 0 0 0-45.909333 46.08v449.194667a46.08 46.08 0 0 0 45.909333 46.08h236.032v73.386666a17.066667 17.066667 0 0 0 8.362667 14.848 17.066667 17.066667 0 0 0 8.704 2.218667 17.066667 17.066667 0 0 0 8.362667-2.218667l156.672-88.234666h248.32a46.08 46.08 0 0 0 46.08-46.08V398.677333L921.6 283.306667a17.066667 17.066667 0 0 0-4.266667-21.504l1.877334-3.413334a65.365333 65.365333 0 0 1 10.410666 79.189334l-53.077333 91.989333a56.832 56.832 0 0 0 20.821333 77.653333 17.066667 17.066667 0 0 0 24.234667-6.314666 17.066667 17.066667 0 0 0-6.997333-23.04 23.04 23.04 0 0 1-8.362667-31.061334z m-138.410667 386.389334a11.946667 11.946667 0 0 1-11.946666 11.946666H556.202667a17.066667 17.066667 0 0 0-8.362667 2.218667l-134.997333 76.117333v-61.269333a17.066667 17.066667 0 0 0-17.066667-17.066667H142.677333a11.946667 11.946667 0 0 1-11.776-11.946666V291.84a11.946667 11.946667 0 0 1 11.776-11.946667h565.930667L574.464 512a17.066667 17.066667 0 0 0-1.706667 12.970667L597.333333 615.253333H265.898667a17.066667 17.066667 0 1 0 0 34.133334h352.938666a17.066667 17.066667 0 0 0 5.802667 0l102.4-35.328a17.066667 17.066667 0 0 0 9.216-7.509334l85.333333-147.968z m-204.8-184.661334l63.829334 36.864-49.322667 17.066667z m206.848-170.666666v1.365333l-108.373333 186.709333-102.4-59.050666L781.482667 221.866667l102.4 59.050666z m76.458667-161.28L887.466667 244.224l-76.970667-44.373333 11.264-19.797334a44.544 44.544 0 1 1 77.141333 44.544z"
-                  fill="#3D3D63" p-id="1888"></path>
-        </svg>
-    </a>
-    <a href="#" th:href="@{/music}" class="icon-V hidden" title="前往音乐室">
-        <svg t="1612414295685" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"
-             p-id="82057" width="35" height="35">
-            <path d="M114.0736 546.304l751.1552-371.712-529.0496 444.7232zM951.7568 159.8976L556.0832 678.4l348.8768 58.9312 21.9648-14.592z"
-                  fill="#FBC07C" p-id="82058"></path>
-            <path d="M874.9056 216.9344l-477.6448 423.5264 99.7888 212.1728 8.6528-186.9312z" fill="#FC9553"
-                  p-id="82059"></path>
-            <path d="M542.72 888.3712v-185.0368l10.9056-15.104 115.712 17.2544z" fill="#E56234" p-id="82060"></path>
-            <path d="M962.4064 96.3072c-1.8432-1.8432-4.0448-3.072-6.3488-3.84-4.0448-1.6896-8.704-1.7408-12.9536 0.2048-7.2192 3.3792-722.5856 339.6096-874.9568 410.368a27.23328 27.23328 0 0 0-15.7696 26.6752 27.09504 27.09504 0 0 0 19.2512 24.2688l253.9008 78.1312 164.4032 312.7296a16.44032 16.44032 0 0 0 14.592 8.8064c0.1024 0 0.2048-0.0512 0.3072-0.0512 0.8192 0.1024 1.6384 0.2048 2.4576 0.2048 5.4272 0 10.6496-2.6112 13.8752-7.2704l148.7872-214.8864c5.888-7.3728 10.2912-13.056 13.5168-17.5104l217.7536 38.0928c3.072 0.9728 6.2976 1.4336 9.472 1.4336 6.1952 0 12.3392-1.792 17.5616-5.3248a31.6928 31.6928 0 0 0 14.0288-25.088l24.7808-611.9424c0.0512-0.768-0.0512-1.536-0.1024-2.2528 0.4608-4.5056-1.024-9.2672-4.5568-12.7488zM852.48 169.216L332.6976 602.2144l-243.712-74.9568C217.1392 467.6096 651.4688 263.6288 852.48 169.216z m-496.9472 453.9904l481.8432-401.408-320.0512 404.7872-24.6272 30.8224-2.3552 4.7104v217.4976l-134.8096-256.4096z m289.8432 89.9584l-124.3648 179.5584v-206.8992l128 22.3744c-1.792 2.4576-3.1744 4.352-3.6352 4.9664z m266.1888 8.96v0.0512c0 0.1536 0 0.4608-0.4096 0.7168-0.3584 0.256-0.6656 0.1536-0.8192 0.1024l-1.3312-0.512-229.5296-40.1408-146.4832-26.0608 7.6288-9.6256L934.5536 153.6l-22.9888 568.5248z"
-                  fill="#333333" p-id="82061"></path>
-        </svg>
-    </a>
-</div>
-<div id="backTop" class="top-scroll">
-    <a class="btn-floating btn-large waves-effect waves-light" title="返回顶部" href="#!">
-        <svg t="1612414348421" style="position: relative;top: 5px" class="icon" viewBox="0 0 1024 1024" version="1.1"
-             xmlns="http://www.w3.org/2000/svg" p-id="82219" width="38" height="38">
-            <path d="M404.0704 372.224V231.936s-0.0512-94.5152 133.8368-155.2896c40.3968 17.7664 94.464 68.864 105.0624 154.0608v108.4928l-32.8192 49.664s-57.3952-94.7712-100.608-116.8384c-25.088 22.6816-73.5744 94.2592-79.9744 121.7536-16.896 17.664-19.1488-15.0016-25.4976-21.5552z"
-                  fill="#E56A77" p-id="82220"></path>
-            <path d="M154.368 824.9856v20.0192c0 18.2272 14.7968 33.024 33.024 33.024h225.28v-273.7664l-245.76 194.816a33.21344 33.21344 0 0 0-12.544 25.9072z"
-                  fill="#BC9BE0" p-id="82221"></path>
-            <path d="M322.56 296.192S226.304 349.1328 226.304 452.6592v264.9088l192.512-162.2528V452.6592C418.7648 335.872 322.56 296.192 322.56 296.192zM736.6144 301.312s93.6448 52.9408 93.6448 156.4672v264.9088l-187.2384-162.2528V457.7792c-0.0512-116.7872 93.5936-156.4672 93.5936-156.4672z"
-                  fill="#FFA750" p-id="82222"></path>
-            <path d="M642.9696 591.2064v286.8736h238.336c18.944 0 34.3552-15.36 34.3552-34.3552v-20.736c0-10.496-4.8128-20.4288-13.056-26.9312l-259.6352-204.8512zM606.3616 503.9616c0-146.3808-75.8272-200.3456-75.8272-200.3456S446.2592 360.448 446.2592 503.9616v374.0672h160.1536c-0.0512 0.0512-0.0512-227.6864-0.0512-374.0672z"
-                  fill="#BC9BE0" p-id="82223"></path>
-            <path d="M348.1088 971.6224h-44.4416c-11.6224 0-21.7088-7.7312-24.2688-18.6368l-11.6224-49.3056h119.0912l-14.8992 50.5344c-2.9696 10.2912-12.7488 17.408-23.8592 17.408zM762.8288 971.6224h-44.4416c-11.6224 0-21.7088-7.7312-24.2688-18.6368l-11.6224-49.3056h119.0912l-14.8992 50.5344c-2.9696 10.2912-12.7488 17.408-23.8592 17.408z"
-                  fill="#FFA750" p-id="82224"></path>
-            <path d="M910.336 772.9664l-64.768-51.0976V443.1872c0-136.6528-120.5248-184.9856-121.7536-185.4464-4.096-1.5872-8.704-1.3312-12.5952 0.6656-1.8432 0.9728-19.6608 10.3936-41.0624 28.3648v-40.7552c0-150.016-152.064-202.5472-153.6-203.0592a15.1552 15.1552 0 0 0-11.1104 0.5632c-6.1952 2.7648-152.2176 69.376-152.2176 202.496V286.72c-24.832-20.1216-46.4384-28.7744-46.9504-28.9792-4.096-1.5872-8.704-1.3312-12.5952 0.6656-4.9152 2.56-120.2176 63.5904-120.2176 184.7296v282.3168l-59.904 47.5136a54.016 54.016 0 0 0-20.5824 42.5472v23.6032c0 29.952 24.3712 54.3232 54.3232 54.3232h69.4784l12.6976 55.9104c5.0176 22.1696 24.4224 37.632 47.1552 37.632h58.88c21.504 0 40.6528-14.4384 46.4896-35.1232l16.5888-58.4192h229.1712l16.5888 58.4192c5.888 20.6848 24.9856 35.1232 46.4896 35.1232h58.88c22.7328 0 42.1376-15.4624 47.1552-37.632l12.6976-55.9104h67.1744c29.952 0 54.3232-24.3712 54.3232-54.3232v-23.5008c-0.0512-16.7424-7.5776-32.3072-20.736-42.6496z m-270.848-455.7824c-13.3632 15.6672-25.856 34.5088-34.8672 56.576-8.5504-24.2176-19.4048-44.0832-30.5664-60.0064h65.4336v3.4304z m-17.7664 187.8016h193.1264v35.072h-193.1264v-35.072z m32.4096 65.792h160.768v126.8224l-0.5632-0.4608-160.2048-126.3616z m65.024-281.4464c22.3744 11.1104 95.744 55.1424 95.744 153.856v31.1296h-193.1264v-31.1296c0-44.9024 19.8144-80.5888 42.0864-106.5984 1.792-1.28 3.2768-2.9696 4.352-4.9152 19.8656-21.8624 40.8064-36.1472 50.944-42.3424z m-206.592-215.1424c25.7024 10.24 126.9248 57.9072 126.9248 171.776v37.0176h-91.392c-16.5376-16.1792-29.696-23.6544-31.232-24.4736a15.42144 15.42144 0 0 0-16.384 1.0752c-1.3312 0.9728-11.776 8.7552-25.6 23.3984H383.9488v-37.0176c0-99.7888 103.4752-158.8736 128.6144-171.776z m-308.3776 496.5888h164.4032l-164.4032 130.3552v-130.3552z m0-65.792H397.312v35.072H204.1856v-35.072zM416.768 374.9888c-8.1408-23.04-19.9168-42.1888-32.768-57.856v-3.328h65.792a280.5248 280.5248 0 0 0-33.024 61.184zM301.6192 289.28c22.6816 11.0592 95.6928 54.4256 95.6928 153.9072v31.1296H204.1856v-31.1296c0-87.5008 75.1104-140.1856 97.4336-153.9072zM123.6992 839.1168v-23.6032c0-7.2704 3.2768-13.9776 8.9088-18.4832l264.704-209.8688v275.5072H147.2512c-13.0048 0.0512-23.552-10.5472-23.552-23.552z m228.7104 104.2944a17.71008 17.71008 0 0 1-16.9472 12.8h-58.88c-8.2944 0-15.36-5.632-17.2032-13.7216l-11.1616-49.1008H366.592l-14.1824 50.0224z m75.6224-387.9936V480.4608c0-105.1136 60.5184-169.3696 82.5856-189.2864 22.3744 16.4864 80.384 70.7584 80.384 189.2864v382.208h-63.9488V437.4528c0-8.4992-6.8608-15.36-15.36-15.36s-15.36 6.8608-15.36 15.36v425.2672H428.032v-307.3024z m338.8416 387.1232a17.54112 17.54112 0 0 1-17.2032 13.7216h-58.88c-7.8336 0-14.7968-5.2736-16.9472-12.8l-14.1824-50.0224h118.3744l-11.1616 49.1008z m133.4272-103.424c0 13.0048-10.5984 23.6032-23.6032 23.6032h-254.976v-278.3232l199.0144 157.0304 70.6048 55.7056c5.6832 4.5056 8.96 11.264 8.96 18.5344v23.4496z"
-                  fill="#333333" p-id="82225"></path>
-        </svg>
-    </a>
-</div>
-<footer class="page-footer center-align">
-    <div class="container">
-        <div class="copyright" style="position: relative;top: 60px">
-            <div class="info">
-                <br>
-                <a href="https://spring.io/projects/spring-boot" target="_blank" title="本站使用SpringBoot搭建">
-                    <img class="lazyload hide-on-med-and-down"
-                         src="../static/images/common/orange.progress-bar-stripe-loader.svg"
-                         th:src="@{/images/common/orange.progress-bar-stripe-loader.svg}"
-                         data-src="../static/images/common/springLogo.svg"
-                         th:data-src="@{/images/common/springLogo.svg}"
-                         alt="Spring" width="85">
-                </a>&ensp;
-                <a href="https://cloud.tencent.com/" target="_blank" title="本站运行于腾讯云轻量服务器">
-                    <img width="80" class="lazyload"
-                         src="../static/images/common/orange.progress-bar-stripe-loader.svg"
-                         th:src="@{/images/common/orange.progress-bar-stripe-loader.svg}"
-                         data-src="../static/images/common/txyun.svg"
-                         th:data-src="@{/images/common/txyun.svg}">
-                </a>&ensp;
-                <a href="https://portal.qiniu.com/" target="_blank" title="本站图片cdn加速由七牛云提供">
-                    <img class="lazyload"
-                         src="../static/images/common/orange.progress-bar-stripe-loader.svg"
-                         th:src="@{/images/common/orange.progress-bar-stripe-loader.svg}"
-                         data-src="../static/images/common/qnyun.svg"
-                         th:data-src="@{/images/common/qnyun.svg}"
-                         width="80">
-                </a>&emsp;
-                <!-- <a href="https://www.jsdelivr.com" target="_blank" title="本站样式静态文件cdn加速由jsdelivr提供" style="top: 10px">
-                     <img class="lazyload"
-                          src="https://cdn.jsdelivr.net/gh/LIlGG/cdn@1.0.1/img/svg/loader/orange.progress-bar-stripe-loader.svg"
-                          data-src="https://file.lostfawn.cn/2020/11/20/logo-horizontal.svg" width="90" alt="jsDelivr">
-                 </a>&ensp;-->
-                <a href="https://github.com/ShawSun1" target="_blank" alt="github" style="top: 13px" title="本站代码由github托管">
-                    <img class="lazyload"
-                         src="../static/images/common/orange.progress-bar-stripe-loader.svg"
-                         th:src="@{/images/common/orange.progress-bar-stripe-loader.svg}"
-                         data-src="../static/images/common/github1.png"
-                         th:data-src="@{/images/common/github1.png}"
-                         alt="github"
-                         width="23">
-                    <img class="lazyload"
-                         src="../static/images/common/orange.progress-bar-stripe-loader.svg"
-                         th:src="@{/images/common/orange.progress-bar-stripe-loader.svg}"
-                         data-src="../static/images/common/github2.png"
-                         th:data-src="@{/images/common/github2.png}"
-                         alt="github"
-                         width="54" style="margin-left: -3px">
-                </a>&ensp;<br><br>
-                <script>
-		var mydate = new Date();
-		document.writeln("&nbsp;&copy;&nbsp;2019 - "+mydate.getFullYear());
-            </script>─=≡Σ(((つ•̀ω•́)つ
-                <a href="/" target="_blank"
-                   style="font-family: 'Zhi Mang Xing', cursive;font-size: 30px"
-                   class="black-text text-lighten-4 icp-Slcp">Slcp</a>
-                <a href="http://beian.miit.gov.cn/" target="_blank"
-                   class="black-text text-lighten-4 icp-Slcp"> • 蜀ICP备2020033886号 • </a>
-                <a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=51031102000032" target="_blank"
-                   class="icp-Slcp black-text text-lighten-4">
-                    <img src="../static/images/common/icp.png"
-                         th:src="@{/images/common/icp.png}" width="20" style="position:relative;top: 4px"/>川公网安备51031102000032号</a><br><br>
-                <div class="v-badge"></div>
-                <div class="V-badge">
-                    <a style="color: #fff" rel="license" href="https://github.com/ShawSun1/"
-                       target="_blank">
-                        <span class="badge-subject">Theme</span><span class="badge-value bg-red">Vino</span>
-                    </a>
-                </div>
-                <div class="V-badge">
-                    <a style="color: #fff" rel="license" href="https://www.Slcp.top" target="_blank" title="主题由Slcp修改">
-                        <span class="badge-subject">Modified</span><span class="badge-value"
-                                                                         style="background-color: #483D8B">Slcp</span></a>
-                </div>
-                <div class="V-badge">
-                    <a style="color: #fff" rel="license" href="https://spring.io/projects/spring-boot" target="_blank"
-                       title="本站使用springBoot搭建">
-                        <span class="badge-subject">Powered</span><span
-                            class="badge-value bg-green">SpringBoot</span></a>
-                </div>
-                <div class="V-badge">
-                    <a style="color: #fff" rel="license" href="https://portal.qiniu.com/" target="_blank"
-                       title="本站图片CDN加速由七牛云提供" data-pjax-state="">
-                        <span class="badge-subject">CDN</span><span class="badge-value bg-blue">Qiniu</span></a>
-                </div>
-                <div class="V-badge">
-                    <a style="color: #fff" rel="license" href="https://cloud.tencent.com/" target="_blank"
-                       title="运行于腾讯云轻量服务器" data-pjax-state="">
-                        <span class="badge-subject">Hosted</span><span class="badge-value bg-orange">Tencent</span></a>
-                </div>
-                <div id="blog-message">
-                    <div th:fragment="blogMessage">
-                        <div class="V-badge">
-                            <span class="badge-subject">AC</span><span class="badge-value bg-red"
-                                                                       target="_blank" title="文章总数"
-                                                                       th:text="${blogTotal}"></span>
-                        </div>
-                        <div class="V-badge">
-                            <span class="badge-subject">PV</span><span class="badge-value"
-                                                                       style="background-color:	#FFA07A"
-                                                                       th:text="${blogViewTotal}"
-                                                                       target="_blank"
-                                                                       title="访问总数"></span>
-                        </div>
-                        <div class="V-badge">
-                            <span class="badge-subject">Running</span><span th:text="${blogDays}" id="runningTime" class="badge-value"
-                                                                            style="background-color:#a4a492"
-                                                                            target="_blank"
-                                                                            title="运行时间"></span>
-                        </div>
-                    </div>
-                </div>
-                <input type="hidden" id="busuanzi_value_site_uv">
-                <input type="hidden" id="busuanzi_value_site_pv">
-            </div>
-        </div>
-    </div>
-    <img class="footer-skirt" src="../../static/images/my/skirt.webp" th:src="@{/images/my/skirt.webp}">
-</footer>
-<script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.5.0/jquery.min.js"></script>
-<script src="../static/js/sakura.js" th:src="@{/js/sakura.js}"></script>
-<script src="https://cdn.bootcdn.net/ajax/libs/typed.js/2.0.11/typed.min.js"></script>
-<script src="https://cdn.bootcdn.net/ajax/libs/aos/3.0.0-beta.6/aos.js"></script>
-<script async="async" src="https://cdn.bootcdn.net/ajax/libs/instant.page/5.1.0/instantpage.min.js"
-        type="module"></script>
-<script src="https://eqcn.ajz.miesnfu.com/wp-content/plugins/wp-3d-pony/live2dw/lib/L2Dwidget.min.js"></script>
-<script src="../static/js/lazyload.js" th:src="@{/js/lazyload.js}"></script>
-<script src="../static/js/effect.min.js" th:src="@{/js/effect.min.js}"></script>
-<script src="../static/js/materialize.min.js" th:src="@{/js/materialize.min.js}"></script>
-<script src="../static/js/slcp.min.js" th:src="@{/js/slcp.min.js}"></script>
-<script>
-$(function (){
-    $.ajax({
-        "url":"/article/poem",
-        "type":"GET",
-        "success":function (data){
-
-            typed = new Typed("#subtitle", {
-                strings: [data,'谦谦君子，温润如玉。摧我心垒，乱我心曲。'],
-                startDelay: 300,
-                typeSpeed: 100,
-                loop: true,
-                backSpeed: 50,
-                showCursor: true
-            });
-        }
-    })
-});
-     setTimeout(function () {
-    if ((new Date().getHours() >= 19 || new Date().getHours() < 7)&&localStorage.getItem('isDark') != '1'&&localStorage.getItem('isDark') != '0'){
-     let toastHTML = '<span style="color:#97b8b2;border-radius: 10px;>' +
-             '<i class="fa fa-bell" aria-hidden="true"></i>天色渐晚，已自动为你开启深色模式。(ﾟ▽ﾟ)/</span>';
-     M.toast({html: toastHTML})}
-   },2200);
-$("img.lazyload").lazyload();
-	setTimeout(function(){
-		$('.cat-container').remove();
-	},1800);
-    setTimeout(function () {
-            $('.menu-V .toggle').click();
-    },2200);
-	$(window).scroll(function () {
-		let scroll = $(window).scrollTop();
-		if (scroll > 1880)
-			$('#categoryandsearch').addClass('fixed');
-		else
-			$('#categoryandsearch').removeClass('fixed');
-	});
-$('#blog-message').load("/footer/blogmessage");
-</script>
-
-<script async="async">
-  (function(a,h,g,f,e,d,c,b){b=function(){d=h.createElement(g);c=h.getElementsByTagName(g)[0];d.src=e;d.charset="utf-8";d.async=1;c.parentNode.insertBefore(d,c)};a["SeniverseWeatherWidgetObject"]=f;a[f]||(a[f]=function(){(a[f].q=a[f].q||[]).push(arguments)});a[f].l=+new Date();if(a.attachEvent){a.attachEvent("onload",b)}else{a.addEventListener("load",b,false)}}(window,document,"script","SeniverseWeatherWidget","//cdn.sencdn.com/widget2/static/js/bundle.js?t="+parseInt((new Date().getTime() / 100000000).toString(),10)));
-  window.SeniverseWeatherWidget('show', {
-    flavor: "slim",
-    location: "WX4FBXXFKE4F",
-    geolocation: true,
-    language: "zh-Hans",
-    unit: "c",
-    theme: "auto",
-    token: "8b9edace-fe35-4e79-b729-2dc1fdece7c3",
-    hover: "enabled",
-    container: "tp-weather-widget"
-  })
-  $(document).ready(function () {
-        var a_index = 0;
-        $("body").click(function (e) {
-            var a = new Array("富强", "民主", "文明", "和谐", "自由", "平等", "公正", "法治", "爱国", "敬业", "诚信", "友善");
-            var $i = $("<span/>").text(a[a_index]);
-            a_index = (a_index + 1) % a.length;
-            var x = e.pageX, y = e.pageY;
-            var color = '#' + Math.random().toString(16).substr(2, 6).toUpperCase();
-            $i.css({
-                "z-index": 99999,
-                "top": y - 20,
-                "left": x,
-                "position": "absolute",
-                "font-weight": "bold",
-                "color": color
-            });
-            $("body").append($i);
-            $i.animate({"top": y - 180, "opacity": 2}, 1500, function () {
-                $i.remove();
-            });
-        });
-    });
-</script>
+<div th:include="~{common :: .floor}"></div>
+<div th:replace="~{common :: .floor-js}"></div>
 <script type="text/javascript">
-    function formatDate(date, format) {
-    if (!date) return;
-    if (!format) format = "yyyy-MM-dd";
-    switch(typeof date) {
-        case "string":
-            date = new Date(date.replace(/-/, "/"));
-            break;
-        case "number":
-            date = new Date(date);
-            break;
-    }
-    if (!date instanceof Date) return;
-    var dict = {
-        "yyyy": date.getFullYear(),
-        "M": date.getMonth() + 1,
-        "d": date.getDate(),
-        "H": date.getHours(),
-        "m": date.getMinutes(),
-        "s": date.getSeconds(),
-        "MM": ("" + (date.getMonth() + 101)).substr(1),
-        "dd": ("" + (date.getDate() + 100)).substr(1),
-        "HH": ("" + (date.getHours() + 100)).substr(1),
-        "mm": ("" + (date.getMinutes() + 100)).substr(1),
-        "ss": ("" + (date.getSeconds() + 100)).substr(1)
-    };
-    return format.replace(/(yyyy|MM?|dd?|HH?|ss?|mm?)/g, function() {
-        return dict[arguments[0]];
+    $('#blog-message').load("/footer/blogmessage");
+    setTimeout(function () {
+        if ((new Date().getHours() >= 19 || new Date().getHours() < 7) && localStorage.getItem('isDark') != '1' && localStorage.getItem('isDark') != '0') {
+            let toastHTML = '<span style="color:#97b8b2;border-radius: 10px;>' +
+                '<i class="fa fa-bell" aria-hidden="true"></i>天色渐晚，已自动为你开启深色模式。(ﾟ▽ﾟ)/</span>';
+            M.toast({html: toastHTML})
+        }
+    }, 2200);
+    $(window).scroll(function () {
+        let scroll = $(window).scrollTop();
+        if (scroll > 1880)
+            $('#categoryandsearch').addClass('fixed');
+        else
+            $('#categoryandsearch').removeClass('fixed');
     });
-}
+    function formatDate(date, format) {
+        if (!date) return;
+        if (!format) format = "yyyy-MM-dd";
+        switch (typeof date) {
+            case "string":
+                date = new Date(date.replace(/-/, "/"));
+                break;
+            case "number":
+                date = new Date(date);
+                break;
+        }
+        if (!date instanceof Date) return;
+        var dict = {
+            "yyyy": date.getFullYear(),
+            "M": date.getMonth() + 1,
+            "d": date.getDate(),
+            "H": date.getHours(),
+            "m": date.getMinutes(),
+            "s": date.getSeconds(),
+            "MM": ("" + (date.getMonth() + 101)).substr(1),
+            "dd": ("" + (date.getDate() + 100)).substr(1),
+            "HH": ("" + (date.getHours() + 100)).substr(1),
+            "mm": ("" + (date.getMinutes() + 100)).substr(1),
+            "ss": ("" + (date.getSeconds() + 100)).substr(1)
+        };
+        return format.replace(/(yyyy|MM?|dd?|HH?|ss?|mm?)/g, function () {
+            return dict[arguments[0]];
+        });
+    }
 </script>
-<script async="async" src="../static/js/pure.mini.js" th:src="@{/js/pure.mini.js}"></script>
+
 </body>
 </html>

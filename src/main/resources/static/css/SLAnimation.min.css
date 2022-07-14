@@ -283,10 +283,13 @@
 
 @keyframes change-background {
     0%, 100%, 59%, 98% {
-        background: #fef4ad
+        background: #fef4ad;
+        color: #09240f
     }
     61%, 97% {
-        background: #f8ae39
+        background: url("../images/article.webp");
+        background-size:cover;
+        color: #A9A9B6
     }
 }
 

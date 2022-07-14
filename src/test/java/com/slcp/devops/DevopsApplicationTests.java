@@ -1,12 +1,13 @@
 package com.slcp.devops;
 
 import com.slcp.devops.service.QqUserService;
+
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 
-import javax.annotation.Resource;
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 import java.text.SimpleDateFormat;
@@ -15,7 +16,9 @@ import java.util.Date;
 
 @SpringBootTest
 class DevopsApplicationTests {
-    @Resource
+    @Autowired
+    private QqUserService QqUserService;
+    @Autowired
     private JavaMailSender javaMailSender;
 
     @Test

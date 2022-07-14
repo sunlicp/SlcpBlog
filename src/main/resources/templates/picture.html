@@ -1,285 +1,166 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Slcp-照片墙</title>
-    <link href="../static/images/favicon.ico" th:href="@{/images/me.jpg}" rel="icon" type="image/x-ico">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/semantic-ui/2.2.4/semantic.min.css">
-    <link rel="stylesheet" href="../static/common/common.css" th:href="@{/common/common.css}">
-    <link rel="stylesheet" href="../static/css/me.css" th:href="@{/css/me.css}">
-    <link rel="stylesheet" href="../static/lib/picture/css/jkresponsivegallery.css"
-          th:href="@{/lib/picture/css/jkresponsivegallery.css}">
-    <link rel="stylesheet" href="../static/common/common.css" th:href="@{/common/common.css}">
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <meta name="renderer" content="webkit"/>
+    <meta name="viewport" content="width=device-width"/>
+    <meta name="author" content="Slcp.top"/>
+    <meta name="robots" content="all"/>
+    <title>Slcpの展览馆</title>
+    <head th:replace="~{common :: .head}"></head>
+    <link rel="stylesheet" href="../static/css/cat.min.css" th:href="@{/css/cat.min.css}"/>
+    <link rel="stylesheet" type="text/css" href="../static/css/gitalk.min.css" th:href="@{/css/gitalk.min.css}"/>
+    <link rel="stylesheet" type="text/css" href="../static/css/valineStyle.min.css"
+          th:href="@{/css/valineStyle.min.css}"/>
+    <link rel="stylesheet" href="../static/css/friend.css" th:href="@{/css/friend.css}">
+
+    <link rel="stylesheet" href="../static/css/tag_plugins.css" th:href="@{/css/tag_plugins.css}">
+    <script src="../static/js/picture/carousel-touch.js" th:src="@{/js/picture/carousel-touch.js}"></script>
+    <style>
+        .our-team h3:before {
+            display: none;
+        }
+    </style>
 </head>
 <body>
+<div th:replace="~{common :: .top}"></div>
 
-<!--导航-->
-<nav class="gird-header">
-    <div class="ui container">
-        <div class="ui inverted secondary stackable menu">
-            <a href="#" th:href="@{/}"><h2 class="ui olive header item" style="font-family: STSong">Slcpの小花园</h2></a>
-            <!--<div class="right m-item item m-mobile-hide">-->
-            <a href="#" th:href="@{/}" class="m-item item m-mobile-hide"><i class="home icon"></i>首页</a>
-            <a href="#" th:href="@{/tags/-1}" class="m-item item m-mobile-hide"><i
-                    class="clone outline icon"></i>分类</a>
-            <a href="#" th:href="@{/archives}" class="m-item item m-mobile-hide"><i class="clock icon"></i>时间轴</a>
-            <a href="#" th:href="@{/music}" class="m-item item m-mobile-hide"><i class="music icon"></i>音乐盒</a>
-            <a href="#" th:href="@{/message}" class="m-item item m-mobile-hide"><i class="book icon"></i>留言板</a>
-            <a href="#" th:href="@{/friends}" class="m-item item m-mobile-hide"><i class="pencil alternate icon"></i>友人帐</a>
-            <a href="#" th:href="@{/picture}" class="active m-item item m-mobile-hide"><i class="image icon"></i>照片墙</a>
-            <a href="#" th:href="@{/about}" class="m-item item m-mobile-hide"><i class="info icon"></i>关于我</a>
-            <!--</div>-->
-            <div class="right m-item item m-mobile-hide">
-                <form name="search" action="#" th:action="@{/search}" method="post" target="_blank">
-                    <div class="ui icon transparent input m-margin-tb-tiny" style="color: white">
-                        <input style="color: white" type="text" name="query" placeholder="Search...."
-                               th:value="${query}">
-                        <i onclick="document.forms['search'].submit()" class="search link icon"></i>
-                    </div>
-                </form>
-            </div>
+<div class="bg-cover pd-header about-cover" style="background-image: url(https://img.slcp.top/xue.jpeg)">
+    <div data-aos="fade-left" data-aos-delay="1100" class="link-tag hide-on-med-and-down">
+        <div class="V-title">
+            <span>&quot;Friends&quot;</span>
         </div>
     </div>
-    <a href="#" class="ui menu toggle black icon button m-right-top m-mobile-show">
-        <i class="sidebar icon"></i>
-    </a>
-</nav>
-
-<!--顶部图片-->
-<div class="m-bg-type_outer" style="width: 100%;height: 40%">
-    <img src="../static/images/picturebg.jpg" th:src="@{/images/picturebg.jpg}" alt="" class="ui m-bg image"
-         style="width: 100%;height: 100%; opacity: 1">
-    <div class="m-bg-class_coverPicture">
-        <div class="ui container" style="position: relative ;bottom: -540px;">
-            <div class="m-font-size-title m-right-bottom" align="center" style="font-family:'STXingkai'">照片墙</div>
-            <div class="m-font-size-text-init-title m-margin-top" align="center">愿你走出半生，归来仍是少年</div>
+    <div class="center-align link-typed">
+        <span id="subtitle" style="font-size:28px;"></span>
+    </div>
+    <div class="hide-on-med-and-down V-img-link" data-aos="fade-right" data-aos-delay="1100">
+        <div class="V-title">
+            <span>"SL"</span>
         </div>
     </div>
 </div>
-
-
-<!--照片墙-->
-<div id="picture-main">
-
-    <article class="thumb" th:each="picture : ${pictures}">
-        <div class="ma5-gallery">
-            <div class="rthumbnail">
-                <a href="../static/images/backimg1.jpg" th:href="@{${picture.pictureaddress}}">
-                    <img class="picture-zmki_px" src="../static/images/backimg1.jpg"
-                         th:src="@{${picture.pictureaddress}}">
-                </a>
-                <div class="m-picture-text" th:text="${picture.picturename}">起风了</div>
-                <div class="rcaption">
-                    <div style="font-size: large;" th:text="${picture.picturename}">起风了</div>
-                    <div style="font-size: 16px" class="m-margin-top" th:text="${picture.picturetime}">2020-02-02 &nbsp;深圳</div>
-                    <p style="font-size: 16px" th:text="${picture.picturedescription}">我曾难自拔于世界之大，也沉迷于其中梦话</p>
-                </div>
-            </div>
-        </div>
-    </article>
-
-    <article class="thumb" th:each="pictureUpload : ${pictureUploads}">
-        <div class="ma5-gallery">
-            <div class="rthumbnail">
-                <a href="../static/images/backimg1.jpg" th:href="@{${pictureUpload.picturepath}}">
-                    <img class="picture-zmki_px" src="../static/images/backimg1.jpg"
-                         th:src="@{${pictureUpload.picturepath}}">
-                </a>
-                <div class="m-picture-text" th:text="${pictureUpload.picturename}">起风了</div>
-                <div class="rcaption">
-                    <div style="font-size: large;" th:text="${pictureUpload.picturename}">起风了</div>
-                    <div style="font-size: 16px" class="m-margin-top" th:text="${pictureUpload.picturetime}">2020-02-02 &nbsp;深圳</div>
-                    <p style="font-size: 16px" th:text="${pictureUpload.picturedescription}">我曾难自拔于世界之大，也沉迷于其中梦话</p>
-                </div>
-            </div>
-        </div>
-    </article>
-</div>
-
-
-
-
-<!--置顶图标-->
-<div id="toolbar" class="m-padded-tb-large m-fixed m-right-bottom">
-    <a href="#" class="ui teal icon button"><i class="chevron up icon"></i> </a>
-</div>
-
-<!--底部栏-->
-<footer class="ui inverted vertical segment m-padded-tb-massive m-opacity">
-    <!--容器-->
-    <div class="ui center aligned container">
-        <div class="ui inverted divided stackable grid">
-            <div class="four wide column">
-                <div style="font-size: large;font-weight: bold"
-                     class="ui inverted m-text-thin m-text-spaced m-margin-top-max">联系我
-                </div>
-                <!--<div id="newblog-container">-->
-                <!--<div class="ui inverted link list" th:fragment="newblogList">-->
-                <!--<a href="#" th:href="@{/blog/{id}(id=${blog.id})}" target="_blank" class="item m-text-thin" th:each="blog : ${newblogs}" th:text="${blog.title}">最新文章</a>-->
-                <!--</div>-->
-                <!--</div>-->
-                <div class="ui inverted link list">
-                    <div href="#" class="m-text-thin">Email：1305366530@qq.com</div>
-                    <div href="#" class="m-text-thin">QQ：1305366530</div>
-                </div>
-            </div>
-
-            <div class="four wide column">
-                <div class="ui inverted link list">
-                    <div class="item">
-                        <!--微信二维码-->
-                        <div style="font-size: large;font-weight: bold" class="ui inverted m-text-thin m-text-spaced ">
-                            关注微信
-                        </div>
-                        <img src="../../static/images/weChatInn.jpg" th:src="@{/images/weChatInn.jpg}"
-                             class="ui m-margin-top rounded image" alt="" style="width: 110px">
+<main class="content">
+    <div class="container friends-container">
+        <div class="card" style="top: -5rem">
+            <div class="card-content">
+                <div class="center-align">
+                    <div class="V-title V-title-top">
+                        <span><i class="fas fa-picture-o"></i></span>
+                        <span>&nbsp;&nbsp;照片墙❀</span>
                     </div>
                 </div>
-            </div>
+                <hr data-aos="fade-right">
+                <div id="menu-mask"></div>
 
-            <div class="four wide column">
-                <div class="ui inverted link list">
-                    <div class="item">
-                        <!--微信二维码-->
-                        <div style="font-size: large;font-weight: bold" class="ui inverted m-text-thin m-text-spaced ">
-                            问题交流（QQ）
-                        </div>
-                        <img src="../../static/images/qqqun.jpg" th:src="@{/images/qqqun.jpg}"
-                             class="ui m-margin-top rounded image" alt="" style="width: 110px">
+                <div id="article-container">
+                    <div class="note info" data-aos="flip-up" style="position: relative;">夕阳渐渐西坠，犹如有人打翻了水彩盒，天空和大海的色彩变幻莫测，绯红、胭脂、栌黄、金橙、靛蓝、艾青……交错辉映、流光溢彩。
                     </div>
+                    <h1 id="原初脚印：和风居"><a href="#自然风光" class="headerlink" title="自然风光"></a>自然风光</h1>
+                    <div class="note info" data-aos="flip-up" style="position: relative;">大自然的鬼斧神工，只是轻描淡写，于世间的凡夫俗子已是惊心动魄的美丽。
+                    </div>
+                    <div id="origin" class="carousel">
+                        <div id="origin-drag-container" class="drag-container">
+                            <div id="origin-spin-container" class="spin-container">
+                                <img th:each="pictures : ${pictureUploads}"
+                                    src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+                                    th:data-lazy-src="@{${pictures.picturePath}}"
+                                    alt=""><br></img>
+                                <p>自然风光:鬼斧神工</p>
+                            </div>
+                            <div id="origin-carousel-ground" class="carousel-ground"></div>
+                        </div>
+                    </div>
+                    <script>carouselinit("origin")</script>
                 </div>
+                <hr>
+                <div id="rightside"></div>
             </div>
-            <!--博客运行时间统计-->
-            <div class="four wide column">
-                <div style="font-size: large;font-weight: bold"
-                     class="ui inverted  m-text-thin m-text-spaced m-margin-top">小栈信息
-                </div>
-                <!--<p id="htmer_time" class="item m-text-thin"></p>-->
-                <div id="blog-message">
-                    <div class="ui inverted link list" style="align-content: center;margin-top: 10px"
-                         th:fragment="blogMessage">
-                        <div class="m-text-thin" style="text-align: left;margin-left: 75px;">
-                            文章总数： <h2 class="ui orange header m-inline-block m-margin-top-null"
-                                      style="font-size:medium;" th:text="${blogTotal}"> 2000 </h2> 篇
+        </div>
+        <div data-aos="fade-up">
+            <div id="comment" class="card valine-card" style="top: -60px">
+                <img class="lazyload zoombe-comment" data-aos="slide-left" src="../static/images/lodingPeer.gif"
+                     th:src="@{/images/lodingPeer.gif}"
+                     data-src="../static/images/zoomb.gif"
+                     th:data-src="@{/images/zoomb.gif}" width="170px" height="170px"/>
+                <div class="card-content">
+                    <div class="comment_headling head-comment">
+                        <i class="fa fa-comments" aria-hidden="true"></i>
+                        <span>留言</span>
+                        <div class="comment-switch">
+                            <span class="first-comment">Valine </span>
+                            <label class="switch"> <input type="checkbox"/>
+                                <div class="sliderV round" id="sliderV"></div>
+                            </label>
+                            <span class="second-comment">  Gitalk</span>
                         </div>
-                        <div class="m-text-thin" style="text-align: left;margin-left: 75px">
-                            访问总数： <h2 class="ui orange header m-inline-block m-margin-top-null"
-                                      style="font-size:medium;" th:text="${blogViewTotal}"> 2000 </h2> 次
-                        </div>
-                        <div class="m-text-thin" style="text-align: left;margin-left: 75px">
-                            评论总数： <h2 class="ui orange header m-inline-block m-margin-top-null"
-                                      style="font-size:medium;" th:text="${blogCommentTotal}"> 2000 </h2> 条
-                        </div>
-                        <div class="m-text-thin" style="text-align: left;margin-left: 75px">
-                            留言总数： <h2 class="ui orange header m-inline-block m-margin-top-null"
-                                      style="font-size:medium;" th:text="${blogMessageTotal}"> 2000 </h2> 条
-                        </div>
+                    </div>
+                    <!-- Gitalk 评论 start  -->
+                    <script src="../static/js/gitalk.min.js" th:src="@{/js/gitalk.min.js}"></script>
+                    <div id="commentArea1" style="display:none;">
+                        <div id="gitalk-container"></div>
+                    </div>
+                    <script type="text/javascript">
+					var gitalk = new Gitalk({
+                        // gitalk的主要参数
+                        clientID: `e7cb9cdf3720f1f8578c`,
+                        clientSecret: `500b87716760af8d17623f94da4287ebba0bec52`,
+                        repo: `gitalk`,
+                        owner: 'sunlicp',
+                        admin: ['sunlicp'],
+                        id: 'friends', //注意id一定不要重复，这里是举个例子，可以写中文，如果重复了，就会把其他地方的评论显示过来
+
+                    });
+					gitalk.render('gitalk-container');
+
+
+
+
+
+                    </script>
+                    <!-- Gitalk end -->
+                    <!--Valine-->
+                    <div id="commentArea2">
+                        <div style="height: 80px"></div>
+                        <div id="vcomments"></div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="ui inverted section divider"></div>
-        <div style="color: #F08047;margin-top: -18px" class="ui inverted m-text-thin m-text-spaced">我的Slcp小栈已营业：<span
-                id="htmer_time" class="item m-text-thin"></span></div>
-        <a rel="nofollow" href="http://www.beian.miit.gov.cn" target="_blank">湘ICP备2020019548</a>
     </div>
-    </div>
-
-</footer>
-
-
-<!--<script src="https://cdn.jsdelivr.net/npm/jquery@3.2/dist/jquery.min.js"></script>
-<script src="https://cdn.jsdelivr.net/semantic-ui/2.2.4/semantic.min.js"></script>-->
-<script src="/static/js/semantic/semantic.min.js" th:src="@{/js/semantic/semantic.min.js}" ></script>
-<script src="/static/js/jquery.min.js" th:src="@{/js/jquery.min.js}"></script>
-
-<script src="../static/lib/picture/js/jquery.min.js" th:src="@{/lib/picture/js/jquery.min.js}"></script>
-<script src="../static/lib/picture/js/jkresponsivegallery.js"
-        th:src="@{/lib/picture/js/jkresponsivegallery.js}"></script>
-
+</main>
+<div th:include="~{common :: .floor}"></div>
+<div th:replace="~{common :: .floor-js}"></div>
+<script src="../static/js/valine.min.js" th:src="@{/js/valine.min.js}"></script>
+<script defer src="../static/js/picture/lazyload.iife.min.js" th:src="@{/js/picture/lazyload.iife.min.js}"></script>
+<script src="../static/js/activate-power-mode.min.js" th:src="@{/js/activate-power-mode.min.js}"></script>
 <script>
-
-    // $('#newblog-container').load(/*[[@{/footer/newblog}]]*/"/footer/newblog");
-
-    $('#blog-message').load(/*[[@{/footer/blogmessage}]]*/"/footer/blogmessage");
-
-    // 运行时间统计
-    function secondToDate(second) {
-        if (!second) {
-            return 0;
-        }
-        var time = new Array(0, 0, 0, 0, 0);
-        if (second >= 365 * 24 * 3600) {
-            time[0] = parseInt(second / (365 * 24 * 3600));
-            second %= 365 * 24 * 3600;
-        }
-        if (second >= 24 * 3600) {
-            time[1] = parseInt(second / (24 * 3600));
-            second %= 24 * 3600;
-        }
-        if (second >= 3600) {
-            time[2] = parseInt(second / 3600);
-            second %= 3600;
-        }
-        if (second >= 60) {
-            time[3] = parseInt(second / 60);
-            second %= 60;
-        }
-        if (second > 0) {
-            time[4] = second;
-        }
-        return time;
-    }
-
-    function setTime() {
-        /*此处为网站的创建时间*/
-        var create_time = Math.round(new Date(Date.UTC(2020, 8, 25, 15, 15, 15)).getTime() / 1000);
-        var timestamp = Math.round((new Date().getTime() + 8 * 60 * 60 * 1000) / 1000);
-        currentTime = secondToDate((timestamp - create_time));
-        currentTimeHtml = currentTime[0] + '年' + currentTime[1] + '天'
-            + currentTime[2] + '时' + currentTime[3] + '分' + currentTime[4]
-            + '秒';
-        document.getElementById("htmer_time").innerHTML = currentTimeHtml;
-    }
-
-    setInterval(setTime, 1000);
-
-
-    $(function () {
-        $('.rthumbnail').responsivegallery();
+	new Valine({
+        el: '#vcomments',
+        appId: '0zIhOC6AnmxUPH7D8wKoYJPu-gzGzoHsz',
+        appKey: 'K2ptrKq1XMlgQk0m6aqQQdhh',
+        enableQQ: true,
+        boolean: true,
+        notify: 'false' === 'true',
+        verify: 'false' === 'true',
+        visitor: 'true' === 'true',
+        avatar: 'robohash',
+		pageSize: '10',
+        lang: 'zh-cn',
+        placeholder: '(～￣▽￣)～填写邮箱可以及时收到博主邮件通知哦️~',
+        master: ["229fb628e2627b885469f1d03329b587","6ccc0188354895f49c2fd8fac81f906f"],
+        tagMeta: ["博主","小伙伴","访客"],
+        friends: ["56011fc531536b4b4d97ce8511ae8b3a","42396d4490be2395679c3a8db613f2fd","e115ba4019d359857b5f1a51870e9236","b95befa7be1b26edbab9aa099ce54310","9107611a1405be1c1328b8ed85943e9e","49393485ebfea74386d23bb2a9e7b376","e670a759c3d23eaa17af9211618b4f40","2c8fb00f402cfba70982ec43a14a7d49","e1b4f47ce61cc5032b9c52100d9749f7","850155ad55cfb9e2c60d3c0f6d599ed6"]
     });
-
-    $('.menu.toggle').click(function () {
-        $('.m-item').toggleClass('m-mobile-hide');
-    });
-
+setTimeout(function(){
+    $(".fa-macos").addClass("fa-apple").removeClass("fa-macos");
+	    $(".vcount").before('<hr id="V-hr1" data-aos="fade-right">');
+	    $(".vpanel").after('<div class="note success" data-aos="flip-up">请先将本站添加友链，然后再申请友链，让我们成为邻居吧~  ✧。*◌·͡˔·ོ◌*·✧</div>');
+$('.cat-container').remove();
+},1200);
+POWERMODE.colorful=!0,POWERMODE.shake=!1,POWERMODE.mobile=!1,document.body.addEventListener("input",POWERMODE);
 </script>
 
-<!--点击空白弹出文字特效，需引入jquery-->
-<script type="text/javascript">
-    $(document).ready(function(){
-        var a_index = 0;
-        $("body").click(function(e){
-            var a = new Array("富强", "民主", "文明", "和谐", "自由", "平等", "公正" ,"法治", "爱国", "敬业", "诚信", "友善");
-            var $i = $("<span/>").text(a[a_index]);
-            a_index = (a_index + 1) % a.length;
-            var x = e.pageX,y = e.pageY;
-            var color = '#' + Math.random().toString(16).substr(2, 6).toUpperCase();
-            $i.css({
-                "z-index": 99999,
-                "top": y - 20,
-                "left": x,
-                "position": "absolute",
-                "font-weight": "bold",
-                "color": color
-            });
-            $("body").append($i);
-            $i.animate({"top": y-180,"opacity": 2},1500,function() {
-                $i.remove();
-            });
-        });
-    });
-</script>
 </body>
 </html>

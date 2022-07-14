@@ -10,6 +10,16 @@
 
 ::-webkit-scrollbar-thumb {
     background-color: #49b1f5;
+    background-image: -webkit-linear-gradient(
+            45deg,
+            rgba(255, 255, 255, 0.4) 25%,
+            transparent 25%,
+            transparent 50%,
+            rgba(255, 255, 255, 0.4) 50%,
+            rgba(255, 255, 255, 0.4) 75%,
+            transparent 75%,
+            transparent
+    );
     border-radius: 2em;
 }
 
@@ -18,7 +28,8 @@
 }
 
 ::-moz-selection {
-    color: #49b1f5;
+    color: #fff;
+    background-color: #49b1f5;
 }
 
 h1#site-title {

@@ -381,3 +381,16 @@ a[href^="http://tongji.baidu.com"] {
 .zhuce_body .login_kuang .zc .bj_bai .btn_zhuce:hover, .login_qita_kuang .zc .left .btn_zhuce:hover {
     background: #0065d0;
 }
+
+.bj_bai{
+    border-bottom-left-radius: 10%;
+    border-top-left-radius: 10%;
+    opacity:0.8;
+}
+
+.bj_right{
+    border-bottom-right-radius: 10%;
+    border-top-right-radius: 10%;
+    opacity:0.8;
+}
+

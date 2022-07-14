@@ -29,11 +29,6 @@ public class IndexShowController {
     private final IBlogService blogService;
     private final CommentService commentService;
 
-    @GetMapping({"/", "/index"})
-    public String index() {
-        return "index";
-    }
-
     /**
      * 搜索博客
      * @param pageNum 当前页

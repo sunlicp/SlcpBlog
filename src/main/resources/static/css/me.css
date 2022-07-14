@@ -7,19 +7,7 @@ body{
     height: 100%;
     width: 100%;
     /*cursor: url("http://www.qingfenginn.top/images/mouce/FrequenceHelp.cur"),default;*/
-    /*cursor: url("http://img.qingfenginn.top/FrequenceHelp.cur"),default;*/
 }
-
-<!--鼠标特效开始-->
-a:hover { cursor: url(http://img.qingfenginn.top/o_Hand.png), auto; }
-a:active { cursor: url(http://img.qingfenginn.top/o_AppStarting.png), auto; }
-a:focus { cursor: url(http://img.qingfenginn.top/o_wait.png), auto; }
-p, code { cursor: url(http://img.qingfenginn.top/o_IBeam.png), auto; }
-* { cursor: url(http://img.qingfenginn.top/o_Arrow.png), auto; }
-<!--鼠标特效结束-->
-
-
-
 
 /*自定义每个封面图片*/
 .messageBody{

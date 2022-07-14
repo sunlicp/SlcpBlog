@@ -44,7 +44,7 @@ public class ArticleController {
      * @param model   对象
      * @return html
      */
-    @GetMapping("/article")
+    @GetMapping({"/","/article"})
     public String article(@RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum, Model model) {
         IPage<FirstPageDTO> firstPageBlogs = blogService.getFirstPageBlogs(pageNum);
         List<RecommendDTO> recommendBlogs = ListUtil.empty();

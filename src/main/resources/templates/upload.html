@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Slcp-上传照片墙</title>
     <link href="../static/images/favicon.ico" th:href="@{/images/me.jpg}" rel="icon" type="image/x-ico">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/semantic-ui/2.2.4/semantic.min.css">
+    <link rel="stylesheet" href="/static/css/semantic.min.css" th:href="@{/css/semantic.min.css}">
     <link rel="stylesheet" href="../static/common/common.css" th:href="@{/common/common.css}">
     <link rel="stylesheet" href="../static/css/me.css" th:href="@{/css/me.css}">
     <link rel="stylesheet" href="../static/lib/picture/css/jkresponsivegallery.css"
@@ -17,7 +17,7 @@
 <nav class="gird-header">
     <div class="ui container">
         <div class="ui inverted secondary stackable menu">
-            <a href="#" th:href="@{/}"><h2 class="ui olive header item" style="font-family: STSong">Slcpの小花园</h2></a>
+            <a href="#" th:href="@{/}"><h2 class="ui olive header item" style="font-family: STSong">Slcpの童话镇</h2></a>
             <!--<div class="right m-item item m-mobile-hide">-->
             <a href="#" th:href="@{/}" class="m-item item m-mobile-hide"><i class="home icon"></i>首页</a>
             <a href="#" th:href="@{/tags/-1}" class="m-item item m-mobile-hide"><i
@@ -64,15 +64,15 @@
     <article class="thumb" th:each="picture : ${pictures}">
         <div class="ma5-gallery">
             <div class="rthumbnail">
-                <a href="../static/images/backimg1.jpg" th:href="@{${picture.picturepath}}">
+                <a href="../static/images/backimg1.jpg" th:href="@{${picture.picturePath}}">
                     <img class="picture-zmki_px" src="../static/images/backimg1.jpg"
-                         th:src="@{${picture.picturepath}}">
+                         th:src="@{${picture.picturePath}}">
                 </a>
-                <div class="m-picture-text" th:text="${picture.picturename}">起风了</div>
+                <div class="m-picture-text" th:text="${picture.pictureName}">起风了</div>
                 <div class="rcaption">
-                    <div style="font-size: large;" th:text="${picture.picturename}">起风了</div>
-                    <div style="font-size: 16px" class="m-margin-top" th:text="${picture.picturetime}">2020-02-02 &nbsp;深圳</div>
-                    <p style="font-size: 16px" th:text="${picture.picturedescription}">我曾难自拔于世界之大，也沉迷于其中梦话</p>
+                    <div style="font-size: large;" th:text="${picture.pictureName}">起风了</div>
+                    <div style="font-size: 16px" class="m-margin-top" th:text="${picture.pictureTime}">2020-02-02 &nbsp;深圳</div>
+                    <p style="font-size: 16px" th:text="${picture.pictureDescription}">我曾难自拔于世界之大，也沉迷于其中梦话</p>
                 </div>
             </div>
         </div>
@@ -86,92 +86,8 @@
     <a href="#" class="ui teal icon button"><i class="chevron up icon"></i> </a>
 </div>
 
-<!--底部栏-->
-<footer class="ui inverted vertical segment m-padded-tb-massive m-opacity">
-    <!--容器-->
-    <div class="ui center aligned container">
-        <div class="ui inverted divided stackable grid">
-            <div class="four wide column">
-                <div style="font-size: large;font-weight: bold"
-                     class="ui inverted m-text-thin m-text-spaced m-margin-top-max">联系我
-                </div>
-                <!--<div id="newblog-container">-->
-                <!--<div class="ui inverted link list" th:fragment="newblogList">-->
-                <!--<a href="#" th:href="@{/blog/{id}(id=${blog.id})}" target="_blank" class="item m-text-thin" th:each="blog : ${newblogs}" th:text="${blog.title}">最新文章</a>-->
-                <!--</div>-->
-                <!--</div>-->
-                <div class="ui inverted link list">
-                    <div href="#" class="m-text-thin">Email：1305366530@qq.com</div>
-                    <div href="#" class="m-text-thin">QQ：1305366530</div>
-                </div>
-            </div>
-
-            <div class="four wide column">
-                <div class="ui inverted link list">
-                    <div class="item">
-                        <!--微信二维码-->
-                        <div style="font-size: large;font-weight: bold" class="ui inverted m-text-thin m-text-spaced ">
-                            关注微信
-                        </div>
-                        <img src="../../static/images/weChatInn.jpg" th:src="@{/images/weChatInn.jpg}"
-                             class="ui m-margin-top rounded image" alt="" style="width: 110px">
-                    </div>
-                </div>
-            </div>
-
-            <div class="four wide column">
-                <div class="ui inverted link list">
-                    <div class="item">
-                        <!--微信二维码-->
-                        <div style="font-size: large;font-weight: bold" class="ui inverted m-text-thin m-text-spaced ">
-                            问题交流（QQ）
-                        </div>
-                        <img src="../../static/images/qqqun.jpg" th:src="@{/images/qqqun.jpg}"
-                             class="ui m-margin-top rounded image" alt="" style="width: 110px">
-                    </div>
-                </div>
-            </div>
-            <!--博客运行时间统计-->
-            <div class="four wide column">
-                <div style="font-size: large;font-weight: bold"
-                     class="ui inverted  m-text-thin m-text-spaced m-margin-top">小栈信息
-                </div>
-                <!--<p id="htmer_time" class="item m-text-thin"></p>-->
-                <div id="blog-message">
-                    <div class="ui inverted link list" style="align-content: center;margin-top: 10px"
-                         th:fragment="blogMessage">
-                        <div class="m-text-thin" style="text-align: left;margin-left: 75px;">
-                            文章总数： <h2 class="ui orange header m-inline-block m-margin-top-null"
-                                      style="font-size:medium;" th:text="${blogTotal}"> 2000 </h2> 篇
-                        </div>
-                        <div class="m-text-thin" style="text-align: left;margin-left: 75px">
-                            访问总数： <h2 class="ui orange header m-inline-block m-margin-top-null"
-                                      style="font-size:medium;" th:text="${blogViewTotal}"> 2000 </h2> 次
-                        </div>
-                        <div class="m-text-thin" style="text-align: left;margin-left: 75px">
-                            评论总数： <h2 class="ui orange header m-inline-block m-margin-top-null"
-                                      style="font-size:medium;" th:text="${blogCommentTotal}"> 2000 </h2> 条
-                        </div>
-                        <div class="m-text-thin" style="text-align: left;margin-left: 75px">
-                            留言总数： <h2 class="ui orange header m-inline-block m-margin-top-null"
-                                      style="font-size:medium;" th:text="${blogMessageTotal}"> 2000 </h2> 条
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="ui inverted section divider"></div>
-        <div style="color: #F08047;margin-top: -18px" class="ui inverted m-text-thin m-text-spaced">我的Slcp小栈已营业：<span
-                id="htmer_time" class="item m-text-thin"></span></div>
-        <a rel="nofollow" href="http://www.beian.miit.gov.cn" target="_blank">湘ICP备2020019548</a>
-    </div>
-    </div>
-
-</footer>
-
-
-<!--<script src="https://cdn.jsdelivr.net/npm/jquery@3.2/dist/jquery.min.js"></script>
-<script src="https://cdn.jsdelivr.net/semantic-ui/2.2.4/semantic.min.js"></script>-->
+<!--<script src="../../static/js/jquery-3.5.1.min.js" th:src="@{/js/jquery-3.5.1.min.js}"></script>
+<script src="../../static/js/semantic.min.js" th:src="@{/js/semantic.min.js}"></script>-->
 <script src="/static/js/semantic/semantic.min.js" th:src="@{/js/semantic/semantic.min.js}" ></script>
 <script src="/static/js/jquery.min.js" th:src="@{/js/jquery.min.js}"></script>
 
