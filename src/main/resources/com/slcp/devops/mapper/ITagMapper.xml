@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.slcp.devops.mapper.ITagMapper">
+    <!--查询所有分类-->
+    <select id="listTags" resultType="com.slcp.devops.dto.TagDTO">
+        SELECT
+            t.id tagId,
+            t.`name` tagName,
+            count( t.`name` ) sum
+        FROM
+            t_tag t
+            INNER JOIN tag_blog_rel rel ON rel.tid = t.id
+        GROUP BY
+            t.`name`;
+    </select>
+
+    <!--查询所有分类-->
+    <select id="tagList" resultType="com.slcp.devops.dto.TagDTO">
+        SELECT
+            t.id tagId,
+            t.`name` tagName
+        FROM
+            t_tag t
+    </select>
+
+    <!--根据id查分类-->
+    <select id="getTag" resultType="com.slcp.devops.dto.TagDTO">
+        select *
+        from t_tag
+        where id = #{id};
+    </select>
+
+    <!--根据id查分类-->
+    <select id="getTagsByBid" parameterType="long" resultType="com.slcp.devops.dto.TagDTO">
+        SELECT t.id     tag_id,
+               t.`name` tag_name
+        FROM tag_blog_rel t1
+                 LEFT JOIN t_tag t ON t.id = t1.tid
+        WHERE t1.bid = #{id}
+    </select>
+    <!--根据分类名称查询分类-->
+    <select id="getTagByName" resultType="com.slcp.devops.dto.TagDTO">
+        select *
+        from t_tag
+        where name = #{name};
+    </select>
+
+    <!-- 保存分类-->
+    <insert id="saveTag" parameterType="com.slcp.devops.dto.TagDTO">
+        insert into t_tag (id, name)
+        values (#{id}, #{name});
+    </insert>
+    <!--更新分类-->
+    <update id="updateTag" parameterType="com.slcp.devops.dto.TagDTO">
+        update t_tag
+        set name=#{name}
+        where id = #{id};
+    </update>
+
+    <!--删除分类-->
+    <delete id="deleteById">
+        delete
+        from t_tag
+        where id = #{id};
+    </delete>
+
+    <!--查询出所有分类和博客-->
+    <resultMap id="type" type="com.slcp.devops.dto.TagDTO">
+        <id property="tagId" column="tid"/>
+        <result property="tagName" column="name"/>
+    </resultMap>
+    <select id="listTagsAndBlogs" resultMap="type">
+        select t.id tid, t.name, b.id bid, b.title, b.type_id
+        from myblog.t_tag t,
+             myblog.t_blog b
+        where t.id = b.type_id
+    </select>
+
+    <select id="getAllTags" resultType="com.slcp.devops.dto.TagDTO">
+        SELECT
+            t.`name` tagName,
+            COUNT( t.`name` ) `sum`
+        FROM
+            myblog.t_tag t,
+            myblog.tag_blog_rel r,
+            myblog.t_blog b
+        WHERE
+            t.id = r.tid
+          AND r.bid = b.id
+        GROUP BY
+            t.`name`
+        ORDER BY
+            `sum` DESC
+            LIMIT 10
+    </select>
+
+    <select id="getCount" resultType="java.lang.Integer">
+        SELECT
+            COUNT( 1 )
+        FROM
+            t_tag
+    </select>
+</mapper>
+
+

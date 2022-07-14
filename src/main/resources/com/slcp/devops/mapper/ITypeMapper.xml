@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.slcp.devops.mapper.ITypeMapper">
+    <!--查询所有分类-->
+    <select id="listTypes" resultType="com.slcp.devops.dto.TypeDTO">
+        SELECT t.id     typeId,
+               t.`name` typeName,
+               COUNT(t.`name`) sum
+        FROM
+            t_type t
+            LEFT JOIN t_blog t1
+        ON t1.type_id = t.id
+        GROUP BY
+            t.`id`
+        ORDER BY t.id ASC
+    </select>
+
+    <!--查询所有分类-->
+    <select id="typeList" resultType="com.slcp.devops.dto.TypeDTO">
+        SELECT t.id     typeId,
+               t.`name` typeName
+        FROM
+            t_type t
+    </select>
+
+    <select id="getAllOfMap" resultType="java.util.Map">
+        SELECT t.id,
+               t.`name`,
+               COUNT(t.`name`) `value`
+        FROM t_type t
+                 LEFT JOIN t_blog t1
+                           ON t1.type_id = t.id
+        GROUP BY t.`name`
+        ORDER BY t.id ASC
+    </select>
+    <!--根据id查分类-->
+    <select id="getType" resultType="com.slcp.devops.dto.TypeDTO">
+        select *
+        from t_type
+        where id = #{id};
+    </select>
+
+    <!--根据分类名称查询分类-->
+    <select id="getTypeByName" resultType="com.slcp.devops.dto.TypeDTO">
+        select *
+        from t_type
+        where name = #{name};
+    </select>
+
+    <!-- 保存分类-->
+    <insert id="saveType" parameterType="com.slcp.devops.dto.TypeDTO">
+        insert into t_type (id, `name`)
+        values (#{typeId}, #{typeName});
+    </insert>
+    <!--更新分类-->
+    <update id="updateType" parameterType="com.slcp.devops.dto.TypeDTO">
+        update t_type
+        set name=#{name}
+        where id = #{id};
+    </update>
+
+    <!--删除分类-->
+    <delete id="deleteById">
+        delete
+        from t_type
+        where id = #{id};
+    </delete>
+
+    <!--查询出所有分类和博客-->
+    <resultMap id="type" type="com.slcp.devops.dto.TypeDTO">
+        <id property="typeId" column="tid"/>
+        <result property="typeName" column="name"/>
+        <collection property="blogs" ofType="com.slcp.devops.dto.BlogDTO">
+            <id property="id" column="bid"/>
+            <result property="title" column="title"/>
+            <result property="typeId" column="type_id"/>
+        </collection>
+    </resultMap>
+    <select id="listTypesAndBlogs" resultMap="type">
+        select t.id tid, t.name, b.id bid, b.title, b.type_id
+        from myblog.t_type t,
+             myblog.t_blog b
+        where t.id = b.type_id
+    </select>
+
+    <select id="getCount" resultType="java.lang.Integer">
+        SELECT COUNT(1)
+        FROM t_type
+    </select>
+</mapper>
+
+

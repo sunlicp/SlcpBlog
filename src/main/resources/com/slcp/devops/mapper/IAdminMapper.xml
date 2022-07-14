@@ -12,4 +12,26 @@
         </if>
     </select>
 
+    <select id="listUserPage" resultType="com.slcp.devops.dto.UserDTO">
+        SELECT
+            t1.id,
+            t1.rid,
+            t1.nickname,
+            t1.username,
+            t1.email,
+            t1.is_status status,
+            t1.update_time updateTime,
+            t2.role_name roleName,
+            t2.role_desc roleDesc
+        FROM
+            sys_admin t1
+                LEFT JOIN sys_role t2 ON t1.rid = t2.id
+        <where>
+            1=1
+            <if test="nickname !=null and nickname != ''">
+                and t1.nickname like concat('%',#{nickname},'%')
+            </if>
+        </where>
+    </select>
+
 </mapper>

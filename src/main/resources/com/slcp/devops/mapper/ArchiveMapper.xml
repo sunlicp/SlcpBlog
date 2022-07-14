@@ -4,14 +4,14 @@
 
     <!--前端博客首页查询-->
     <resultMap id="archiveBlog" type="com.slcp.devops.dto.ArchiveDTO">
-        <collection property="data" javaType="java.util.ArrayList" ofType="com.slcp.devops.dto.FirstPageDTO" select="com.slcp.devops.mapper.BlogMapper.getBlogsByTime" column="time">
+        <collection property="data" javaType="java.util.ArrayList" ofType="com.slcp.devops.dto.FirstPageDTO" select="com.slcp.devops.mapper.IBlogMapper.getBlogsByTime" column="time">
         </collection>
     </resultMap>
    <select id="getAll" resultMap="archiveBlog">
        select DATE_FORMAT(b.create_time,'%Y-%m') AS `time`,b.create_time createTime
        from t_blog b
-       GROUP BY time
-       ORDER BY time DESC
+       GROUP BY `time`
+       ORDER BY `time` DESC
    </select>
     <select id="getYear" resultType="java.lang.String">
         select YEAR(b.create_time) `year`

@@ -39,4 +39,8 @@
     <delete id="deleteMessage">
         delete from t_message where id=#{id};
     </delete>
+
+    <select id="getMessage" resultType="string">
+        select t1.content from blog_message t1 limit 1;
+    </select>
 </mapper>
