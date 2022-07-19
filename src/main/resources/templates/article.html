@@ -282,7 +282,7 @@
 <script type="text/javascript">
     $('#blog-message').load("/footer/blogmessage");
     setTimeout(function () {
-        if ((new Date().getHours() >= 19 || new Date().getHours() < 7) && localStorage.getItem('isDark') != '1' && localStorage.getItem('isDark') != '0') {
+        if ((new Date().getHours() >= 20 || new Date().getHours() < 7) && localStorage.getItem('isDark') != '1' && localStorage.getItem('isDark') != '0') {
             let toastHTML = '<span style="color:#97b8b2;border-radius: 10px;>' +
                 '<i class="fa fa-bell" aria-hidden="true"></i>天色渐晚，已自动为你开启深色模式。(ﾟ▽ﾟ)/</span>';
             M.toast({html: toastHTML})
@@ -295,35 +295,6 @@
         else
             $('#categoryandsearch').removeClass('fixed');
     });
-    function formatDate(date, format) {
-        if (!date) return;
-        if (!format) format = "yyyy-MM-dd";
-        switch (typeof date) {
-            case "string":
-                date = new Date(date.replace(/-/, "/"));
-                break;
-            case "number":
-                date = new Date(date);
-                break;
-        }
-        if (!date instanceof Date) return;
-        var dict = {
-            "yyyy": date.getFullYear(),
-            "M": date.getMonth() + 1,
-            "d": date.getDate(),
-            "H": date.getHours(),
-            "m": date.getMinutes(),
-            "s": date.getSeconds(),
-            "MM": ("" + (date.getMonth() + 101)).substr(1),
-            "dd": ("" + (date.getDate() + 100)).substr(1),
-            "HH": ("" + (date.getHours() + 100)).substr(1),
-            "mm": ("" + (date.getMinutes() + 100)).substr(1),
-            "ss": ("" + (date.getSeconds() + 100)).substr(1)
-        };
-        return format.replace(/(yyyy|MM?|dd?|HH?|ss?|mm?)/g, function () {
-            return dict[arguments[0]];
-        });
-    }
 </script>
 
 </body>
