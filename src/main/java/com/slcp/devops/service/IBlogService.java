@@ -41,9 +41,10 @@ public interface IBlogService extends IService<Blog> {
     /**
      * 根据id获取博客信息
      * @param id 主键
+     * @param views 数量
      * @return 博客信息
      */
-    void getBolgOneById(Long id);
+    void getBolgOneById(Long id, int views);
 
 
     /**

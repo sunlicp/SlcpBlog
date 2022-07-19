@@ -1,14 +1,13 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:fragment="head" class="head">
-    <link rel="stylesheet" href="../static/css/head/head.css" th:href="@{/css/head/head.css}"/>
     <link rel="shortcut icon" href="../static/images/favicon.ico" th:href="@{/images/favicon.ico}" type="image/x-icon"/>
     <link rel="Bookmark" href="../static/images/favicon.ico" th:href="@{/images/favicon.ico}" type="image/x-icon"/>
     <link rel="stylesheet" href="../static/css/materialize.min.css" th:href="@{/css/materialize.min.css}">
     <link rel="stylesheet" href="../static/css/slcp.min.css" th:href="@{/css/slcp.min.css}">
     <link rel="stylesheet" href="../static/css/all.min.css" th:href="@{/css/all.min.css}">
-    <link rel="stylesheet" href="../static/css/aos.css" th:href="@{/css/aos.css}">
-    <link rel="stylesheet" href="../static/css/css2F.css" th:href="@{/css/css2F.css}"/>
+    <link rel="stylesheet" href="../static/css/aos.min.css" th:href="@{/css/aos.min.css}">
+    <link rel="stylesheet" href="../static/css/css2F.min.css" th:href="@{/css/css2F.min.css}"/>
 </head>
 <div th:fragment="top-cat" class="top-cat">
     <div id="particles-js"></div>
@@ -457,9 +456,6 @@
                 </div>
             </div>
         </div>
-        <script>
-            $('#blog-message').load("/footer/blogmessage");
-        </script>
         <img class="footer-skirt" src="../../static/images/my/skirt.webp" th:src="@{/images/my/skirt.webp}">
     </footer>
 </div>
@@ -496,6 +492,7 @@
             $('.menu-V .toggle').click();
         },1800);
         $("img.lazyload").lazyload();
+        $('#blog-message').load("/footer/blogmessage");
     </script>
     <script async="async" src="../static/js/pure.mini.js" th:src="@{/js/pure.mini.js}"></script>
 </div>

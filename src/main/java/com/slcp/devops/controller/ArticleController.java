@@ -65,8 +65,8 @@ public class ArticleController {
 
     @GetMapping("/article/read/{id}")
     public String read(@PathVariable Long id, Model model) {
-        blogService.getBolgOneById(id);
         FirstPageDTO firstPageBlog = blogService.getFirstPageDTO(id);
+        blogService.getBolgOneById(id, firstPageBlog.getViews());
         firstPageBlog.setFirstPicture("background-image: url(" + firstPageBlog.getFirstPicture() + ")");
         model.addAttribute("blog", firstPageBlog);
         return "read";

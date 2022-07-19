@@ -7,14 +7,14 @@
     <meta name="content" content="用户登录">
     <link href="../static/images/favicon.ico" th:href="@{/images/me.jpg}" rel="icon" type="image/x-ico">
     <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
-    <link type="text/css" rel="stylesheet" href="../static/css/login.css" th:href="@{/css/login.css}">
-    <script type="text/javascript" src="../static/js/jquery.min.js" th:src="@{/js/jquery.min.js}"></script>
+    <link type="text/css" rel="stylesheet" href="../static/css/login.min.css" th:href="@{/css/login.min.css}">
+    <script type="text/javascript" src="../static/js/jquery-3.5.1.min.js" th:src="@{/js/jquery-3.5.1.min.js}"></script>
     <link rel="stylesheet" href="../static/common/common.css" th:href="@{/common/common.css}">
-    <link href="../../static/images/favicon.ico" th:href="@{/images/me.jpg}" rel="icon" type="image/x-ico">
-    <link rel="stylesheet" href="../../static/login/css/styles.css" th:href="@{/login/css/styles.css}" />
-    <link rel="stylesheet" href="../../static/login/css/demo.css" th:href="@{/login/css/demo.css}" />
-    <link rel="stylesheet" href="../../static/login/css/loaders.css" th:href="@{/login/css/loaders.css}" />
-    <link rel="stylesheet" href="../../static/login/css/default.css" th:href="@{/login/css/default.css}" />
+    <link href="../static/images/favicon.ico" th:href="@{/images/me.jpg}" rel="icon" type="image/x-ico">
+    <link rel="stylesheet" href="../static/login/css/styles.min.css" th:href="@{/login/css/styles.min.css}" />
+    <link rel="stylesheet" href="../static/login/css/demo.css" th:href="@{/login/css/demo.css}" />
+    <link rel="stylesheet" href="../static/login/css/loaders.css" th:href="@{/login/css/loaders.css}" />
+    <link rel="stylesheet" href="../static/login/css/default.css" th:href="@{/login/css/default.css}" />
 </head>
 <body>
 
@@ -151,15 +151,15 @@ window.open(url);
 </script>
 -->
 <div class="OverWindows"></div>
-<link href="../../static/login/layui/css/layui.css" th:href="@{/login/layui/css/layui.css}" rel="stylesheet" />
+<link href="../static/login/layui/css/layui.css" th:href="@{/login/layui/css/layui.css}" rel="stylesheet" />
 
-<script type="text/javascript" src="../../static/login/js/jquery.min.js" th:src="@{/login/js/jquery.min.js}"></script>
-<script type="text/javascript" src="../../static/login/js/jquery-ui.min.js" th:src="@{/login/js/jquery-ui.min.js}"></script>
-<script type="text/javascript" src='../../static/login/js/stopExecutionOnTimeout.js?t=1' th:src="@{/login/js/stopExecutionOnTimeout.js?t=1}"></script>
-<script type="text/javascript" src="../../static/login/layui/layui.js" th:src="@{/login/layui/layui.js}"></script>
-<script type="text/javascript" src="../../static/login/js/Particleground.js" th:src="@{/login/js/Particleground.js}"></script>
-<script type="text/javascript" src="../../static/login/js/Treatment.js" th:src="@{/login/js/Treatment.js}"></script>
-<script type="text/javascript" src="../../static/login/js/jquery.mockjax.js" th:src="@{/login/js/jquery.mockjax.js}"></script>
+<script type="text/javascript" src="../static/login/js/jquery.min.js" th:src="@{/login/js/jquery.min.js}"></script>
+<script type="text/javascript" src="../static/login/js/jquery-ui.min.js" th:src="@{/login/js/jquery-ui.min.js}"></script>
+<script type="text/javascript" src='../static/login/js/stopExecutionOnTimeout.js?t=1' th:src="@{/login/js/stopExecutionOnTimeout.js?t=1}"></script>
+<script type="text/javascript" src="../static/login/layui/layui.js" th:src="@{/login/layui/layui.js}"></script>
+<script type="text/javascript" src="../static/login/js/Particleground.js" th:src="@{/login/js/Particleground.js}"></script>
+<script type="text/javascript" src="../static/login/js/Treatment.js" th:src="@{/login/js/Treatment.js}"></script>
+<script type="text/javascript" src="../static/login/js/jquery.mockjax.js" th:src="@{/login/js/jquery.mockjax.js}"></script>
 <script type="text/javascript">
     var canGetCookie = 0; //是否支持存储Cookie 0 不支持 1 支持
     var ajaxmockjax = 1; //是否启用虚拟Ajax的请求响 0 不启用  1 启用
@@ -241,10 +241,10 @@ window.open(url);
         }
     }
 </script>
-<script type="text/javascript" src="../../static/login/img/ThreeWebGL.js" th:src="@{/login/img/ThreeWebGL.js}"></script>
-<script type="text/javascript" src="../../static/login/img/ThreeExtras.js" th:src="@{/login/img/ThreeExtras.js}"></script>
-<script type="text/javascript" src="../../static/login/img/Detector.js" th:src="@{/login/img/Detector.js}"></script>
-<script type="text/javascript" src="../../static/login/img/RequestAnimationFrame.js" th:src="@{/login/img/RequestAnimationFrame.js}"></script>
+<script type="text/javascript" src="../static/login/img/ThreeWebGL.js" th:src="@{/login/img/ThreeWebGL.js}"></script>
+<script type="text/javascript" src="../static/login/img/ThreeExtras.js" th:src="@{/login/img/ThreeExtras.js}"></script>
+<script type="text/javascript" src="../static/login/img/Detector.js" th:src="@{/login/img/Detector.js}"></script>
+<script type="text/javascript" src="../static/login/img/RequestAnimationFrame.js" th:src="@{/login/img/RequestAnimationFrame.js}"></script>
 <script id="vs" type="x-shader/x-vertex">
 			varying vec2 vUv; void main() { vUv = uv; gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 ); }
 

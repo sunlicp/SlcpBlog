@@ -1,5 +1,6 @@
 package com.slcp.devops.service.impl;
 
+import com.slcp.devops.config.DoQueryCache;
 import com.slcp.devops.mapper.MessageMapper;
 import com.slcp.devops.dto.MessageDTO;
 import com.slcp.devops.service.MessageService;
@@ -105,6 +106,7 @@ public class MessageServiceImpl implements MessageService {
     }
 
     @Override
+    @DoQueryCache
     public String getMessage() {
         return messageMapper.getMessage();
     }

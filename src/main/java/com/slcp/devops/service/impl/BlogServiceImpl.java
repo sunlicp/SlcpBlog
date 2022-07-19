@@ -8,6 +8,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.slcp.devops.NotFountException;
 import com.slcp.devops.config.DoQueryCache;
 import com.slcp.devops.dto.*;
+import com.slcp.devops.entity.BaseEntity;
 import com.slcp.devops.entity.Blog;
 import com.slcp.devops.mapper.IBlogMapper;
 import com.slcp.devops.service.IBlogService;
@@ -61,8 +62,8 @@ public class BlogServiceImpl extends ServiceImpl<IBlogMapper, Blog> implements I
 
 
     @Override
-    public void getBolgOneById(Long id) {
-        simpleExecutorService.execute(() -> this.baseMapper.updateViews(id));
+    public void getBolgOneById(Long id, int views) {
+        simpleExecutorService.execute(() -> this.lambdaUpdate().set(Blog::getViews, views + 1).eq(Blog::getId, id).update());
     }
 
     @DoQueryCache
