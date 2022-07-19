@@ -65,16 +65,16 @@ public class DevOpsConstant {
      */
     public static final String CITY_JSON = "https://pv.sohu.com/cityjson?ie=utf-8";
 
-    public static String ACCESS_KEY = "-_QHommOvLHPgrPY3p52FU2qFilF4La-xqVdBMkQ";
-    public static String SECRET_KEY = "i8IikvFR1DH7H9VxfVUf3LeYFmLpTwq8W34LoG7Q";
+    public static String ACCESS_KEY = "";
+    public static String SECRET_KEY = "";
     /**
      * 空间名称
      */
-    public static String BUCKET = "slcp-img";
+    public static String BUCKET = "";
     /**
      * 外链域名
      */
-    public static String DOMAIN = "https://img.slcp.top/";
+    public static String DOMAIN = "";
 
     /**
      * 获取试路径
@@ -88,7 +88,7 @@ public class DevOpsConstant {
     /**
      * 诗 请求头-value
      */
-    public static String POEM_VALUE = "h26Z72ohlh395e4uI+Tkq4QMTgEBLBsb";
+    public static String POEM_VALUE = "";
 
     /**
      * 返回诗
