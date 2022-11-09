@@ -1,6 +1,6 @@
 # SlcpBlog
 🌍
-*[English](/docs/README.en.md) ∙ [简体中文](README.md)*
+*[English](/docs/README-en.md) ∙ [简体中文](README.md)*
 
 基于 `vue`和`SpringBoot`，实现的博客系统
 
