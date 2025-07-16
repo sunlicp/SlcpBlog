@@ -82,35 +82,35 @@
         <dependency>
             <groupId>com.baomidou</groupId>
             <artifactId>mybatis-plus-boot-starter</artifactId>
-            <version>${mybatisplus.version}</version>
+            <version>3.4.3.2</version>
         </dependency>
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>druid-spring-boot-starter</artifactId>
-            <version>${druid.version}</version>
+            <version>1.2.21</version>
         </dependency>
         <!--redis-->
         <dependency>
             <groupId>redis.clients</groupId>
             <artifactId>jedis</artifactId>
-            <version>${redis.version}</version>
+            <version>3.6.3</version>
         </dependency>
         <dependency>
             <groupId>org.redisson</groupId>
             <artifactId>redisson</artifactId>
-            <version>${redisson.version}</version>
+            <version>3.45.0</version>
         </dependency>
         <!-- hutool-->
         <dependency>
             <groupId>cn.hutool</groupId>
             <artifactId>hutool-all</artifactId>
-            <version>${hutool.version}</version>
+            <version>5.8.21</version>
         </dependency>
         <!--七牛云-->
         <dependency>
             <groupId>com.qiniu</groupId>
             <artifactId>qiniu-java-sdk</artifactId>
-            <version>${qiniu.version}</version>
+            <version>7.12.0</version>
         </dependency>
         <dependency>
             <groupId>org.junit.jupiter</groupId>
@@ -121,46 +121,46 @@
         <dependency>
             <groupId>com.aliyun</groupId>
             <artifactId>aliyun-java-sdk-core</artifactId>
-            <version>${aliyun.version}</version>
+            <version>4.7.2</version>
         </dependency>
         <!--阿里云提供的json转换依赖 转换为json字符串-->
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>fastjson</artifactId>
-            <version>${fastjson.version}</version>
+            <version>1.2.83_noneautotype</version>
         </dependency>
         <!-- 网络请求 -->
         <!-- httpclient 依赖 网络爬取资源用-->
         <dependency>
             <groupId>org.apache.httpcomponents</groupId>
             <artifactId>httpclient</artifactId>
-            <version>${httpclient.version}</version>
+            <version>4.5.13</version>
         </dependency>
         <!--Swagger-->
         <dependency>
             <groupId>io.springfox</groupId>
             <artifactId>springfox-swagger2</artifactId>
-            <version>${swagger.version}</version>
+            <version>3.0.0</version>
         </dependency>
         <dependency>
             <groupId>io.springfox</groupId>
             <artifactId>springfox-swagger-ui</artifactId>
-            <version>${swagger.version}</version>
+            <version>2.10.5</version>
         </dependency>
         <dependency>
             <groupId>com.atlassian.commonmark</groupId>
             <artifactId>commonmark</artifactId>
-            <version>${commonmark.version}</version>
+            <version>0.10.0</version>
         </dependency>
         <dependency>
             <groupId>com.atlassian.commonmark</groupId>
             <artifactId>commonmark-ext-heading-anchor</artifactId>
-            <version>${commonmark.version}</version>
+            <version>0.10.0</version>
         </dependency>
         <dependency>
             <groupId>com.atlassian.commonmark</groupId>
             <artifactId>commonmark-ext-gfm-tables</artifactId>
-            <version>${commonmark.version}</version>
+            <version>0.10.0</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -177,7 +177,7 @@
         <!--<dependency>
             <groupId>com.qq</groupId>
             <artifactId>Sdk4J</artifactId>
-            <version>2</version>
+            <version>3.0.8</version>
         </dependency>-->
         <!--        &lt;!&ndash;WebSocket长链接 用于客户端与服务端的长链接&ndash;&gt;-->
         <!--        <dependency>-->
@@ -190,7 +190,7 @@
         <dependency>
             <groupId>com.alipay.sdk</groupId>
             <artifactId>alipay-sdk-java</artifactId>
-<!--            <version>3.3.49.ALL</version>-->
+<!--            <version>3.0.0</version>-->
             <version>${alipay.version}</version>
 
         </dependency>
